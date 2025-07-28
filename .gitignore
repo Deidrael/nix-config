@@ -1,6 +1,7 @@
 # Ignore build outputs from performing a nix-build or `nix build` command
 result
 result-*
+.pre-commit-config.yaml
 
 # Ignore automatically generated direnv output
 .direnv
