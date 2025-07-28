@@ -11,21 +11,19 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-24.04-arm]
-        x86: [kratos,brenda-blade,chromebook,inix,kronos]
-        arm: [hermes]
         include:
           - os: ubuntu-latest
-            x86: kratos
+            host: kratos
           - os: ubuntu-latest
-            x86: brenda-blade
+            host: brenda-blade
           - os: ubuntu-latest
-            x86: chromebook
+            host: chromebook
           - os: ubuntu-latest
-            x86: inix
+            host: inix
           - os: ubuntu-latest
-            x86: kronos
+            host: kronos
           - os: ubuntu-24.04-arm
-            arm: hermes
+            host: hermes
     runs-on: ${{ matrix.os }}
     steps:
     - run: sudo rm -rf /opt&
@@ -78,11 +76,11 @@ jobs:
     - name: x86_64-linux Build
       if: matrix.os == 'ubuntu-latest'
 #      run: nix build -L .#{kratos,brenda-blade,chromebook,inix,kronos}
-      run: nix build -L .#nixosConfigurations.${{matrix.x86}}.config.system.build.toplevel
+      run: nix build -L .#nixosConfigurations.${{matrix.host}}.config.system.build.toplevel
 
     - name: aarch64 Build
       if: matrix.os == 'ubuntu-24.04-arm'
-      run: nix build -L .#nixosConfigurations.${{matrix.arm}}.config.system.build.toplevel
+      run: nix build -L .#nixosConfigurations.${{matrix.host}}.config.system.build.toplevel
 
     - name: Deploy
       run: |
