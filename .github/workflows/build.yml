@@ -70,9 +70,9 @@ jobs:
 #      run: nix build -L .#{kratos,brenda-blade,chromebook,inix,kronos}
       run: nix build -L .#{kratos,kronos}
 
-#    - name: aarch64 Build
-#      if: matrix.os == 'ubuntu-24.04-arm'
-#      run: nix build -L .nix#{hermes}
+    - name: aarch64 Build
+      if: matrix.os == 'ubuntu-24.04-arm'
+      run: nix build -L .nix#{hermes}
 
     - name: Deploy
       run: |
