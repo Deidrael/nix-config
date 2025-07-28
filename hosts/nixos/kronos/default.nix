@@ -6,11 +6,8 @@
 {
   imports = lib.flatten [
     # ========== Hardware ==========
-    ./boot.nix
-    ./drives.nix
-    ./nvidia.nix
+    ./hardware-configuration.nix
     inputs.hardware.nixosModules.common-cpu-intel
-    inputs.hardware.nixosModules.common-gpu-nvidia
     inputs.hardware.nixosModules.common-pc-ssd
 
     # ========== Disk Layout ==========
@@ -24,22 +21,15 @@
       "hosts/common/core"
 
       # ========== Optional Configs ==========
-      "hosts/common/optional/desktops/gnome.nix"
-      "hosts/common/optional/services/bluetooth.nix"
-      "hosts/common/optional/services/ollama.nix"
+      "hosts/common/optional/services/daedalus-nfs.nix"
+      "hosts/common/optional/services/docker.nix"
       "hosts/common/optional/services/openssh.nix"
-      "hosts/common/optional/services/podman.nix"
-      "hosts/common/optional/services/printing.nix"
-      "hosts/common/optional/audio.nix"
-      "hosts/common/optional/gaming.nix"
-      "hosts/common/optional/nvidia.nix"
-      "hosts/common/optional/scanner.nix"
     ])
   ];
 
   # ========== Host Specification ==========
   hostSpec = {
-    hostName = "kratos";
+    hostName = "kronos";
   };
 
   networking = {
@@ -55,7 +45,7 @@
         enable = lib.mkDefault true;
       };
       efi.canTouchEfiVariables = lib.mkDefault true;
-      #timeout = 5;
+      timeout = 3;
     };
     initrd = {
       systemd.enable = true;
