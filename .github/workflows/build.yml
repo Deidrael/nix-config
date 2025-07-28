@@ -72,7 +72,7 @@ jobs:
 
     - name: aarch64 Build
       if: matrix.os == 'ubuntu-24.04-arm'
-      run: nix build -L .nix#{hermes}
+      run: nix build -L .#{hermes}
 
     - name: Deploy
       run: |
