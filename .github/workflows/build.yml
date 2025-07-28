@@ -11,6 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-24.04-arm]
+        host: [kratos,brenda-blade,chromebook,inix,kronos,hermes]
         include:
           - os: ubuntu-latest
             host: kratos
