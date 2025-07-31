@@ -41,6 +41,9 @@ jobs:
         docker-images: true
         swap-storage: true
     - uses: actions/checkout@v4
+    - uses: webfactory/ssh-agent@master
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     - uses: DeterminateSystems/nix-installer-action@main
     - uses: DeterminateSystems/magic-nix-cache-action@main
     - uses: DeterminateSystems/flake-checker-action@main
