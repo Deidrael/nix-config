@@ -6,10 +6,8 @@
 {
   imports = lib.flatten [
     # ========== Hardware ==========
-    ./boot.nix
-    ./drives.nix
-    ./network.nix
-    inputs.hardware.nixosModules.raspberry-pi-4
+    ./hardware-configuration.nix
+    ./keyboard.nix
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
 
@@ -24,35 +22,37 @@
       "hosts/common/core"
 
       # ========== Optional Configs ==========
-      "hosts/common/optional/services/daedalus-nfs.nix"
-      "hosts/common/optional/services/docker.nix"
+      "hosts/common/optional/desktops/cinnamon.nix"
+      "hosts/common/optional/services/bluetooth.nix"
       "hosts/common/optional/services/openssh.nix"
+      "hosts/common/optional/services/printing.nix"
+      "hosts/common/optional/audio.nix"
+      "hosts/common/optional/scanner.nix"
     ])
   ];
 
   # ========== Host Specification ==========
   hostSpec = {
-    hostName = "hermes";
+    hostName = "chromebook";
   };
 
   networking = {
     networkmanager.enable = true;
     enableIPv6 = false;
   };
-
-  # Enable GPU acceleration
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
-
   # Workaround https://github.com/NixOS/nixpkgs/issues/180175
   systemd.services.NetworkManager-wait-online.enable = false;
 
   boot = {
     loader = {
-      systemd-boot.enable = lib.mkDefault false;
-      efi.canTouchEfiVariables = lib.mkDefault false;
-      timeout = 3;
+      systemd-boot = {
+        enable = lib.mkDefault true;
+      };
+      efi.canTouchEfiVariables = lib.mkDefault true;
     };
-    #initrd.systemd.enable = true;
+    initrd = {
+      systemd.enable = true;
+    };
   };
 
   system.stateVersion = "24.05";

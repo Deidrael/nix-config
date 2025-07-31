@@ -15,7 +15,7 @@
   home = {
     username = lib.mkDefault "brenda";
     homeDirectory = lib.mkDefault "/home/${config.home.username}";
-    stateVersion = lib.mkDefault "25.05";
+    stateVersion = lib.mkDefault "24.05";
     sessionPath = [ "$HOME/.local/bin" ];
     sessionVariables = {
     };
@@ -24,7 +24,6 @@
   home.packages = builtins.attrValues {
     inherit (pkgs)
       # Packages that don't have custom configs go here
-      nix-tree
       ;
   };
 

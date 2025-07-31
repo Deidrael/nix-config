@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   lib,
   ...
@@ -6,12 +7,8 @@
 {
   imports = lib.flatten [
     # ========== Hardware ==========
-    ./boot.nix
-    ./drives.nix
-    ./nvidia.nix
-    inputs.hardware.nixosModules.common-cpu-intel
-    inputs.hardware.nixosModules.common-gpu-nvidia
-    inputs.hardware.nixosModules.common-pc-ssd
+    ./hardware-configuration.nix
+    inputs.hardware.nixosModules.apple-imac-14-2
 
     # ========== Disk Layout ==========
     #inputs.disko.nixosModules.disko
@@ -24,22 +21,30 @@
       "hosts/common/core"
 
       # ========== Optional Configs ==========
-      "hosts/common/optional/desktops/gnome.nix"
+      "hosts/common/optional/desktops/cinnamon.nix"
       "hosts/common/optional/services/bluetooth.nix"
-      "hosts/common/optional/services/ollama.nix"
       "hosts/common/optional/services/openssh.nix"
-      "hosts/common/optional/services/podman.nix"
       "hosts/common/optional/services/printing.nix"
       "hosts/common/optional/audio.nix"
-      "hosts/common/optional/gaming.nix"
-      "hosts/common/optional/nvidia.nix"
       "hosts/common/optional/scanner.nix"
     ])
   ];
 
+  hardware = {
+    nvidia = {
+      open = false;
+      package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+      nvidiaSettings = true;
+      modesetting.enable = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+    };
+  };
+  services.xserver.videoDrivers = [ "nvidia" ];
+
   # ========== Host Specification ==========
   hostSpec = {
-    hostName = "kratos";
+    hostName = "inix";
   };
 
   networking = {

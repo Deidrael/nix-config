@@ -48,7 +48,6 @@ in
 
   hostSpec = {
     hostName = "foo";
-    scaling = lib.mkForce "1";
   };
 
   networking = {
