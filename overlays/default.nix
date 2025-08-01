@@ -25,8 +25,5 @@ let
 
 in
 {
-  default =
-    final: prev:
-
-    (stable-packages final prev) // (unstable-packages final prev);
+  default = final: prev: (stable-packages final prev) // (unstable-packages final prev);
 }
