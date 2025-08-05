@@ -1,5 +1,6 @@
 # git is core no matter what but additional settings may could be added made in optional/foo   eg: development.nix
 {
+  config,
   ...
 }:
 {

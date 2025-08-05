@@ -7,6 +7,9 @@
 }:
 let
   hostSpec = config.hostSpec;
+
+  ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+
   secretsSubPath = "passwords/brenda";
 in
 {
