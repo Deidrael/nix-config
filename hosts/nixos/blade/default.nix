@@ -46,7 +46,7 @@
 
   # ========== Host Specification ==========
   hostSpec = {
-    hostName = "brenda-blade";
+    hostName = "blade";
   };
 
   networking = {
