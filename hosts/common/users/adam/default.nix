@@ -20,6 +20,7 @@ in
     ${hostSpec.username} = {
       name = hostSpec.username;
       home = "/home/${hostSpec.username}";
+      description = hostSpec.userFullName;
       isNormalUser = true;
       hashedPasswordFile = sopsHashedPasswordFile; # Blank if sops is not working.
 

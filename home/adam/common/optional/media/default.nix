@@ -5,11 +5,11 @@
 {
   home.packages = builtins.attrValues {
     inherit (pkgs)
-      #audacity
+      audacity
       musescore
       ;
     inherit (pkgs.stable)
-      audacity
+      #audacity
       ;
   };
 }
