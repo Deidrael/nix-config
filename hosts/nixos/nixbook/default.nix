@@ -33,7 +33,7 @@
 
   # ========== Host Specification ==========
   hostSpec = {
-    hostName = "chromebook";
+    hostName = "nixbook";
   };
 
   networking = {

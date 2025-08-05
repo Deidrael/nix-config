@@ -17,7 +17,7 @@ jobs:
           - os: ubuntu-latest
             host: brenda-blade
           - os: ubuntu-latest
-            host: chromebook
+            host: nixbook
           - os: ubuntu-latest
             host: inix
           - os: ubuntu-latest
