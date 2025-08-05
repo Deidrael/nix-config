@@ -37,20 +37,16 @@ in
       hostSpec = config.hostSpec;
     };
     users.brenda.imports = lib.flatten (
-      lib.optional (!hostSpec.isMinimal) [
-        (
-          { config, ... }:
-          import (lib.custom.relativeToRoot "home/brenda/${hostSpec.hostName}.nix") {
-            inherit
-              pkgs
-              inputs
-              config
-              lib
-              hostSpec
-              ;
-          }
-        )
-      ]
+      { config, ... }:
+      import (lib.custom.relativeToRoot "home/brenda/${hostSpec.hostName}.nix") {
+        inherit
+          pkgs
+          inputs
+          config
+          lib
+          hostSpec
+          ;
+      }
     );
   };
 }

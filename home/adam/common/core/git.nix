@@ -4,6 +4,8 @@
 }:
 {
   programs.git = {
+    userName = config.hostSpec.handle;
+    userEmail = config.hostSpec.email.gitHub;
     enable = true;
     #package = pkgs.gitAndTools.gitFull;
     lfs.enable = true;

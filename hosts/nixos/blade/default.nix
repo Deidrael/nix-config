@@ -24,6 +24,9 @@
       # ========== Required Configs ==========
       "hosts/common/core"
 
+      # ========== Non-Primary Users to Create ==========
+      "hosts/common/users/brenda"
+
       # ========== Optional Configs ==========
       "hosts/common/optional/desktops/gnome.nix"
       "hosts/common/optional/services/bluetooth.nix"

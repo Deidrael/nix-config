@@ -38,6 +38,7 @@
         cachix
         coreutils # basic gnu utils
         curl
+        delta
         git
         gh
         htop

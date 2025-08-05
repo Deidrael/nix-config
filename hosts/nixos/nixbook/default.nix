@@ -21,6 +21,9 @@
       # ========== Required Configs ==========
       "hosts/common/core"
 
+      # ========== Non-Primary Users to Create ==========
+      "hosts/common/users/brenda"
+
       # ========== Optional Configs ==========
       "hosts/common/optional/desktops/cinnamon.nix"
       "hosts/common/optional/services/bluetooth.nix"

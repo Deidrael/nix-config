@@ -15,7 +15,7 @@ jobs:
           - os: ubuntu-latest
             host: kratos
           - os: ubuntu-latest
-            host: brenda-blade
+            host: blade
           - os: ubuntu-latest
             host: nixbook
           - os: ubuntu-latest
