@@ -19,7 +19,7 @@ in
 
   users.users.brenda = {
     isNormalUser = true;
-    description = " Brenda Wilson";
+    description = "Brenda Wilson";
     hashedPasswordFile = config.sops.secrets.${secretsSubPath}.path;
     extraGroups = lib.flatten [
       (ifTheyExist [
