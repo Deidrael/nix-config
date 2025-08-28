@@ -22,8 +22,8 @@ jobs:
             host: inix
           - os: ubuntu-latest
             host: kronos
-          #- os: ubuntu-24.04-arm
-          #  host: hermes
+          - os: ubuntu-24.04-arm
+            host: hermes
     runs-on: ${{ matrix.os }}
     steps:
     - run: sudo rm -rf /opt&

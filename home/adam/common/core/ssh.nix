@@ -5,16 +5,7 @@
 {
   programs.ssh = {
     enable = true;
-
-    # FIXME(ssh): This should probably be for git systems only?
-    controlMaster = "auto";
-    controlPath = "${config.home.homeDirectory}/.ssh/sockets/S.%r@%h:%p";
-    controlPersist = "20m";
-    # Avoids infinite hang if control socket connection interrupted. ex: vpn goes down/up
-    serverAliveCountMax = 3;
-    serverAliveInterval = 5; # 3 * 5s
-    hashKnownHosts = true;
-    addKeysToAgent = "yes";
+    enableDefaultConfig = false;
 
     # Bring in decrypted config
     extraConfig = ''
@@ -27,6 +18,16 @@
         user = "git";
         forwardAgent = true;
         identitiesOnly = true;
+        controlMaster = "auto";
+        controlPath = "${config.home.homeDirectory}/.ssh/sockets/S.%r@%h:%p";
+        controlPersist = "20m";
+      };
+      "*" = {
+        # Avoids infinite hang if control socket connection interrupted. ex: vpn goes down/up
+        serverAliveCountMax = 3;
+        serverAliveInterval = 5; # 3 * 5s
+        hashKnownHosts = true;
+        addKeysToAgent = "yes";
       };
     };
   };

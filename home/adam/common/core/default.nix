@@ -28,36 +28,12 @@
 
   };
 
-  home.packages =
-    #    [ ] ++ builtins.attrValues {
-    builtins.attrValues {
-      inherit (pkgs)
-        # Packages that don't have custom configs go here
-        age
-        btop # resource monitor
-        cachix
-        coreutils # basic gnu utils
-        curl
-        delta
-        git
-        gh
-        htop
-        p7zip # compression & encryption
-        pre-commit # git hooks
-        sops
-        ssh-to-age
-        tmux
-        #toybox
-        unzip # zip extraction
-        vim-full
-        wget # downloader
-
-        jq
-        steam-run # for running non-NixOS-packaged binaries on Nix
-        yq-go # yaml pretty printer and manipulator
-        zip # zip compression
-        ;
-    };
+  #home.packages =
+  #  #    [ ] ++ builtins.attrValues {
+  #  builtins.attrValues {
+  #    inherit (pkgs)
+  #      ;
+  #  };
 
   nix = {
     package = lib.mkDefault pkgs.nix;
