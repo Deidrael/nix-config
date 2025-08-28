@@ -90,7 +90,7 @@ in
     wget # downloader
 
     jq
-    steam-run # for running non-NixOS-packaged binaries on Nix
+    #steam-run # for running non-NixOS-packaged binaries on Nix
     yq-go # yaml pretty printer and manipulator
     zip # zip compression
   ];

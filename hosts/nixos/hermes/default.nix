@@ -10,8 +10,6 @@
     ./drives.nix
     ./network.nix
     inputs.hardware.nixosModules.raspberry-pi-4
-    inputs.hardware.nixosModules.common-cpu-intel
-    inputs.hardware.nixosModules.common-pc-ssd
 
     # ========== Disk Layout ==========
     #inputs.disko.nixosModules.disko
