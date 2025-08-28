@@ -1,4 +1,4 @@
-name: "Cachix"
+name: "Build and Cachix"
 on:
   pull_request:
     branches:
@@ -46,7 +46,6 @@ jobs:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     - uses: DeterminateSystems/nix-installer-action@main
     - uses: DeterminateSystems/magic-nix-cache-action@main
-    - uses: DeterminateSystems/flake-checker-action@main
     - uses: cachix/cachix-action@v16
       with:
         name: deidrael
