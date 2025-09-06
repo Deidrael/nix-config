@@ -25,8 +25,8 @@ jobs:
         uses: DeterminateSystems/update-flake-lock@main
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
-          commit-msg: "chore: update `flake.lock`"
-          pr-title: "chore: update `flake.lock`"
+          commit-msg: "action: update `flake.lock`"
+          pr-title: "action: update `flake.lock`"
           pr-labels: |
             dependencies
             automated
