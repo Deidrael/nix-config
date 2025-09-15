@@ -1,4 +1,4 @@
-name: "Build and Cachix"
+name: "Build Check"
 on:
   pull_request:
     branches:
