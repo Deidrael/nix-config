@@ -3,7 +3,7 @@
   ...
 }:
 let
-  stable-packages = final: _prev: {
+  stable-packages = final: prev: {
     stable = import inputs.nixpkgs-stable {
       inherit (final) system;
       config.allowUnfree = true;
@@ -13,7 +13,7 @@ let
     };
   };
 
-  unstable-packages = final: _prev: {
+  unstable-packages = final: prev: {
     unstable = import inputs.nixpkgs-unstable {
       inherit (final) system;
       config.allowUnfree = true;
