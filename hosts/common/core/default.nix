@@ -1,6 +1,5 @@
 {
   inputs,
-  outputs,
   config,
   lib,
   pkgs,
@@ -43,18 +42,5 @@
   # If there is a conflict file that is backed up, use this extension
   home-manager.backupFileExtension = "bk";
   # home-manager.useUserPackages = true;
-
-  #
-  # ========== Overlays ==========
-  #
-  nixpkgs = {
-    overlays = [
-      outputs.overlays.default
-    ];
-    config = {
-      allowUnfree = true;
-      nvidia.acceptLicense = true;
-    };
-  };
 
 }
