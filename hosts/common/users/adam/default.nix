@@ -12,14 +12,14 @@ let
   ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 
   # Decrypt password to /run/secrets-for-users/ so it can be used to create the user
-  sopsHashedPasswordFile = config.sops.secrets."passwords/${hostSpec.username}".path;
+  sopsHashedPasswordFile = config.sops.secrets."passwords/${hostSpec.primaryUsername}".path;
 in
 {
   users.mutableUsers = false; # Only allow declarative credentials; Required for password to be set via sops during system activation!
   users.users = {
-    ${hostSpec.username} = {
-      name = hostSpec.username;
-      home = "/home/${hostSpec.username}";
+    ${hostSpec.primaryUsername} = {
+      name = hostSpec.primaryUsername;
+      home = "/home/${hostSpec.primaryUsername}";
       description = hostSpec.userFullName;
       isNormalUser = true;
       hashedPasswordFile = sopsHashedPasswordFile; # Blank if sops is not working.
@@ -43,9 +43,10 @@ in
 
     # root's ssh key are mainly used for remote deployment, borg, and some other specific ops
     root = {
-      hashedPasswordFile = config.users.users.${hostSpec.username}.hashedPasswordFile;
-      hashedPassword = config.users.users.${hostSpec.username}.hashedPassword; # This comes from hosts/common/optional/minimal.nix and gets overridden if sops is working
-      openssh.authorizedKeys.keys = config.users.users.${hostSpec.username}.openssh.authorizedKeys.keys; # root's ssh keys are mainly used for remote deployment.
+      hashedPasswordFile = config.users.users.${hostSpec.primaryUsername}.hashedPasswordFile;
+      hashedPassword = config.users.users.${hostSpec.primaryUsername}.hashedPassword; # This comes from hosts/common/optional/minimal.nix and gets overridden if sops is working
+      openssh.authorizedKeys.keys =
+        config.users.users.${hostSpec.primaryUsername}.openssh.authorizedKeys.keys; # root's ssh keys are mainly used for remote deployment.
     };
   };
 
@@ -55,13 +56,13 @@ in
   # Create ssh sockets directory for controlpaths when homemanager not loaded (i.e. isMinimal)
   systemd.tmpfiles.rules =
     let
-      user = config.users.users.${hostSpec.username}.name;
-      group = config.users.users.${hostSpec.username}.group;
+      user = config.users.users.${hostSpec.primaryUsername}.name;
+      group = config.users.users.${hostSpec.primaryUsername}.group;
     in
     # you must set the rule for .ssh separately first, otherwise it will be automatically created as root:root and .ssh/sockects will fail
     [
-      "d /home/${hostSpec.username}/.ssh 0750 ${user} ${group} -"
-      "d /home/${hostSpec.username}/.ssh/sockets 0750 ${user} ${group} -"
+      "d /home/${hostSpec.primaryUsername}/.ssh 0750 ${user} ${group} -"
+      "d /home/${hostSpec.primaryUsername}/.ssh/sockets 0750 ${user} ${group} -"
     ];
 
   # No matter what environment we are in we want these tools
@@ -102,9 +103,9 @@ in
       inherit pkgs inputs;
       hostSpec = config.hostSpec;
     };
-    users.${hostSpec.username}.imports = lib.flatten (
+    users.${hostSpec.primaryUsername}.imports = lib.flatten (
       { config, ... }:
-      import (lib.custom.relativeToRoot "home/${hostSpec.username}/${hostSpec.hostName}.nix") {
+      import (lib.custom.relativeToRoot "home/${hostSpec.primaryUsername}/${hostSpec.hostName}.nix") {
         inherit
           pkgs
           inputs

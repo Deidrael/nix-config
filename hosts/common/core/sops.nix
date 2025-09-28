@@ -35,13 +35,13 @@ in
       # from an ssh key).
 
       "keys/age" = {
-        owner = config.users.users.${config.hostSpec.username}.name;
-        inherit (config.users.users.${config.hostSpec.username}) group;
+        owner = config.users.users.${config.hostSpec.primaryUsername}.name;
+        inherit (config.users.users.${config.hostSpec.primaryUsername}) group;
         # We need to ensure the entire directory structure is that of the user...
         path = "${config.hostSpec.home}/.config/sops/age/keys.txt";
       };
       # extract password/username to /run/secrets-for-users/ so it can be used to create the user
-      "passwords/${config.hostSpec.username}" = {
+      "passwords/${config.hostSpec.primaryUsername}" = {
         sopsFile = "${sopsFolder}/secrets.yaml";
         neededForUsers = true;
       };
@@ -53,8 +53,8 @@ in
   system.activationScripts.sopsSetAgeKeyOwnership =
     let
       ageFolder = "${config.hostSpec.home}/.config/sops/age";
-      user = config.users.users.${config.hostSpec.username}.name;
-      group = config.users.users.${config.hostSpec.username}.group;
+      user = config.users.users.${config.hostSpec.primaryUsername}.name;
+      group = config.users.users.${config.hostSpec.primaryUsername}.group;
     in
     ''
       mkdir -p ${ageFolder} || true

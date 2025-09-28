@@ -21,7 +21,7 @@
   # ========== Core Host Specifications ==========
   #
   hostSpec = {
-    username = "adam";
+    primaryUsername = "adam";
     handle = "Deidrael";
     inherit (inputs.nix-secrets)
       domain
