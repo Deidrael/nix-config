@@ -32,6 +32,6 @@ jobs:
             automated
 
       - name: Enable Pull Request Automerge
-        run: gh pr merge --merge --auto --rebase
+        run: gh pr merge --auto --rebase
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
