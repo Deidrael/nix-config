@@ -30,3 +30,8 @@ jobs:
           pr-labels: |
             dependencies
             automated
+
+      - name: Enable Pull Request Automerge
+        run: gh pr merge --merge --auto --rebase
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
