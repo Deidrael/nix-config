@@ -8,7 +8,7 @@
   imports = lib.flatten [
     inputs.home-manager.nixosModules.home-manager
     inputs.sops-nix.nixosModules.sops
-    (lib.custom.scanPaths ./.)
+    # (lib.custom.scanPaths ./.)
 
     (map lib.custom.relativeToRoot [
       "modules/common"
@@ -20,9 +20,9 @@
   # ========== Core Host Specifications ==========
   #
   hostSpec = {
+    primaryUsername = "adam";
+    handle = "Deidrael";
     inherit (inputs.nix-secrets)
-      primaryUsername
-      handle
       domain
       email
       userFullName
