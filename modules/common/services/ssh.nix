@@ -4,6 +4,10 @@
   ...
 }:
 {
+  environment.systemPackages = with pkgs; [
+    openssh
+  ];
+
   programs.ssh = lib.optionalAttrs pkgs.stdenv.isLinux {
     #startAgent = true;
     #enableAskPassword = true;
