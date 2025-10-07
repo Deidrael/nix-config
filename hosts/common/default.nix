@@ -2,7 +2,6 @@
   inputs,
   config,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -21,9 +20,9 @@
   # ========== Core Host Specifications ==========
   #
   hostSpec = {
-    primaryUsername = "adam";
-    handle = "Deidrael";
     inherit (inputs.nix-secrets)
+      primaryUsername
+      handle
       domain
       email
       userFullName
@@ -31,11 +30,6 @@
   };
 
   networking.hostName = config.hostSpec.hostName;
-
-  # System-wide packages, in case we log in as root
-  environment.systemPackages = with pkgs; [
-    openssh
-  ];
 
   # Force home-manager to use global packages
   home-manager.useGlobalPkgs = true;

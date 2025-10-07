@@ -22,7 +22,7 @@
 
     (map lib.custom.relativeToRoot [
       # ========== Required Configs ==========
-      "hosts/common/core"
+      "hosts/common"
 
       # ========== Non-Primary Users to Create ==========
       "hosts/common/users/brenda"

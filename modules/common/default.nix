@@ -3,5 +3,8 @@
 
 { lib, ... }:
 {
-  imports = lib.custom.scanPaths ./.;
+  imports = [
+    (lib.custom.scanPaths ./.)
+    (lib.custom.scanPaths ./services/.)
+  ];
 }

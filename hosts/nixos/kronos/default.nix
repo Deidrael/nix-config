@@ -18,7 +18,7 @@
 
     (map lib.custom.relativeToRoot [
       # ========== Required Configs ==========
-      "hosts/common/core"
+      "hosts/common"
 
       # ========== Optional Configs ==========
       "hosts/common/optional/services/daedalus-nfs.nix"
