@@ -1,3 +1,4 @@
+# Standard btrfs settings
 { ... }:
 {
   fileSystems = {
