@@ -1,6 +1,7 @@
 {
   inputs,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -30,6 +31,12 @@
       "modules/services/ollama.nix"
       "modules/services/podman.nix"
     ])
+  ];
+
+  # ========== Computer Specific Packages ==========
+  virtualisation.waydroid.enable = true;
+  environment.systemPackages = [
+    pkgs.waydroid-helper
   ];
 
   # ========== Host Specification ==========
