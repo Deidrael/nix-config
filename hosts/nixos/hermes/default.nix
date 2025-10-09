@@ -22,9 +22,8 @@
       "hosts/common"
 
       # ========== Optional Configs ==========
-      "hosts/common/optional/services/daedalus-nfs.nix"
-      "hosts/common/optional/services/docker.nix"
-      "hosts/common/optional/services/openssh.nix"
+      "modules/services/daedalus-nfs.nix"
+      "modules/services/docker.nix"
     ])
   ];
 
