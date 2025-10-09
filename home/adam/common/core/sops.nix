@@ -1,4 +1,4 @@
-# home level sops. see hosts/common/optional/sops.nix for hosts level
+# home level sops. see modules/common/sops.nix for hosts level
 {
   inputs,
   config,

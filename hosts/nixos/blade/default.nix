@@ -28,17 +28,13 @@
       "hosts/common/users/brenda"
 
       # ========== Optional Configs ==========
-      "hosts/common/optional/desktops/gnome.nix"
-      "hosts/common/optional/services/bluetooth.nix"
-      "hosts/common/optional/services/openssh.nix"
-      "hosts/common/optional/services/printing.nix"
-      "hosts/common/optional/audio.nix"
-      "hosts/common/optional/gaming.nix"
-      "hosts/common/optional/nvidia.nix"
-      "hosts/common/optional/scanner.nix"
+      "modules/workstation"
+      "modules/desktop/gnome.nix"
+      "modules/gaming"
     ])
   ];
 
+  # ========== Computer Specific Packages ==========
   environment.systemPackages = with pkgs; [
     discord
     openrct2
