@@ -8,7 +8,7 @@
     # See also 'stable-packages' and 'unstable-packages' overlays at 'overlays/default.nix"
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    #nixpkgs-master.url = "github:NixOS/nixpkgs";
+    nixpkgs-master.url = "github:NixOS/nixpkgs";
 
     hardware.url = "github:NixOS/nixos-hardware";
 
@@ -39,6 +39,8 @@
 
     # NixAI
     #nixai.url = "github:olafkfreund/nix-ai-help";
+
+    hyprland.url = "github:hyprwm/Hyprland";
 
     # Pre-commit
     pre-commit-hooks = {

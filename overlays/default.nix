@@ -23,7 +23,19 @@ let
     };
   };
 
+  master-packages = final: prev: {
+    master = import inputs.nixpkgs-master {
+      inherit (final) system;
+      config.allowUnfree = true;
+      config.nvidia.acceptLicense = true;
+      #      overlays = [
+      #     ];
+    };
+  };
+
 in
 {
-  default = final: prev: (stable-packages final prev) // (unstable-packages final prev);
+  default =
+    final: prev:
+    (stable-packages final prev) // (unstable-packages final prev) // (master-packages final prev);
 }
