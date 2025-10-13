@@ -13,5 +13,6 @@
     common/optional/media
     common/optional/social
     common/optional/tools
+    hypr/default.nix
   ];
 }

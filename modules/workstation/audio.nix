@@ -1,4 +1,7 @@
-{ ... }:
+{
+  pkgs,
+  ...
+}:
 {
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -10,4 +13,8 @@
     wireplumber.enable = true;
     jack.enable = true;
   };
+
+  environment.systemPackages = [
+    pkgs.pwvucontrol
+  ];
 }
