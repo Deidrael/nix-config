@@ -7,7 +7,7 @@
   imports = lib.flatten [
     # ========== Hardware ==========
     ./hardware-configuration.nix
-    ./keyboard.nix
+    # ./keyboard.nix
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
 
@@ -26,13 +26,15 @@
 
       # ========== Optional Configs ==========
       "modules/workstation"
-      "modules/desktop/cinnamon.nix"
+      "modules/desktop/hyprland.nix"
     ])
   ];
 
   # ========== Host Specification ==========
   hostSpec = {
     hostName = "nixbook";
+    useWayland = true;
+    defaultDesktop = "Hyprland";
   };
 
   networking = {
@@ -41,6 +43,7 @@
   };
   # Workaround https://github.com/NixOS/nixpkgs/issues/180175
   systemd.services.NetworkManager-wait-online.enable = false;
+  services.xserver.xkb.model = "chromebook";
 
   boot = {
     loader = {
