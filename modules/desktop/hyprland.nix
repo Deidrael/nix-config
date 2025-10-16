@@ -4,6 +4,15 @@
   ...
 }:
 {
+  services = {
+    xserver = {
+      enable = true;
+    };
+    displayManager.sddm.enable = true;
+    displayManager.sddm.wayland.enable = true;
+  };
+  hardware.graphics.enable = true;
+
   programs = {
     hyprland = {
       enable = true; # enable Hyprland
@@ -20,11 +29,13 @@
   };
 
   environment.systemPackages = with pkgs; [
-    kitty # required for the default Hyprland config
-    rofi # launcher
+    brightnessctl # adjust screen brightness
+    dunst # notifications
     kdePackages.dolphin # file manager
+    kitty # required for the default Hyprland config
     hyprpaper # wallpaper management
     hyprshot # screenshot
-    dunst # notifications
+    wlogout # power and logoff menu
+    wofi # launcher
   ];
 }

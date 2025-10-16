@@ -43,6 +43,8 @@
   # ========== Host Specification ==========
   hostSpec = {
     hostName = "kratos";
+    useWayland = true;
+    defaultDesktop = "Hyprland";
   };
 
   networking = {
