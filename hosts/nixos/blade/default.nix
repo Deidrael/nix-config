@@ -37,7 +37,7 @@
   # ========== Computer Specific Packages ==========
   environment.systemPackages = with pkgs; [
     discord
-    openrct2
+    stable.openrct2
   ];
 
   # ========== Host Specification ==========
