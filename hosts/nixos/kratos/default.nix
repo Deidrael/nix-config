@@ -26,7 +26,6 @@
 
       # ========== Optional Configs ==========
       "modules/workstation"
-      "modules/desktop/gnome.nix"
       "modules/desktop/hyprland.nix"
       "modules/gaming"
       "modules/services/ollama.nix"
