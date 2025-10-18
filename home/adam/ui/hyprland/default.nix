@@ -18,7 +18,6 @@
     settings = {
       ### AUTOSTART ###
       exec-once = [
-        "waybar"
         "hyprpaper"
         "hypridle"
         "$browser"
