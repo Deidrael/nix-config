@@ -79,6 +79,7 @@ in
     curl
     delta
     git
+    gitui
     gh
     htop
     p7zip # compression & encryption
