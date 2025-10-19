@@ -32,10 +32,13 @@
     brightnessctl # adjust screen brightness
     dunst # notifications
     gnome-keyring # keyring manager
+    hyprpolkitagent # gui applications that request eleveated privileges
     kdePackages.dolphin # file manager
     kitty # required for the default Hyprland config
+    hyprland-qtutils # qt utility apps/libraries
     hyprpaper # wallpaper management
     hyprshot # screenshot
+    loupe # gnome image viewer
     wlogout # power and logoff menu
     wofi # launcher
   ];
