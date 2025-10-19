@@ -3,6 +3,8 @@
 {
   # use path relative to the root of the project
   relativeToRoot = lib.path.append ../.;
+
+  # list all *.nix and folders (requires default.nix inside)
   scanPaths =
     path:
     builtins.map (f: (path + "/${f}")) (
@@ -17,4 +19,21 @@
         ) (builtins.readDir path)
       )
     );
+
+  # list all *.nix recursively
+  # let
+  #   inherit (lib) concatMap hasSuffix;
+  #   inherit (builtins) isPath filter readFileType;
+
+  #   expandIfFolder = elem:
+  #     if !isPath elem || readFileType elem != "directory"
+  #       then [ elem ]
+  #     else lib.filesystem.listFilesRecursive elem;
+  # in
+  #   list: filter
+  #     # Filter out any path that doesn't look like `*.nix`. Don't forget to use
+  #     # toString to prevent copying paths to the store unnecessarily
+  #     (elem: !isPath elem || hasSuffix ".nix" (toString elem))
+  #     # Expand any folder to all the files within it.
+  #     (concatMap expandIfFolder list)
 }
