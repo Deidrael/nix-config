@@ -14,6 +14,8 @@
       "$mainMod, J, togglesplit, # dwindle"
       "$mainMod, B, exec, $browser"
       "$mainMod, L, exec, hyprlock"
+      " , Print, exec, hyprshot -m region"
+      "ALT, Print, exec, hyprshot -m window"
 
       # Move focus with mainMod + arrow keys
       "$mainMod, left, movefocus, l"
