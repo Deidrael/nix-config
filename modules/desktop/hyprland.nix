@@ -31,6 +31,7 @@
   environment.systemPackages = with pkgs; [
     brightnessctl # adjust screen brightness
     dunst # notifications
+    gnome-keyring # keyring manager
     kdePackages.dolphin # file manager
     kitty # required for the default Hyprland config
     hyprpaper # wallpaper management
