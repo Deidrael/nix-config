@@ -1,14 +1,17 @@
-{ ... }:
+{
+  lib,
+  ...
+}:
 {
   wayland.windowManager.hyprland.settings = {
     ### INPUT ###
     input = {
       kb_layout = "us";
-      kb_variant = "";
-      kb_model = "";
-      kb_options = "";
-      kb_rules = "";
-      numlock_by_default = "yes";
+      kb_variant = lib.mkDefault "";
+      kb_model = lib.mkDefault "";
+      kb_options = lib.mkDefault "";
+      kb_rules = lib.mkDefault "";
+      numlock_by_default = lib.mkDefault "yes";
 
       follow_mouse = 1;
       sensitivity = 0; # -1.0 - 1.0, 0 means no modification.

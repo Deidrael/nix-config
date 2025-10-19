@@ -32,5 +32,12 @@
       "1, monitor:eDP-1"
       "2, monitor:DP-5"
     ];
+
+    input = {
+      kb_options = "caps:none";
+    };
+    bind = [
+      ", Caps_Lock, exec, mumble rpc togglemute"
+    ];
   };
 }
