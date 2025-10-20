@@ -26,12 +26,13 @@
 
   services = {
     hypridle.enable = true; # idle timer agent
+    power-profiles-daemon.enable = true; # abiilty to switch power profiles
+    gnome.gnome-keyring.enable = true; # keyring manager
   };
 
   environment.systemPackages = with pkgs; [
     brightnessctl # adjust screen brightness
     dunst # notifications
-    gnome-keyring # keyring manager
     hyprpolkitagent # gui applications that request eleveated privileges
     kdePackages.dolphin # file manager
     kitty # required for the default Hyprland config
@@ -39,7 +40,6 @@
     hyprpaper # wallpaper management
     hyprshot # screenshot
     loupe # gnome image viewer
-    power-profiles-daemon # abiilty to switch power profiles
     wlogout # power and logoff menu
     wofi # launcher
   ];
