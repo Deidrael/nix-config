@@ -39,6 +39,7 @@
     hyprpaper # wallpaper management
     hyprshot # screenshot
     loupe # gnome image viewer
+    power-profiles-daemon # abiilty to switch power profiles
     wlogout # power and logoff menu
     wofi # launcher
   ];
