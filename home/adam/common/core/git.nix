@@ -5,26 +5,14 @@
 }:
 {
   programs.git = {
-    userName = config.hostSpec.handle;
-    userEmail = config.hostSpec.email.gitHub;
     enable = true;
     #package = pkgs.gitAndTools.gitFull;
-    lfs.enable = true;
 
-    ignores = [
-      ".csvignore"
-      # nix
-      "*.drv"
-      "result"
-      # python
-      "*.py?"
-      "__pycache__/"
-      ".venv/"
-      # direnv
-      ".direnv"
-    ];
-
-    extraConfig = {
+    settings = {
+      user = {
+        name = config.hostSpec.handle;
+        email = config.hostSpec.email.gitHub;
+      };
       core.pager = "delta";
       delta = {
         enable = true;
@@ -48,5 +36,20 @@
         rebase = false;
       };
     };
+
+    lfs.enable = true;
+
+    ignores = [
+      ".csvignore"
+      # nix
+      "*.drv"
+      "result"
+      # python
+      "*.py?"
+      "__pycache__/"
+      ".venv/"
+      # direnv
+      ".direnv"
+    ];
   };
 }
