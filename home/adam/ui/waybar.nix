@@ -22,6 +22,8 @@
           "cpu"
           "memory"
           "temperature"
+          "custom/gpu"
+          "custom/temperature_gpu"
           "backlight"
           "keyboard-state"
           "battery"
@@ -119,6 +121,18 @@
             ""
             ""
           ];
+        };
+        "custom/gpu" = {
+          format = "{}%";
+          interval = 1;
+          return-type = "";
+          exec = "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader | sed 's/%//'";
+        };
+        "custom/temperature_gpu" = {
+          format = "{}°C";
+          interval = 1;
+          return-type = "";
+          exec = "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader";
         };
         backlight = {
           format = "{percent}% {icon}";
