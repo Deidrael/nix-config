@@ -35,8 +35,9 @@
 
   # ========== Computer Specific Packages ==========
   virtualisation.waydroid.enable = true;
-  environment.systemPackages = [
-    pkgs.waydroid-helper
+  environment.systemPackages = with pkgs; [
+    space-cadet-pinball
+    waydroid-helper
   ];
 
   # ========== Host Specification ==========
