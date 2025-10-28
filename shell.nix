@@ -25,10 +25,10 @@
 
     nativeBuildInputs = builtins.attrValues {
       inherit (pkgs)
-
         nix
         home-manager
         nh
+        nixfmt-tree
         git
         just
         pre-commit
