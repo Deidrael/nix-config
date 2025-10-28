@@ -25,7 +25,8 @@
     inherit (inputs.nix-secrets)
       domain
       email
-      userFullName
+      primaryUserFullName
+      secondaryUserFullName
       ;
   };
 

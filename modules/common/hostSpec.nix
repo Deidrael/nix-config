@@ -1,7 +1,6 @@
 # Specifications For Differentiating Hosts - thanks to EmergentMind for module
 {
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -11,40 +10,12 @@
       freeformType = with lib.types; attrsOf str;
       options = {
         # Data variables that don't dictate configuration settings
+        ## User information
         primaryUsername = lib.mkOption {
           type = lib.types.str;
           description = "The primary username of the host";
         };
-        hostName = lib.mkOption {
-          type = lib.types.str;
-          description = "The hostname of the host";
-        };
-        email = lib.mkOption {
-          type = lib.types.attrsOf lib.types.str;
-          description = "The email of the user";
-        };
-        # Sometimes we can't use pkgs.stdenv.isLinux due to infinite recursion
-        isDarwin = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Used to indicate a host that is darwin";
-        };
-        networking = lib.mkOption {
-          default = { };
-          type = lib.types.attrsOf lib.types.anything;
-          description = "An attribute set of networking information";
-        };
-        wifi = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Used to indicate if a host has wifi";
-        };
-        domain = lib.mkOption {
-          type = lib.types.str;
-          default = "local";
-          description = "The domain of the host";
-        };
-        userFullName = lib.mkOption {
+        primaryUserFullName = lib.mkOption {
           type = lib.types.str;
           description = "The full name of the user";
         };
@@ -59,7 +30,39 @@
             let
               user = config.hostSpec.primaryUsername;
             in
-            if pkgs.stdenv.isLinux then "/home/${user}" else "/Users/${user}";
+            "/home/${user}";
+        };
+        email = lib.mkOption {
+          type = lib.types.attrsOf lib.types.str;
+          description = "The email of the user";
+        };
+        secondaryUsername = lib.mkOption {
+          type = lib.types.str;
+          description = "The secondary username of the host";
+        };
+        secondaryUserFullName = lib.mkOption {
+          type = lib.types.str;
+          description = "The full name of the user";
+        };
+        ## System information
+        hostName = lib.mkOption {
+          type = lib.types.str;
+          description = "The hostname of the host";
+        };
+        networking = lib.mkOption {
+          default = { };
+          type = lib.types.attrsOf lib.types.anything;
+          description = "An attribute set of networking information";
+        };
+        wifi = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Used to indicate if a host has wifi";
+        };
+        domain = lib.mkOption {
+          type = lib.types.str;
+          default = "localdomain";
+          description = "The domain of the host";
         };
         persistFolder = lib.mkOption {
           type = lib.types.str;
@@ -137,11 +140,6 @@
           type = lib.types.bool;
           default = true;
           description = "Indicate a host that uses a window manager";
-        };
-        useAtticCache = lib.mkOption {
-          type = lib.types.bool;
-          default = true;
-          description = "Indicate a host that uses LAN atticd for caching";
         };
         hdr = lib.mkOption {
           type = lib.types.bool;
