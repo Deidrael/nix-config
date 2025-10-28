@@ -1,0 +1,29 @@
+name: "Create PR for dev branch"
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  build:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: webfactory/ssh-agent@master
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Create Pull Request
+        id: pr
+        run: gh pr create -B main -H dev --title 'Merge dev to main' --body 'Created by action' -l 'automated'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+
+      - name: Enable Pull Request Automerge
+        run: gh pr merge --rebase --auto ${{ steps.pr.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
