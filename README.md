@@ -27,3 +27,7 @@ Resources I used the most (alphabetically):
 ## Need to look into:
 ### lib.MkAliasOptionModule
 https://noogle.dev/f/lib/modules/mkAliasOptionModule#aliases
+
+## Personal Reminders
+# Push to dev branch (create if needed):
+git push origin main:refs/heads/dev
