@@ -24,15 +24,15 @@ Resources I used the most (alphabetically):
 | raspberrypi | 2016 | Raspberry Pi 3 B | ARM Cortex-A53 | VideoCore IV | 1 GB | Tailscale Exit Node | Headless |
 
 
-## Need to look into:
+# Need to look into:
 ### lib.MkAliasOptionModule
 https://noogle.dev/f/lib/modules/mkAliasOptionModule#aliases
 
-## Personal Reminders
-# Push to dev branch (create if needed):
+# Personal Reminders
+## Push to dev branch (creates if needed):
 git push origin main:refs/heads/dev
 
-# hostSpec Options
+## hostSpec Options
 | Variable | Default | Description |
 | -------- | ------- | ----------- |
 | primaryUsername | | The primary username of the host |
