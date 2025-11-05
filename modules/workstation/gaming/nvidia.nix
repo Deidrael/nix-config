@@ -14,10 +14,10 @@
           enable = true;
           finegrained = true;
         };
-        primeBatterySaverSpecialisation = lib.mkIf config.hostSpec.hasNvidia true;
       };
       nvidia-container-toolkit.enable = true;
     };
+    hardware.nvidia.primeBatterySaverSpecialisation = lib.mkIf config.hostSpec.hasNvidia true;
 
     specialisation.gpusync.configuration = {
       system.nixos.tags = [ "gpusync" ];
