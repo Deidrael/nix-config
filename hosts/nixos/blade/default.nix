@@ -35,6 +35,7 @@
     displayManager = "gdm";
     desktopGnome = true;
   };
+  hardware.nvidia.primeBatterySaverSpecialisation = true;
 
   networking = {
     networkmanager.enable = true;

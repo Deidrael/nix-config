@@ -4,7 +4,7 @@
   ...
 }:
 {
-  config = lib.mkIf config.hostSpec.isGaming {
+  config = lib.mkIf config.hostSpec.hasNvidia {
     #Prime
     hardware = {
       nvidia = {
@@ -17,7 +17,6 @@
       };
       nvidia-container-toolkit.enable = true;
     };
-    hardware.nvidia.primeBatterySaverSpecialisation = lib.mkIf config.hostSpec.hasNvidia true;
 
     specialisation.gpusync.configuration = {
       system.nixos.tags = [ "gpusync" ];
