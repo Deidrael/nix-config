@@ -29,6 +29,7 @@
   hostSpec = {
     hostName = "kratos";
     fsBtrfs = true;
+    hasNvidia = true;
     users = [ config.hostSpec.primaryUsername ];
     isWorkstation = true;
     isGaming = true;

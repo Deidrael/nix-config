@@ -14,7 +14,7 @@
           enable = true;
           finegrained = true;
         };
-        primeBatterySaverSpecialisation = true;
+        primeBatterySaverSpecialisation = lib.mkIf config.hostSpec.hasNvidia true;
       };
       nvidia-container-toolkit.enable = true;
     };

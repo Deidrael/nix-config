@@ -33,6 +33,7 @@ https://noogle.dev/f/lib/modules/mkAliasOptionModule#aliases
 git push origin main:refs/heads/dev
 
 ## hostSpec Options
+### User Options
 | Variable | Default | Description |
 | -------- | ------- | ----------- |
 | primaryUsername | | The primary username of the host |
@@ -42,22 +43,31 @@ git push origin main:refs/heads/dev
 | email | | The email of the user |
 | secondaryUsername | | The secondary username of the host |
 | secondaryUserFullName | | The full name of the secondary user |
-|
+### System Options
+| Variable | Default | Description |
+| -------- | ------- | ----------- |
 | hostName | | The hostname of the host |
 | domain | localdomain | The domain of the host |
 | fsBtrfs | true | Indicates btrfs is used |
-|
+| hasNvidia | false | Indicate host has Nvidia graphics |
+### Role Options
+| Variable | Default | Description |
+| -------- | ------- | ----------- |
 | users | [ config.hostSpec.primaryUsername ] | An attribute set of all users on the host |
 | isServer | false | Indicate a server host |
 | isWorkstation | false | Indicate a workstation host |
 | isGaming | false | Indicate a gaming host |
-|
+### Service Options
+| Variable | Default | Description |
+| -------- | ------- | ----------- |
 | podman | false | Installs podman |
 | ollama | false | Installs ollama |
 | mapNFSshares | false | Indicate mapping of NFS Shares |
 | nfsServer | | NFS server address |
 | nfsShareNames | [ ] | NFS Share list to map
-|
+### Display Options
+| Variable | Default | Description |
+| -------- | ------- | ----------- |
 | displayManager | "sddm" | Indicate which display manager to use |
 | desktopHyprland | false | Indicate to configure hyprland |
 | desktopGnome | false | Indicate to configure gnome |

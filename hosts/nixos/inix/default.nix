@@ -34,6 +34,7 @@
       config.hostSpec.secondaryUsername
     ];
     fsBtrfs = true;
+    hasNvidia = true;
     isWorkstation = true;
     displayManager = "lightdm";
     desktopCinnamon = true;
