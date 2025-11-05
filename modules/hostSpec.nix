@@ -59,6 +59,11 @@
           default = false;
           description = "Indicate btrfs is used";
         };
+        hasNvidia = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Indicate host has Nvidia graphics";
+        };
 
         # Configuration Settings
         users = lib.mkOption {
