@@ -5,7 +5,7 @@
     common/core # required
 
     #################### Host-specific Optional Configs ####################
-    (lib.custom.relativeToRoot "home/common/ui/default.nix")
+    (lib.custom.relativeToRoot "home/common/hyprui")
   ];
 
   home.packages = builtins.attrValues {
