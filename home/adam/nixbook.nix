@@ -11,7 +11,7 @@
     #
     common/optional/browsers/firefox.nix
     common/optional/tools/default.nix
-    (lib.custom.relativeToRoot "home/common/ui/default.nix")
+    (lib.custom.relativeToRoot "home/common/hyprui")
   ];
 
   wayland.windowManager.hyprland.settings = {

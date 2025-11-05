@@ -13,7 +13,7 @@
     common/optional/media
     common/optional/social
     common/optional/tools
-    (lib.custom.relativeToRoot "home/common/ui/default.nix")
+    (lib.custom.relativeToRoot "home/common/hyprui")
   ];
 
   wayland.windowManager.hyprland.settings = {
