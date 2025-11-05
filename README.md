@@ -42,29 +42,23 @@ git push origin main:refs/heads/dev
 | email | | The email of the user |
 | secondaryUsername | | The secondary username of the host |
 | secondaryUserFullName | | The full name of the secondary user |
+|
 | hostName | | The hostname of the host |
-| networking | { } | An attribute set of networking information |
-| wifi | false | Used to indicate if a host has wifi |
 | domain | localdomain | The domain of the host |
-| persistFolder |  | The folder to persist data if impermenance is enabled |
-| work | { } | An attribute set of work-related information if isWork is true |
+| fsBtrfs | true | Indicates btrfs is used |
+|
 | users | [ config.hostSpec.primaryUsername ] | An attribute set of all users on the host |
-| isMinimal | false | Indicate a minimal host |
-| isProduction | true | Indicate a production host |
 | isServer | false | Indicate a server host |
-| isWork | false | Indicate a host that uses work resources |
-| isDevelopment | false | Indicate a host used for development |
-| isMobile | false | Indicate a mobile host |
-| useYubikey | false | Indicate if the host uses a yubikey |
-| voiceCoding | false | Indicate a host that uses voice coding |
-| isAutoStyled | false | Indicate a host that wants auto styling like stylix |
-| theme | dracula | The theme to use for the host (stylix, vscode, neovim, etc) |
-| useNeovimTerminal | false | Indicate a host that uses neovim for terminals |
-| useWindowManager | true | Indicate a host that uses a window manager |
-| hdr | false | Indicate a host that uses HDR |
-| scaling | 1 | Indicate what scaling to use. Floating point number |
-| wallpaper | ~/zen-01.png | Path to wallpaper to use for system |
-| useWayland | false | Indicate a host that uses Wayland |
-| defaultBrowser | firefox | The default browser to use on the host |
-| defaultEditor | nvim | The default editor command to use on the host |
-| defaultDesktop | Hyprland | The default desktop environment to use on the host |
+| isWorkstation | false | Indicate a workstation host |
+| isGaming | false | Indicate a gaming host |
+|
+| podman | false | Installs podman |
+| ollama | false | Installs ollama |
+| mapNFSshares | false | Indicate mapping of NFS Shares |
+| nfsServer | | NFS server address |
+| nfsShareNames | [ ] | NFS Share list to map
+|
+| displayManager | "sddm" | Indicate which display manager to use |
+| desktopHyprland | false | Indicate to configure hyprland |
+| desktopGnome | false | Indicate to configure gnome |
+| desktopCinnamon | false | Indicate to configure cinnamon |

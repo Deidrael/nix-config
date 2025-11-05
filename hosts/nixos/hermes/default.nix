@@ -11,25 +11,15 @@
     ./network.nix
     inputs.hardware.nixosModules.raspberry-pi-4
 
-    # ========== Disk Layout ==========
-    #inputs.disko.nixosModules.disko
-    #(lib.custom.relativeToRoot "hosts/common/disks/btrfs.nix")
-
-    # ========== Misc Inputs ==========
-
-    (map lib.custom.relativeToRoot [
-      # ========== Required Configs ==========
-      "hosts/common"
-
-      # ========== Optional Configs ==========
-      "modules/services/daedalus-nfs.nix"
-      "modules/services/docker.nix"
-    ])
+    (lib.custom.relativeToRoot "modules/default.nix")
   ];
 
   # ========== Host Specification ==========
   hostSpec = {
     hostName = "hermes";
+    users = [ config.hostSpec.primaryUsername ];
+    mapNFSshares = true;
+    podman = true;
   };
 
   networking = {

@@ -1,5 +1,6 @@
 {
   inputs,
+  config,
   lib,
   pkgs,
   ...
@@ -14,23 +15,7 @@
     inputs.hardware.nixosModules.common-gpu-nvidia
     inputs.hardware.nixosModules.common-pc-ssd
 
-    # ========== Disk Layout ==========
-    #inputs.disko.nixosModules.disko
-    (lib.custom.relativeToRoot "hosts/common/disks/btrfs.nix")
-
-    # ========== Misc Inputs ==========
-
-    (map lib.custom.relativeToRoot [
-      # ========== Required Configs ==========
-      "hosts/common"
-
-      # ========== Optional Configs ==========
-      "modules/workstation"
-      "modules/desktop/hyprland.nix"
-      "modules/gaming"
-      "modules/services/ollama.nix"
-      "modules/services/podman.nix"
-    ])
+    (lib.custom.relativeToRoot "modules/default.nix")
   ];
 
   # ========== Computer Specific Packages ==========
@@ -43,8 +28,14 @@
   # ========== Host Specification ==========
   hostSpec = {
     hostName = "kratos";
-    useWayland = true;
-    defaultDesktop = "Hyprland";
+    fsBtrfs = true;
+    users = [ config.hostSpec.primaryUsername ];
+    isWorkstation = true;
+    isGaming = true;
+    displayManager = "sddm";
+    desktopHyprland = true;
+    ollama = true;
+    podman = true;
   };
 
   networking = {

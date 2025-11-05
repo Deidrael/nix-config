@@ -55,10 +55,10 @@ in
     let
       ageFolder = "${config.hostSpec.home}/.config/sops/age";
       user = config.users.users.${config.hostSpec.primaryUsername}.name;
-      group = config.users.users.${config.hostSpec.primaryUsername}.group;
+      usergroup = config.users.users.${config.hostSpec.primaryUsername}.group;
     in
     ''
       mkdir -p ${ageFolder} || true
-      chown -R ${user}:${group} ${config.hostSpec.home}/.config
+      chown -R ${user}:${usergroup} ${config.hostSpec.home}/.config
     '';
 }

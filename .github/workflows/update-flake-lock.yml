@@ -2,7 +2,7 @@ name: update-flake-lock
 on:
   workflow_dispatch: # allows manual triggering
   schedule:
-    - cron: '0 0 * * 1,4' # Run twice a week
+    - cron: '0 0 * * 1,4' # Run twice a week UTC (Sun & Wed evening)
 
 jobs:
   lockfile:
@@ -14,7 +14,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - uses: webfactory/ssh-agent@master
+      - name: SSH Key for nix-secrets
+        uses: webfactory/ssh-agent@master
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 

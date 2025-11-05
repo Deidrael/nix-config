@@ -11,30 +11,19 @@
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
 
-    # ========== Disk Layout ==========
-    #inputs.disko.nixosModules.disko
-    #(lib.custom.relativeToRoot "hosts/common/disks/btrfs.nix")
-
-    # ========== Misc Inputs ==========
-
-    (map lib.custom.relativeToRoot [
-      # ========== Required Configs ==========
-      "hosts/common"
-
-      # ========== Non-Primary Users to Create ==========
-      "hosts/common/users/brenda"
-
-      # ========== Optional Configs ==========
-      "modules/workstation"
-      "modules/desktop/hyprland.nix"
-    ])
+    (lib.custom.relativeToRoot "modules/default.nix")
   ];
 
   # ========== Host Specification ==========
   hostSpec = {
     hostName = "nixbook";
-    useWayland = true;
-    defaultDesktop = "Hyprland";
+    users = [
+      config.hostSpec.primaryUsername
+      config.hostSpec.secondaryUsername
+    ];
+    isWorkstation = true;
+    displayManager = "sddm";
+    desktopHyprland = true;
   };
 
   networking = {

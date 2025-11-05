@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
     #
@@ -13,7 +13,7 @@
     common/optional/media
     common/optional/social
     common/optional/tools
-    ui/default.nix
+    (lib.custom.relativeToRoot "home/common/ui/default.nix")
   ];
 
   wayland.windowManager.hyprland.settings = {
