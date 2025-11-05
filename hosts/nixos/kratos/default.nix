@@ -23,6 +23,7 @@
   environment.systemPackages = with pkgs; [
     space-cadet-pinball
     waydroid-helper
+    zed-editor
   ];
 
   # ========== Host Specification ==========
