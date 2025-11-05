@@ -8,14 +8,14 @@
     #Prime
     hardware = {
       nvidia = {
-        modesetting.enable = true;
-        open = true;
+        modesetting.enable = lib.mkDefault true;
+        open = lib.mkDefault true;
         powerManagement = {
-          enable = true;
-          finegrained = true;
+          enable = lib.mkDefault true;
+          finegrained = lib.mkDefault true;
         };
       };
-      nvidia-container-toolkit.enable = true;
+      nvidia-container-toolkit.enable = lib.mkDefault true;
     };
 
     specialisation.gpusync.configuration = {
