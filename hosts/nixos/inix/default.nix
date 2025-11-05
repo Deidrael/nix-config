@@ -9,7 +9,6 @@
     # ========== Hardware ==========
     ./hardware-configuration.nix
     inputs.hardware.nixosModules.apple-imac-14-2
-    inputs.hardware.nixosModules.common-gpu-nvidia
 
     (lib.custom.relativeToRoot "modules/default.nix")
   ];
