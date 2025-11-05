@@ -21,6 +21,7 @@
       modesetting.enable = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
+      prime.sync.enable = lib.mkForce false;
     };
   };
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -33,7 +34,7 @@
       config.hostSpec.secondaryUsername
     ];
     fsBtrfs = true;
-    hasNvidia = true;
+    hasNvidia = false; # has Nvidia, but doesn't have iGPU so no Prime
     isWorkstation = true;
     displayManager = "lightdm";
     desktopCinnamon = true;

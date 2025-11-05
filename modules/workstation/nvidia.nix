@@ -22,13 +22,13 @@
       system.nixos.tags = [ "gpusync" ];
       hardware.nvidia = {
         powerManagement = {
-          enable = lib.mkForce false;
-          finegrained = lib.mkForce false;
+          enable = false;
+          finegrained = false;
         };
         prime = {
-          offload.enable = lib.mkForce false;
-          offload.enableOffloadCmd = lib.mkForce false;
-          sync.enable = lib.mkForce true;
+          offload.enable = false;
+          offload.enableOffloadCmd = false;
+          sync.enable = true;
         };
       };
     };
