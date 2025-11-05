@@ -2,12 +2,11 @@
 {
   config,
   lib,
-  hostSpec,
   ...
 }:
 {
   isNormalUser = true;
-  description = hostSpec.secondaryUserFullName;
+  description = config.hostSpec.secondaryUserFullName;
   extraGroups =
     let
       ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
