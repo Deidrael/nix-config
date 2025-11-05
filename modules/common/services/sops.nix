@@ -46,6 +46,10 @@ in
         sopsFile = "${sopsFolder}/secrets.yaml";
         neededForUsers = true;
       };
+      "passwords/${config.hostSpec.secondaryUsername}" = {
+        sopsFile = "${sopsFolder}/secrets.yaml";
+        neededForUsers = true;
+      };
     }
   ];
   # The containing folders are created as root and if this is the first ~/.config/ entry,
