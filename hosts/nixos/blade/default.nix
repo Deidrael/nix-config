@@ -29,7 +29,10 @@
     hostName = "blade";
     fsBtrfs = true;
     hasNvidia = true;
-    users = [ config.hostSpec.primaryUsername ];
+    users = [
+      config.hostSpec.primaryUsername
+      config.hostSpec.secondaryUsername
+    ];
     isWorkstation = true;
     isGaming = true;
     displayManager = "gdm";
