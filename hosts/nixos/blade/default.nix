@@ -14,24 +14,7 @@
     inputs.hardware.nixosModules.common-gpu-nvidia
     inputs.hardware.nixosModules.common-pc-ssd
 
-    # ========== Disk Layout ==========
-    #inputs.disko.nixosModules.disko
-    (lib.custom.relativeToRoot "hosts/common/disks/btrfs.nix")
-
-    # ========== Misc Inputs ==========
-
-    (map lib.custom.relativeToRoot [
-      # ========== Required Configs ==========
-      "hosts/common"
-
-      # ========== Non-Primary Users to Create ==========
-      "hosts/common/users/brenda"
-
-      # ========== Optional Configs ==========
-      "modules/workstation"
-      "modules/desktop/gnome.nix"
-      "modules/gaming"
-    ])
+    (lib.custom.relativeToRoot "modules/default.nix")
   ];
 
   # ========== Computer Specific Packages ==========
@@ -43,6 +26,12 @@
   # ========== Host Specification ==========
   hostSpec = {
     hostName = "blade";
+    fsBtrfs = true;
+    users = [ config.hostSpec.primaryUsername ];
+    isWorkstation = true;
+    isGaming = true;
+    displayManager = "gdm";
+    desktopGnome = true;
   };
 
   networking = {

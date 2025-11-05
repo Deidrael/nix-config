@@ -10,23 +10,7 @@
     ./hardware-configuration.nix
     inputs.hardware.nixosModules.apple-imac-14-2
 
-    # ========== Disk Layout ==========
-    #inputs.disko.nixosModules.disko
-    (lib.custom.relativeToRoot "hosts/common/disks/btrfs.nix")
-
-    # ========== Misc Inputs ==========
-
-    (map lib.custom.relativeToRoot [
-      # ========== Required Configs ==========
-      "hosts/common"
-
-      # ========== Non-Primary Users to Create ==========
-      "hosts/common/users/brenda"
-
-      # ========== Optional Configs ==========
-      "modules/workstation"
-      "modules/desktop/cinnamon.nix"
-    ])
+    (lib.custom.relativeToRoot "modules/default.nix")
   ];
 
   hardware = {
@@ -44,6 +28,14 @@
   # ========== Host Specification ==========
   hostSpec = {
     hostName = "inix";
+    users = [
+      config.hostSpec.primaryUsername
+      config.hostSpec.secondaryUsername
+    ];
+    fsBtrfs = true;
+    isWorkstation = true;
+    displayManager = "lightdm";
+    desktopCinnamon = true;
   };
 
   networking = {

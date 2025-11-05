@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
     #
@@ -11,7 +11,7 @@
     #
     common/optional/browsers/firefox.nix
     common/optional/tools/default.nix
-    ui/default.nix
+    (lib.custom.relativeToRoot "home/common/ui/default.nix")
   ];
 
   wayland.windowManager.hyprland.settings = {
