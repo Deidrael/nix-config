@@ -4,7 +4,7 @@ let
     {
       "sddm" = "hyprland";
       "lightdm" = "cinnamon";
-      "gdm" = "";
+      "gdm" = "gnome";
     }
     .${config.hostSpec.displayManager} or "";
 in
