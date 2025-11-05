@@ -38,6 +38,7 @@
     ollama = true;
     podman = true;
   };
+  hardware.nvidia.primeBatterySaverSpecialisation = true;
 
   networking = {
     networkmanager.enable = true;
