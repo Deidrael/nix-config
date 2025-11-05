@@ -1,17 +1,17 @@
 {
-  config,
+  # config,
   lib,
   ...
 }:
 {
   imports = lib.custom.scanPaths ./.;
 
-  assertions = [
-    {
-      assertion = config.hostSpec.desktopHyprland;
-      message = "make sure to enable hyprland on the host for required dependencies like xdg-desktop portal etc.";
-    }
-  ];
+  # assertions = [
+  #   {
+  #     assertion = config.hostSpec.desktopHyprland;
+  #     message = "make sure to enable hyprland on the host for required dependencies like xdg-desktop portal etc.";
+  #   }
+  # ];
 
   wayland.windowManager.hyprland = {
     enable = true;
