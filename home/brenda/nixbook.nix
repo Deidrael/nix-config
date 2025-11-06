@@ -12,4 +12,11 @@
     inherit (pkgs)
       ;
   };
+
+  wayland.windowManager.hyprland.settings = {
+    "$terminal" = "kitty";
+    "$fileManager" = "dolphin";
+    "$menu" = "wofi --show drun -H 600 -W 800";
+    "$browser" = "firefox";
+  };
 }
