@@ -48,7 +48,7 @@
       };
 
       destroyed-symlinks = {
-        enable = true;
+        enable = false; # disabled temporarily for error: 'typstfmt' has been removed due to lack of upstream maintenance, consider using 'typstyle' instead
         name = "destroyed-symlinks";
         description = "detects symlinks which are changed to regular files with a content of a path which that symlink was pointing to.";
         package = inputs.pre-commit-hooks.checks.${system}.pre-commit-hooks;

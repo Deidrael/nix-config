@@ -16,9 +16,8 @@
       nerd-fonts.hack
       nerd-fonts.ubuntu
       noto-fonts
-      noto-fonts-emoji
       noto-fonts-color-emoji
-      ubuntu_font_family
+      ubuntu-classic
     ];
   };
 }
