@@ -23,6 +23,12 @@ Resources I used the most (alphabetically):
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | raspberrypi | 2016 | Raspberry Pi 3 B | ARM Cortex-A53 | VideoCore IV | 1 GB | Tailscale Exit Node | Headless |
 
+# Nix-Secrets Configuration
+## Structure
+### nix-secrets/flake.nix
+- This contains basic outputs I such as primaryUsername, email.user and email.github, NAS info (nfsServer for hostname, nfsShareNames for shares), etc.
+### nix-secrets/secrets.yaml
+- This contains my user password hashs, private ssh keys, etc.
 
 # Need to look into:
 ### lib.MkAliasOptionModule
