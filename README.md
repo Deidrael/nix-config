@@ -15,7 +15,7 @@ Resources I used the most (alphabetically):
 | Hermes | 2018 | Raspberry Pi 4 Model B| ARM Coretex-A72 | VideoCore VI | 4 GB | Tailscale Exit Node | Headless |
 | iNix | 2014 | iMac | i5-4570 | GT 755M | 8 GB | Desktop | Cinnamon |
 | Kratos | 2024 | Gigabyte Aorus 17X | i9-14900HX | RTX4090 | 32 GB | Gaming Laptop | Hyprland |
-| Kronos | ? | Lenovo | i7-6700T | i915 | 16 GB | Mini Server | Headless |
+| Kronos | 2016 | Lenovo M700 Desktop Tiny | i7-6700T | i915 | 16 GB | Mini Server | Headless |
 | Nixbook | 2014 | Acer CB3-431 | N3160 | i915 | 4 GB | Laptop | Hyprland |
 
 ### Still to nixify:
