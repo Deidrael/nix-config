@@ -3,6 +3,9 @@ on:
   workflow_dispatch: # allows manual triggering
   schedule:
     - cron: '0 0 * * 1,4' # Run twice a week UTC (Sun & Wed evening)
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lockfile:
@@ -19,21 +22,26 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Install Determinate Nix
-        uses: DeterminateSystems/determinate-nix-action@main
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
 
       - name: Update flake.lock
-        id: update
-        uses: DeterminateSystems/update-flake-lock@main
+        run: nix flake update
+
+      - name: Create Pull Request
+        id: create-pr
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
-          commit-msg: "action: update `flake.lock`"
-          pr-title: "action: update `flake.lock`"
-          pr-labels: |
+          commit-message: "action: update `flake.lock`"
+          title: "action: update `flake.lock`"
+          body: "Automated update of flake.lock"
+          labels: |
             dependencies
             automated
+          branch: update-flake-lock
 
       - name: Enable Pull Request Automerge
-        run: gh pr merge --rebase --auto ${{ steps.update.outputs.pull-request-number }}
+        run: gh pr merge --rebase --auto ${{ steps.create-pr.outputs.pull-request-number }}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
