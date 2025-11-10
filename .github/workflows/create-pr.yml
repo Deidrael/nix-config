@@ -17,11 +17,19 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Create Pull Request
+      - name: Create or Update Pull Request
         id: pr
-        run: gh pr create -B main -H dev --title 'Merge dev to main' --body 'Created by action' -l 'automated'
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          base: main
+          head: dev
+          title: 'Merge dev to main'
+          body: 'Automated PR to merge dev branch changes into main.'
+          labels: |
+            automated
+            merge-dev
+          draft: false
 
       - name: Enable Pull Request Automerge
         run: gh pr merge --rebase --auto ${{ steps.pr.outputs.pull-request-number }}

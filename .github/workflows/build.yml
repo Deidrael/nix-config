@@ -3,6 +3,11 @@ on:
   pull_request:
     branches:
       - main
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
 jobs:
   build:
     strategy:
@@ -25,7 +30,7 @@ jobs:
     steps:
     - run: sudo rm -rf /opt&
     - name: Free GitHub Actions Disk Space (Ubuntu)
-      uses: coder-xiaomo/free-disk-space@main
+      uses: jlumbroso/free-disk-space@main
       with:
         # this might remove tools that are actually needed if set to "true"
         tool-cache: true
@@ -41,7 +46,7 @@ jobs:
     - uses: webfactory/ssh-agent@master
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-    - uses: DeterminateSystems/nix-installer-action@main
+    - uses: cachix/install-nix-action@v31
     - uses: DeterminateSystems/magic-nix-cache-action@main
     - uses: cachix/cachix-action@v16
       with:
