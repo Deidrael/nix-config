@@ -13,22 +13,32 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - uses: webfactory/ssh-agent@master
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Check if PR exists
+        id: check_pr
+        run: |
+          PR_COUNT=$(gh pr list --head dev --base main --json number | jq length)
+          if [ "$PR_COUNT" -gt 0 ]; then
+            echo "PR already exists"
+            echo "pr_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "PR does not exist"
+            echo "pr_exists=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
 
-      - name: Create or Update Pull Request
+      - name: Create Pull Request
         id: pr
-        uses: peter-evans/create-pull-request@v7
-        with:
-          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
-          base: main
-          branch: dev
-          title: 'Merge dev to main'
-          body: 'Automated PR to merge dev branch changes into main.'
-          labels: |
-            automated
-            merge-dev
+        if: steps.check_pr.outputs.pr_exists == 'false'
+        run: |
+          gh pr create \
+            --base main \
+            --head dev \
+            --title "Merge dev to main" \
+            --body "Automated PR to merge dev branch changes into main." \
+            --label automated
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
 
       - name: Enable Pull Request Automerge
         run: gh pr merge --rebase --auto ${{ steps.pr.outputs.pull-request-number }}
