@@ -1,4 +1,4 @@
-name: "Create PR for dev branch"
+name: "Create PR when pushing to dev branch"
 on:
   push:
     branches:
