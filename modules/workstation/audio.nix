@@ -5,8 +5,11 @@
   pkgs,
   ...
 }:
+let
+  isWorkstation = config.hostSpec.role.type == "workstation";
+in
 {
-  config = lib.mkIf config.hostSpec.isWorkstation {
+  config = lib.mkIf isWorkstation {
     services.pulseaudio.enable = false;
     security.rtkit.enable = true;
     services.pipewire = {

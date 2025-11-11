@@ -33,8 +33,10 @@
       config.hostSpec.primaryUsername
       config.hostSpec.secondaryUsername
     ];
-    isWorkstation = true;
-    isGaming = true;
+    role = {
+      type = "workstation";
+      gaming = true;
+    };
     desktop = {
       displayManager = "gdm";
       gnome.enable = true;

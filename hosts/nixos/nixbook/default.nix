@@ -22,7 +22,9 @@
       config.hostSpec.primaryUsername
       config.hostSpec.secondaryUsername
     ];
-    isWorkstation = true;
+    role = {
+      type = "workstation";
+    };
     desktop = {
       displayManager = "sddm";
       hyprland.enable = true;

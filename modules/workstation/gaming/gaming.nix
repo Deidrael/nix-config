@@ -4,8 +4,11 @@
   pkgs,
   ...
 }:
+let
+  isGaming = config.hostSpec.role.gaming;
+in
 {
-  config = lib.mkIf config.hostSpec.isGaming {
+  config = lib.mkIf isGaming {
     programs = {
       steam = {
         enable = true;

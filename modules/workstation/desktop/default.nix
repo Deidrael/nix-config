@@ -4,6 +4,7 @@
   ...
 }:
 let
+  isWorkstation = config.hostSpec.role.type == "workstation";
   defaultSession =
     {
       "sddm" = "hyprland";
@@ -16,7 +17,7 @@ in
 
   imports = lib.custom.scanPaths ./.;
 
-  config = lib.mkIf config.hostSpec.isWorkstation {
+  config = lib.mkIf isWorkstation {
     hardware.graphics.enable = true;
 
     services = {

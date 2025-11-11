@@ -71,20 +71,26 @@
         };
 
         # Configuration Roles
-        isServer = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate a server host";
-        };
-        isWorkstation = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate a workstation host";
-        };
-        isGaming = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate a gaming host";
+        role = lib.mkOption {
+          type = lib.types.submodule {
+            options = {
+              type = lib.mkOption {
+                type = lib.types.enum [
+                  "server"
+                  "workstation"
+                ];
+                default = "server";
+                description = "The primary role of the host";
+              };
+              gaming = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "Enable gaming features";
+              };
+            };
+          };
+          default = { };
+          description = "Host role configuration";
         };
 
         # Server Software
