@@ -4,8 +4,11 @@
   pkgs,
   ...
 }:
+let
+  isWorkstation = config.hostSpec.role.type == "workstation";
+in
 {
-  config = lib.mkIf config.hostSpec.isWorkstation {
+  config = lib.mkIf isWorkstation {
     fonts.fontDir.enable = true;
     fonts.packages = with pkgs; [
       fira-code

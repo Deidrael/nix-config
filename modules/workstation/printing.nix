@@ -6,8 +6,11 @@
   pkgs,
   ...
 }:
+let
+  isWorkstation = config.hostSpec.role.type == "workstation";
+in
 {
-  config = lib.mkIf config.hostSpec.isWorkstation {
+  config = lib.mkIf isWorkstation {
     services.printing = {
       enable = true;
       drivers = [ pkgs.hplip ];

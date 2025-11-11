@@ -33,8 +33,10 @@
     fsBtrfs = true;
     hasNvidia = true;
     users = [ config.hostSpec.primaryUsername ];
-    isWorkstation = true;
-    isGaming = true;
+    role = {
+      type = "workstation";
+      gaming = true;
+    };
     desktop = {
       displayManager = "sddm";
       hyprland.enable = true;

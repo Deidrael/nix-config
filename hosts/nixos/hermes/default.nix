@@ -19,6 +19,9 @@
   hostSpec = {
     hostName = "hermes";
     users = [ config.hostSpec.primaryUsername ];
+    role = {
+      type = "server";
+    };
     mapNFSshares = true;
     podman = true;
   };

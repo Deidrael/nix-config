@@ -49,6 +49,7 @@ git push origin main:refs/heads/dev
 | email | | The email of the user |
 | secondaryUsername | | The secondary username of the host |
 | secondaryUserFullName | | The full name of the secondary user |
+| users | [ config.hostSpec.primaryUsername ] | An attribute set of all users on the host |
 ### System Options
 | Variable | Default | Description |
 | -------- | ------- | ----------- |
@@ -56,13 +57,11 @@ git push origin main:refs/heads/dev
 | domain | localdomain | The domain of the host |
 | fsBtrfs | true | Indicates btrfs is used |
 | hasNvidia | false | Indicate host has Nvidia graphics |
-### Role Options
+### Role options: hostSpec.role.* (submodule)
 | Variable | Default | Description |
 | -------- | ------- | ----------- |
-| users | [ config.hostSpec.primaryUsername ] | An attribute set of all users on the host |
-| isServer | false | Indicate a server host |
-| isWorkstation | false | Indicate a workstation host |
-| isGaming | false | Indicate a gaming host |
+| type | "server" | The primary role of the host (server, workstation) |
+| gaming | false | Enable gaming features |
 ### Service Options
 | Variable | Default | Description |
 | -------- | ------- | ----------- |
