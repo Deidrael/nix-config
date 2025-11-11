@@ -26,7 +26,7 @@ Resources I used the most (alphabetically):
 # Nix-Secrets Configuration
 ## Structure
 ### nix-secrets/flake.nix
-- This contains basic outputs I such as primaryUsername, email.user and email.github, NAS info (nfsServer for hostname, nfsShareNames for shares), etc.
+- This contains basic outputs such as primaryUsername, email.user and email.github, NAS info (nfsClient.server for hostname, nfsClient.shares for shares), etc.
 ### nix-secrets/secrets.yaml
 - This contains my user password hashs, private ssh keys, etc.
 
@@ -67,9 +67,11 @@ git push origin main:refs/heads/dev
 | -------- | ------- | ----------- |
 | podman | false | Installs podman |
 | ollama | false | Installs ollama |
-| mapNFSshares | false | Indicate mapping of NFS Shares |
-| nfsServer | | NFS server address |
-| nfsShareNames | [ ] | NFS Share list to map
+| nfsClient.enable | false | Whether to map NFS shares |
+| nfsClient.server | | NFS server address |
+| nfsClient.shares | [ ] | NFS share names to map |
+| nfsClient.mountBase | /mnt/nfs | Base directory for NFS mounts |
+| nfsClient.options | [...] | NFS mount options
 ### Desktop options: hostSpec.desktop.* (submodule)
 | Variable | Default | Description |
 | ------------------ | ------- | ----------- |
