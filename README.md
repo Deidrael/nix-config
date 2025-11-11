@@ -71,10 +71,10 @@ git push origin main:refs/heads/dev
 | mapNFSshares | false | Indicate mapping of NFS Shares |
 | nfsServer | | NFS server address |
 | nfsShareNames | [ ] | NFS Share list to map
-### Display Options
+### Desktop options: hostSpec.desktop.* (submodule)
 | Variable | Default | Description |
-| -------- | ------- | ----------- |
-| displayManager | "sddm" | Indicate which display manager to use |
-| desktopHyprland | false | Indicate to configure hyprland |
-| desktopGnome | false | Indicate to configure gnome |
-| desktopCinnamon | false | Indicate to configure cinnamon |
+| ------------------ | ------- | ----------- |
+| displayManager | "sddm" | The display manager to use (sddm, gdm, lightdm) |
+| hyprland.enable | false | Enable Hyprland desktop environment |
+| gnome.enable | false | Enable GNOME desktop environment |
+| cinnamon.enable | false | Enable Cinnamon desktop environment |

@@ -1,4 +1,8 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 let
   defaultSession =
     {
@@ -6,9 +10,10 @@ let
       "lightdm" = "cinnamon";
       "gdm" = "gnome";
     }
-    .${config.hostSpec.displayManager} or "";
+    .${config.hostSpec.desktop.displayManager} or "";
 in
 {
+
   imports = lib.custom.scanPaths ./.;
 
   config = lib.mkIf config.hostSpec.isWorkstation {
@@ -18,24 +23,18 @@ in
       xserver.enable = true;
 
       # SDDM configuration
-      displayManager.sddm = lib.mkIf (config.hostSpec.displayManager == "sddm") {
+      displayManager.sddm = lib.mkIf (config.hostSpec.desktop.displayManager == "sddm") {
         enable = true;
         wayland.enable = true;
       };
 
       # GDM configuration
-      displayManager.gdm = lib.mkIf (config.hostSpec.displayManager == "gdm") {
-        enable = true;
-      };
-      desktopManager.gnome = lib.mkIf (config.hostSpec.displayManager == "gdm") {
+      displayManager.gdm = lib.mkIf (config.hostSpec.desktop.displayManager == "gdm") {
         enable = true;
       };
 
       # LightDM configuration
-      xserver.displayManager.lightdm = lib.mkIf (config.hostSpec.displayManager == "lightdm") {
-        enable = true;
-      };
-      xserver.desktopManager.cinnamon = lib.mkIf (config.hostSpec.displayManager == "lightdm") {
+      xserver.displayManager.lightdm = lib.mkIf (config.hostSpec.desktop.displayManager == "lightdm") {
         enable = true;
       };
 

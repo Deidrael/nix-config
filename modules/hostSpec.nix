@@ -64,13 +64,13 @@
           default = false;
           description = "Indicate host has Nvidia graphics";
         };
-
-        # Configuration Settings
         users = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ config.hostSpec.primaryUsername ];
           description = "An attribute set of all users on the host";
         };
+
+        # Configuration Roles
         isServer = lib.mkOption {
           type = lib.types.bool;
           default = false;
@@ -115,25 +115,43 @@
         };
 
         # Display Configurations
-        displayManager = lib.mkOption {
-          type = lib.types.str;
-          default = "sddm";
-          description = "Indicate which display manager to use";
-        };
-        desktopHyprland = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate to configure hyprland";
-        };
-        desktopGnome = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate to configure gnome";
-        };
-        desktopCinnamon = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate to configure cinnamon";
+        desktop = lib.mkOption {
+          type = lib.types.submodule {
+            options = {
+              displayManager = lib.mkOption {
+                type = lib.types.enum [
+                  "sddm"
+                  "gdm"
+                  "lightdm"
+                ];
+                default = "sddm";
+                description = "The display manager to use";
+              };
+              hyprland = {
+                enable = lib.mkOption {
+                  type = lib.types.bool;
+                  default = false;
+                  description = "Enable Hyprland desktop environment";
+                };
+              };
+              gnome = {
+                enable = lib.mkOption {
+                  type = lib.types.bool;
+                  default = false;
+                  description = "Enable GNOME desktop environment";
+                };
+              };
+              cinnamon = {
+                enable = lib.mkOption {
+                  type = lib.types.bool;
+                  default = false;
+                  description = "Enable Cinnamon desktop environment";
+                };
+              };
+            };
+          };
+          default = { };
+          description = "Desktop and display configurations";
         };
 
         # Unused at this time

@@ -7,7 +7,7 @@
   ...
 }:
 {
-  config = lib.mkIf config.hostSpec.desktopHyprland {
+  config = lib.mkIf config.hostSpec.desktop.hyprland.enable {
     programs = {
       hyprland = {
         enable = true; # enable Hyprland

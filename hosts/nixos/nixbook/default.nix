@@ -23,8 +23,10 @@
       config.hostSpec.secondaryUsername
     ];
     isWorkstation = true;
-    displayManager = "sddm";
-    desktopHyprland = true;
+    desktop = {
+      displayManager = "sddm";
+      hyprland.enable = true;
+    };
   };
 
   networking = {
