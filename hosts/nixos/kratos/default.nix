@@ -21,6 +21,7 @@
   # ========== Computer Specific Packages ==========
   virtualisation.waydroid.enable = true;
   environment.systemPackages = with pkgs; [
+    opencode
     space-cadet-pinball
     waydroid-helper
     zed-editor
