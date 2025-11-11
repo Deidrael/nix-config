@@ -24,8 +24,7 @@
       email
       secondaryUsername
       secondaryUserFullName
-      nfsServer
-      nfsShareNames
+      nfsClient
       ;
   };
 

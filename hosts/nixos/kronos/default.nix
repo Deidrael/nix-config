@@ -22,7 +22,7 @@
     role = {
       type = "server";
     };
-    mapNFSshares = true;
+    nfsClient.enable = true;
     podman = true;
   };
 

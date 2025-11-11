@@ -125,20 +125,67 @@
           default = false;
           description = "Whether to install and configure Ollama for AI model serving";
         };
-        mapNFSshares = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Indicate mapping of NFS Shares";
-        };
-        nfsServer = lib.mkOption {
-          type = lib.types.str;
-          default = "";
-          description = "NFS server address";
-        };
-        nfsShareNames = lib.mkOption {
-          type = lib.types.listOf lib.types.str;
-          default = [ ];
-          description = "NFS share list to map";
+
+        nfsClient = lib.mkOption {
+          type = lib.types.submodule {
+            options = {
+              enable = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "Whether to map NFS shares on this host";
+              };
+              server = lib.mkOption {
+                type = lib.types.str;
+                default = "";
+                description = "The address of the NFS server (required if enable is true)";
+                example = "192.168.1.100";
+              };
+              shares = lib.mkOption {
+                type = lib.types.listOf lib.types.str;
+                default = [ ];
+                description = "List of NFS share names to map";
+                example = [
+                  "share1"
+                  "share2"
+                ];
+              };
+              mountBase = lib.mkOption {
+                type = lib.types.str;
+                default = "/mnt/nfs";
+                description = "Base directory for NFS mount points";
+                example = "/shared";
+              };
+              options = lib.mkOption {
+                type = lib.types.listOf lib.types.str;
+                default = [
+                  "nfsvers=4.2"
+                  "x-systemd.automount"
+                  "noauto"
+                  "x-systemd.idle-timeout=600"
+                ];
+                description = "NFS mount options (defaults include on-demand mounting)";
+                example = [
+                  "nfsvers=4.2"
+                  "x-systemd.automount"
+                ];
+              };
+            };
+          };
+          default = { };
+          description = "NFS client configuration";
+          example = {
+            enable = true;
+            server = "nfs.example.com";
+            shares = [
+              "data"
+              "media"
+            ];
+            mountBase = "/shared";
+            options = [
+              "nfsvers=4.2"
+              "x-systemd.automount"
+            ];
+          };
         };
 
         # Display Configurations
@@ -208,6 +255,12 @@
         {
           assertion = !isImpermanent || (isImpermanent && "${config.hostSpec.persistFolder}" != "");
           message = "config.system.impermanence.enable is true but no persistFolder path is provided";
+        }
+        {
+          assertion =
+            !config.hostSpec.nfsClient.enable
+            || (config.hostSpec.nfsClient.server != "" && config.hostSpec.nfsClient.shares != [ ]);
+          message = "NFS client is enabled but server is not set or shares list is empty";
         }
       ];
   };
