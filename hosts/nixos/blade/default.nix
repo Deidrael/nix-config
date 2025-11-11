@@ -35,8 +35,10 @@
     ];
     isWorkstation = true;
     isGaming = true;
-    displayManager = "gdm";
-    desktopGnome = true;
+    desktop = {
+      displayManager = "gdm";
+      gnome.enable = true;
+    };
   };
   hardware.nvidia.primeBatterySaverSpecialisation = true;
 

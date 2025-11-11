@@ -8,7 +8,7 @@
 
   # assertions = [
   #   {
-  #     assertion = config.hostSpec.desktopHyprland;
+  #     assertion = config.hostSpec.desktop.hyprland.enable;
   #     message = "make sure to enable hyprland on the host for required dependencies like xdg-desktop portal etc.";
   #   }
   # ];

@@ -35,8 +35,10 @@
     users = [ config.hostSpec.primaryUsername ];
     isWorkstation = true;
     isGaming = true;
-    displayManager = "sddm";
-    desktopHyprland = true;
+    desktop = {
+      displayManager = "sddm";
+      hyprland.enable = true;
+    };
     ollama = true;
     podman = true;
   };

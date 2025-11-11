@@ -36,8 +36,10 @@
     fsBtrfs = true;
     hasNvidia = false; # has Nvidia, but doesn't have iGPU so no Prime
     isWorkstation = true;
-    displayManager = "lightdm";
-    desktopCinnamon = true;
+    desktop = {
+      displayManager = "lightdm";
+      cinnamon.enable = true;
+    };
   };
 
   networking = {
