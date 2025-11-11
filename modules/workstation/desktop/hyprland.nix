@@ -1,3 +1,4 @@
+# Enables Hyprland window manager, related services, and system packages for desktop environments
 {
   inputs,
   config,

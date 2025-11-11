@@ -1,4 +1,4 @@
-# Standard btrfs settings
+# Configures Btrfs filesystem options, compression, and auto-scrub for hosts using Btrfs
 {
   config,
   lib,

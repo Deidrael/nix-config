@@ -1,3 +1,4 @@
+# Audio configuration for workstation hosts using PipeWire instead of PulseAudio
 {
   config,
   lib,

@@ -1,3 +1,4 @@
+# Configures OpenSSH server with security hardening, YubiKey support, and persistent host keys
 {
   lib,
   ...
