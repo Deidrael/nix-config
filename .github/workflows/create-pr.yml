@@ -23,13 +23,12 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
           base: main
-          head: dev
+          branch: dev
           title: 'Merge dev to main'
           body: 'Automated PR to merge dev branch changes into main.'
           labels: |
             automated
             merge-dev
-          draft: false
 
       - name: Enable Pull Request Automerge
         run: gh pr merge --rebase --auto ${{ steps.pr.outputs.pull-request-number }}
