@@ -1,4 +1,4 @@
-# Specifications For Differentiating Hosts - thanks to EmergentMind for module
+# Specifications For Differentiating Hosts - thanks to EmergentMind for this config options concept
 {
   config,
   lib,
@@ -14,14 +14,17 @@
         primaryUsername = lib.mkOption {
           type = lib.types.str;
           description = "The primary username of the host";
+          example = "john";
         };
         primaryUserFullName = lib.mkOption {
           type = lib.types.str;
-          description = "The full name of the user";
+          description = "The full name of the primary user";
+          example = "John Doe";
         };
         handle = lib.mkOption {
           type = lib.types.str;
-          description = "The handle of the user (eg: github user)";
+          description = "The handle of the user, such as a GitHub username";
+          example = "jdoe";
         };
         home = lib.mkOption {
           type = lib.types.str;
@@ -30,44 +33,57 @@
               user = config.hostSpec.primaryUsername;
             in
             "/home/${user}";
-          description = "The home directory of the user";
+          description = "The home directory of the primary user (defaults to /home/<primaryUsername>)";
+          example = "/home/john";
         };
         email = lib.mkOption {
           type = lib.types.attrsOf lib.types.str;
-          description = "The email of the user";
+          description = "The email addresses of the user, keyed by purpose";
+          example = {
+            personal = "user@example.com";
+            work = "user@company.com";
+          };
         };
         secondaryUsername = lib.mkOption {
           type = lib.types.str;
-          description = "The secondary username of the host";
+          description = "The secondary username of the host, if applicable";
+          example = "jane";
         };
         secondaryUserFullName = lib.mkOption {
           type = lib.types.str;
-          description = "The full name of the user";
+          description = "The full name of the secondary user, if applicable";
+          example = "Jane Doe";
         };
         ## System information
         hostName = lib.mkOption {
           type = lib.types.str;
           description = "The hostname of the host";
+          example = "pc1";
         };
         domain = lib.mkOption {
           type = lib.types.str;
           default = "localdomain";
           description = "The domain of the host";
+          example = "example.com";
         };
         fsBtrfs = lib.mkOption {
           type = lib.types.bool;
           default = false;
-          description = "Indicate btrfs is used";
+          description = "Whether the host uses Btrfs filesystem (set to true for Btrfs-based setups)";
         };
         hasNvidia = lib.mkOption {
           type = lib.types.bool;
           default = false;
-          description = "Indicate host has Nvidia graphics";
+          description = "Whether the host has Nvidia graphics hardware (enables Nvidia-specific configurations)";
         };
         users = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           default = [ config.hostSpec.primaryUsername ];
-          description = "An attribute set of all users on the host";
+          description = "List of all usernames on the host (defaults to primary username)";
+          example = [
+            "john"
+            "jane"
+          ];
         };
 
         # Configuration Roles
@@ -80,29 +96,34 @@
                   "workstation"
                 ];
                 default = "server";
-                description = "The primary role of the host";
+                description = "The primary role of the host ('server' for headless/server setups, 'workstation' for desktop/laptop)";
+                example = "workstation";
               };
               gaming = lib.mkOption {
                 type = lib.types.bool;
                 default = false;
-                description = "Enable gaming features";
+                description = "Whether to enable gaming features (e.g., Steam, game optimizations)";
               };
             };
           };
           default = { };
-          description = "Host role configuration";
+          description = "Host role configuration, defining its primary function and features";
+          example = {
+            type = "workstation";
+            gaming = true;
+          };
         };
 
         # Server Software
         podman = lib.mkOption {
           type = lib.types.bool;
           default = false;
-          description = "Installs podman";
+          description = "Whether to install and configure Podman for container management";
         };
         ollama = lib.mkOption {
           type = lib.types.bool;
           default = false;
-          description = "Installs ollama";
+          description = "Whether to install and configure Ollama for AI model serving";
         };
         mapNFSshares = lib.mkOption {
           type = lib.types.bool;
@@ -131,40 +152,46 @@
                   "lightdm"
                 ];
                 default = "sddm";
-                description = "The display manager to use";
+                description = "The display manager to use for graphical login";
+                example = "lightdm";
               };
               hyprland = {
                 enable = lib.mkOption {
                   type = lib.types.bool;
                   default = false;
-                  description = "Enable Hyprland desktop environment";
+                  description = "Whether to enable Hyprland as a desktop environment";
                 };
               };
               gnome = {
                 enable = lib.mkOption {
                   type = lib.types.bool;
                   default = false;
-                  description = "Enable GNOME desktop environment";
+                  description = "Whether to enable GNOME as a desktop environment";
                 };
               };
               cinnamon = {
                 enable = lib.mkOption {
                   type = lib.types.bool;
                   default = false;
-                  description = "Enable Cinnamon desktop environment";
+                  description = "Whether to enable Cinnamon as a desktop environment";
                 };
               };
             };
           };
           default = { };
-          description = "Desktop and display configurations";
+          description = "Desktop and display configurations for graphical environments";
+          example = {
+            displayManager = "gdm";
+            gnome.enable = true;
+          };
         };
 
         # Unused at this time
         persistFolder = lib.mkOption {
           type = lib.types.str;
           default = "";
-          description = "The folder to persist data if impermenance is enabled";
+          description = "The folder to persist data if impermanence is enabled (leave empty if not using impermanence)";
+          example = "/persist";
         };
       };
     };
