@@ -1,6 +1,5 @@
 {
   inputs,
-  config,
   lib,
   pkgs,
   ...
@@ -32,7 +31,6 @@
     hostName = "kratos";
     fsBtrfs = true;
     hasNvidia = true;
-    users = [ config.hostSpec.primaryUsername ];
     role = {
       type = "workstation";
       gaming = true;

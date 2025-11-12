@@ -29,10 +29,7 @@
   # ========== Host Specification ==========
   hostSpec = {
     hostName = "inix";
-    users = [
-      config.hostSpec.primaryUsername
-      config.hostSpec.secondaryUsername
-    ];
+    users.secondary.enable = true;
     fsBtrfs = true;
     hasNvidia = false; # has Nvidia, but doesn't have iGPU so no Prime
     role = {

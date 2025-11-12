@@ -10,8 +10,8 @@
 
     settings = {
       user = {
-        name = config.hostSpec.handle;
-        email = config.hostSpec.email.gitHub;
+        name = config.hostSpec.users.primary.handle;
+        email = config.hostSpec.users.primary.email.gitHub;
       };
       core.pager = "delta";
       delta = {

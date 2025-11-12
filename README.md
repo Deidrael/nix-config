@@ -39,17 +39,19 @@ https://noogle.dev/f/lib/modules/mkAliasOptionModule#aliases
 git push origin main:refs/heads/dev
 
 ## hostSpec Options
-### User Options
+### User Options: hostSpec.users.* (submodule)
 | Variable | Default | Description |
 | -------- | ------- | ----------- |
-| primaryUsername | | The primary username of the host |
-| primaryUserFullName | | The full name of the primary user |
-| handle | | The handle of the user (eg: github user) |
-| home | /home/\${user} | The home directory of the user |
-| email | | The email of the user |
-| secondaryUsername | | The secondary username of the host |
-| secondaryUserFullName | | The full name of the secondary user |
-| users | [ config.hostSpec.primaryUsername ] | An attribute set of all users on the host |
+| primary.username | | The primary username of the host |
+| primary.fullName | | The full name of the primary user |
+| primary.handle | | The handle of the user (eg: github user) |
+| primary.home | /home/${primary.username} | The home directory of the primary user |
+| primary.email | | The email addresses of the primary user |
+| secondary.enable | false | Whether to enable the secondary user |
+| secondary.username | | The secondary username of the host |
+| secondary.fullName | | The full name of the secondary user |
+| secondary.home | /home/${secondary.username} | The home directory of the secondary user |
+| users | [primary.username] ++ optional secondary | List of all usernames on the host |
 ### System Options
 | Variable | Default | Description |
 | -------- | ------- | ----------- |

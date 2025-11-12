@@ -11,48 +11,85 @@
       options = {
         # Data variables that don't dictate configuration settings
         ## User information
-        primaryUsername = lib.mkOption {
-          type = lib.types.str;
-          description = "The primary username of the host";
-          example = "john";
-        };
-        primaryUserFullName = lib.mkOption {
-          type = lib.types.str;
-          description = "The full name of the primary user";
-          example = "John Doe";
-        };
-        handle = lib.mkOption {
-          type = lib.types.str;
-          description = "The handle of the user, such as a GitHub username";
-          example = "jdoe";
-        };
-        home = lib.mkOption {
-          type = lib.types.str;
-          default =
-            let
-              user = config.hostSpec.primaryUsername;
-            in
-            "/home/${user}";
-          description = "The home directory of the primary user (defaults to /home/<primaryUsername>)";
-          example = "/home/john";
-        };
-        email = lib.mkOption {
-          type = lib.types.attrsOf lib.types.str;
-          description = "The email addresses of the user, keyed by purpose";
-          example = {
-            personal = "user@example.com";
-            work = "user@company.com";
+        users = lib.mkOption {
+          type = lib.types.submodule {
+            options = {
+              primary = lib.mkOption {
+                type = lib.types.submodule {
+                  options = {
+                    username = lib.mkOption {
+                      type = lib.types.str;
+                      description = "The primary username of the host";
+                      example = "john";
+                    };
+                    fullName = lib.mkOption {
+                      type = lib.types.str;
+                      description = "The full name of the primary user";
+                      example = "John Doe";
+                    };
+                    handle = lib.mkOption {
+                      type = lib.types.str;
+                      description = "The handle of the user, such as a GitHub username";
+                      example = "jdoe";
+                    };
+                    home = lib.mkOption {
+                      type = lib.types.str;
+                      default = "/home/${config.hostSpec.users.primary.username}";
+                      description = "The home directory of the primary user";
+                      example = "/home/john";
+                    };
+                    email = lib.mkOption {
+                      type = lib.types.attrsOf lib.types.str;
+                      description = "The email addresses of the user, keyed by purpose";
+                      example = {
+                        personal = "user@example.com";
+                        work = "user@company.com";
+                      };
+                    };
+                  };
+                };
+              };
+              secondary = lib.mkOption {
+                type = lib.types.submodule {
+                  options = {
+                    enable = lib.mkOption {
+                      type = lib.types.bool;
+                      default = false;
+                      description = "Whether to enable the secondary user";
+                    };
+                    username = lib.mkOption {
+                      type = lib.types.str;
+                      description = "The secondary username of the host";
+                      example = "jane";
+                    };
+                    fullName = lib.mkOption {
+                      type = lib.types.str;
+                      description = "The full name of the secondary user";
+                      example = "Jane Doe";
+                    };
+                    home = lib.mkOption {
+                      type = lib.types.str;
+                      default = "/home/${config.hostSpec.users.secondary.username}";
+                      description = "The home directory of the secondary user";
+                      example = "/home/jane";
+                    };
+                  };
+                };
+              };
+              users = lib.mkOption {
+                type = lib.types.listOf lib.types.str;
+                default = [
+                  config.hostSpec.users.primary.username
+                ]
+                ++ lib.optional config.hostSpec.users.secondary.enable config.hostSpec.users.secondary.username;
+                description = "List of all usernames on the host (defaults to primary username, includes secondary if enabled)";
+                example = [
+                  "john"
+                  "jane"
+                ];
+              };
+            };
           };
-        };
-        secondaryUsername = lib.mkOption {
-          type = lib.types.str;
-          description = "The secondary username of the host, if applicable";
-          example = "jane";
-        };
-        secondaryUserFullName = lib.mkOption {
-          type = lib.types.str;
-          description = "The full name of the secondary user, if applicable";
-          example = "Jane Doe";
         };
         ## System information
         hostName = lib.mkOption {
@@ -75,15 +112,6 @@
           type = lib.types.bool;
           default = false;
           description = "Whether the host has Nvidia graphics hardware (enables Nvidia-specific configurations)";
-        };
-        users = lib.mkOption {
-          type = lib.types.listOf lib.types.str;
-          default = [ config.hostSpec.primaryUsername ];
-          description = "List of all usernames on the host (defaults to primary username)";
-          example = [
-            "john"
-            "jane"
-          ];
         };
 
         # Configuration Roles
@@ -261,6 +289,11 @@
             !config.hostSpec.nfsClient.enable
             || (config.hostSpec.nfsClient.server != "" && config.hostSpec.nfsClient.shares != [ ]);
           message = "NFS client is enabled but server is not set or shares list is empty";
+        }
+        {
+          assertion =
+            !config.hostSpec.users.secondary.enable || config.hostSpec.users.secondary.username != "";
+          message = "Secondary user is enabled but username is not set";
         }
       ];
   };
