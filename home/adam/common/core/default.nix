@@ -19,8 +19,8 @@
   services.ssh-agent.enable = true;
 
   home = {
-    username = lib.mkDefault config.hostSpec.primaryUsername;
-    homeDirectory = lib.mkDefault config.hostSpec.home;
+    username = lib.mkDefault config.hostSpec.users.primary.username;
+    homeDirectory = lib.mkDefault config.hostSpec.users.primary.home;
     stateVersion = lib.mkDefault "24.05";
     sessionVariables = {
       FLAKE = "$HOME/nix-config";

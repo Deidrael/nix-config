@@ -1,6 +1,5 @@
 {
   inputs,
-  config,
   lib,
   ...
 }:
@@ -18,10 +17,7 @@
   # ========== Host Specification ==========
   hostSpec = {
     hostName = "nixbook";
-    users = [
-      config.hostSpec.primaryUsername
-      config.hostSpec.secondaryUsername
-    ];
+    users.secondary.enable = true;
     role = {
       type = "workstation";
     };

@@ -36,17 +36,17 @@ in
       # from an ssh key).
 
       "keys/age" = {
-        owner = config.users.users.${config.hostSpec.primaryUsername}.name;
-        inherit (config.users.users.${config.hostSpec.primaryUsername}) group;
+        owner = config.users.users.${config.hostSpec.users.primary.username}.name;
+        inherit (config.users.users.${config.hostSpec.users.primary.username}) group;
         # We need to ensure the entire directory structure is that of the user...
-        path = "${config.hostSpec.home}/.config/sops/age/keys.txt";
+        path = "${config.hostSpec.users.primary.home}/.config/sops/age/keys.txt";
       };
       # extract password/username to /run/secrets-for-users/ so it can be used to create the user
-      "passwords/${config.hostSpec.primaryUsername}" = {
+      "passwords/${config.hostSpec.users.primary.username}" = {
         sopsFile = "${sopsFolder}/secrets.yaml";
         neededForUsers = true;
       };
-      "passwords/${config.hostSpec.secondaryUsername}" = {
+      "passwords/${config.hostSpec.users.secondary.username}" = {
         sopsFile = "${sopsFolder}/secrets.yaml";
         neededForUsers = true;
       };
@@ -57,12 +57,12 @@ in
   # FIXME(sops): We might not need this depending on how https://github.com/Mic92/sops-nix/issues/381 is fixed
   system.activationScripts.sopsSetAgeKeyOwnership =
     let
-      ageFolder = "${config.hostSpec.home}/.config/sops/age";
-      user = config.users.users.${config.hostSpec.primaryUsername}.name;
-      usergroup = config.users.users.${config.hostSpec.primaryUsername}.group;
+      ageFolder = "${config.hostSpec.users.primary.home}/.config/sops/age";
+      user = config.users.users.${config.hostSpec.users.primary.username}.name;
+      usergroup = config.users.users.${config.hostSpec.users.primary.username}.group;
     in
     ''
       mkdir -p ${ageFolder} || true
-      chown -R ${user}:${usergroup} ${config.hostSpec.home}/.config
+      chown -R ${user}:${usergroup} ${config.hostSpec.users.primary.home}/.config
     '';
 }

@@ -1,6 +1,5 @@
 {
   inputs,
-  config,
   lib,
   pkgs,
   ...
@@ -29,10 +28,7 @@
     hostName = "blade";
     fsBtrfs = true;
     hasNvidia = true;
-    users = [
-      config.hostSpec.primaryUsername
-      config.hostSpec.secondaryUsername
-    ];
+    users.secondary.enable = true;
     role = {
       type = "workstation";
       gaming = true;

@@ -41,16 +41,16 @@ in
                   inherit config lib;
                 }
               );
-          }) config.hostSpec.users
+          }) config.hostSpec.users.users
         )
       )
       // {
         root = {
-          inherit (config.users.users.${config.hostSpec.primaryUsername}) hashedPasswordFile;
-          inherit (config.users.users.${config.hostSpec.primaryUsername}) hashedPassword;
+          inherit (config.users.users.${config.hostSpec.users.primary.username}) hashedPasswordFile;
+          inherit (config.users.users.${config.hostSpec.users.primary.username}) hashedPassword;
           # root's ssh key are mainly used for remote deployment
           openssh.authorizedKeys.keys =
-            config.users.users.${config.hostSpec.primaryUsername}.openssh.authorizedKeys.keys;
+            config.users.users.${config.hostSpec.users.primary.username}.openssh.authorizedKeys.keys;
         };
       };
   };
@@ -86,7 +86,7 @@ in
                 };
               })
             ];
-          }) config.hostSpec.users
+          }) config.hostSpec.users.users
         ))
         // {
           root = {

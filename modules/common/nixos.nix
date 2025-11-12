@@ -23,7 +23,7 @@
     enable = true;
     #clean.enable = true;
     #clean.extraArgs = "--keep-since 20d --keep 20";
-    flake = "${config.hostSpec.home}/nix-config";
+    flake = "${config.hostSpec.users.primary.home}/nix-config";
   };
 
   #

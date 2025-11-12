@@ -16,16 +16,7 @@
 
   # ========== Core Host Specifications ==========
   hostSpec = {
-    inherit (inputs.nix-secrets)
-      primaryUsername
-      primaryUserFullName
-      handle
-      domain
-      email
-      secondaryUsername
-      secondaryUserFullName
-      nfsClient
-      ;
+    inherit (inputs.nix-secrets) users domain nfsClient;
   };
 
   networking.hostName = config.hostSpec.hostName;

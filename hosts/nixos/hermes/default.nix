@@ -1,6 +1,5 @@
 {
   inputs,
-  config,
   lib,
   ...
 }:
@@ -18,7 +17,6 @@
   # ========== Host Specification ==========
   hostSpec = {
     hostName = "hermes";
-    users = [ config.hostSpec.primaryUsername ];
     role = {
       type = "server";
     };

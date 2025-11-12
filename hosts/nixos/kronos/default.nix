@@ -1,6 +1,5 @@
 {
   inputs,
-  config,
   lib,
   ...
 }:
@@ -18,7 +17,6 @@
   hostSpec = {
     hostName = "kronos";
     fsBtrfs = true;
-    users = [ config.hostSpec.primaryUsername ];
     role = {
       type = "server";
     };
