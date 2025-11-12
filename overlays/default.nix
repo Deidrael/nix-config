@@ -5,7 +5,7 @@
 let
   stable-packages = final: prev: {
     stable = import inputs.nixpkgs-stable {
-      inherit (final) system;
+      system = final.stdenv.hostPlatform.system;
       config.allowUnfree = true;
       config.nvidia.acceptLicense = true;
       #      overlays = [
@@ -15,7 +15,7 @@ let
 
   unstable-packages = final: prev: {
     unstable = import inputs.nixpkgs-unstable {
-      inherit (final) system;
+      system = final.stdenv.hostPlatform.system;
       config.allowUnfree = true;
       config.nvidia.acceptLicense = true;
       #      overlays = [
@@ -25,7 +25,7 @@ let
 
   master-packages = final: prev: {
     master = import inputs.nixpkgs-master {
-      inherit (final) system;
+      system = final.stdenv.hostPlatform.system;
       config.allowUnfree = true;
       config.nvidia.acceptLicense = true;
       #      overlays = [
