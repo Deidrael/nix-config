@@ -20,6 +20,7 @@
       exec-once = [
         "hyprpaper"
         "hypridle"
+        "waybar"
         "$browser"
         "dunst"
       ];
