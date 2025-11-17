@@ -15,8 +15,8 @@
         portalPackage =
           inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       };
-      hyprlock.enable = true; # lock screen
-      waybar.enable = true; # status bar
+      # hyprlock.enable = true; # lock screen
+      # waybar.enable = true; # status bar
     };
 
     services = {
