@@ -1,5 +1,10 @@
 # Hyprpaper Configuration
-_: {
+{
+  hostSpec,
+  lib,
+  ...
+}:
+lib.mkIf (hostSpec.desktop.hyprland.enable) {
   services.hyprpaper = {
     enable = true;
     settings = {

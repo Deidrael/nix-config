@@ -1,4 +1,9 @@
-_: {
+{
+  hostSpec,
+  lib,
+  ...
+}:
+lib.mkIf (hostSpec.desktop.hyprland.enable) {
   programs.waybar = {
     enable = true;
     settings = [

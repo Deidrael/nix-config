@@ -1,4 +1,9 @@
-_: {
+{
+  hostSpec,
+  lib,
+  ...
+}:
+lib.mkIf (hostSpec.desktop.hyprland.enable) {
   wayland.windowManager.hyprland.settings = {
     ### LOOK AND FEEL ###
     general = {

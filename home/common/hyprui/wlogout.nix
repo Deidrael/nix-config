@@ -1,4 +1,9 @@
-_: {
+{
+  hostSpec,
+  lib,
+  ...
+}:
+lib.mkIf (hostSpec.desktop.hyprland.enable) {
   programs.wlogout = {
     enable = true;
     layout = [

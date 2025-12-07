@@ -1,5 +1,10 @@
 # Hyprlock Configuration (declarative)
-_: {
+{
+  hostSpec,
+  lib,
+  ...
+}:
+lib.mkIf (hostSpec.desktop.hyprland.enable) {
   programs.hyprlock = {
     enable = true;
     settings = {

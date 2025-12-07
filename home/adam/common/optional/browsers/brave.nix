@@ -1,5 +1,10 @@
-{ pkgs, ... }:
 {
+  hostSpec,
+  lib,
+  pkgs,
+  ...
+}:
+lib.mkIf (hostSpec.role.type == "workstation") {
   programs.brave = {
     enable = true;
     package = pkgs.unstable.brave;

@@ -1,4 +1,9 @@
-_: {
+{
+  hostSpec,
+  lib,
+  ...
+}:
+lib.mkIf (hostSpec.desktop.hyprland.enable) {
   wayland.windowManager.hyprland.settings = {
     "$mainMod" = "SUPER"; # Sets "Windows" key as main modifier
     # Example binds, see https://wiki.hypr.land/Configuring/Binds/ for more
