@@ -1,5 +1,10 @@
 # hypridle configuration
-_: {
+{
+  hostSpec,
+  lib,
+  ...
+}:
+lib.mkIf (hostSpec.desktop.hyprland.enable) {
   services.hypridle = {
     enable = true;
     settings = {

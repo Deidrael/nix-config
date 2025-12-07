@@ -1,8 +1,10 @@
 {
+  hostSpec,
+  lib,
   config,
   ...
 }:
-{
+lib.mkIf (hostSpec.role.type == "workstation") {
   programs.firefox = {
     enable = true;
 

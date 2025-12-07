@@ -1,8 +1,9 @@
 {
+  hostSpec,
   lib,
   ...
 }:
-{
+lib.mkIf (hostSpec.desktop.hyprland.enable) {
   wayland.windowManager.hyprland.settings = {
     ### INPUT ###
     input = {
