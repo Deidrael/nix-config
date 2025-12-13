@@ -55,7 +55,7 @@ jobs:
         extraPullNames: nix-community
 
     - name: Build
-      run: nix build -L .#nixosConfigurations.${{matrix.host}}.config.system.build.toplevel
+      run: nix build -j 1 -L .#nixosConfigurations.${{matrix.host}}.config.system.build.toplevel
 
     - name: Deploy
       run: |
