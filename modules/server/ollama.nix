@@ -12,7 +12,6 @@
         loadModels = [
           "llama3.2:latest"
         ];
-        acceleration = "cuda";
       };
 
       open-webui = {

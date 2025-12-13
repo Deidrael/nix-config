@@ -25,6 +25,8 @@
     };
   };
   services.xserver.videoDrivers = [ "nvidia" ];
+  nixpkgs.config.nvidia.acceptLicense = true;
+  nixpkgs.config.cudaSupport = true;
 
   # ========== Host Specification ==========
   hostSpec = {

@@ -13,7 +13,10 @@
     ];
     config = {
       allowUnfree = true;
+    }
+    // lib.optionalAttrs config.hostSpec.hasNvidia {
       nvidia.acceptLicense = true;
+      cudaSupport = true;
     };
   };
   nix = {
