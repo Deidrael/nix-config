@@ -69,5 +69,6 @@ in
         };
       };
     };
+    environment.systemPackages = [ pkgs.lutris ];
   };
 }
