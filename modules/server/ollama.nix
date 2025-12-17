@@ -8,11 +8,11 @@
     services = {
       ollama = {
         enable = true;
+        package = "pkgs.ollama-cuda";
         host = "0.0.0.0";
         loadModels = [
           "llama3.2:latest"
         ];
-        acceleration = "cuda";
       };
 
       open-webui = {
