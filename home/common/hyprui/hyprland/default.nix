@@ -24,6 +24,7 @@
           "waybar"
           "$browser"
           "dunst"
+          "systemctl --user start hyprpolkitagent"
         ];
 
         # fallback rule matching any monitor
