@@ -17,8 +17,12 @@ lib.mkIf (hostSpec.desktop.hyprland.enable) {
       listener = [
         {
           timeout = 270;
-          on-timeout = "brightnessctl -s set 1";
-          on-resume = "brightnessctl -r";
+          on-timeout =
+            lib.mkIf (hostSpec.hostName == "kratos") "brightnessctl -d 'acpi_video0' -s set 5%"
+            // lib.mkIf (hostSpec.hostName != "kratos") "brightnessctl -s set 5%";
+          on-resume =
+            lib.mkIf (hostSpec.hostName == "kratos") "brightnessctl -d 'acpi_video0' -r"
+            // lib.mkIf (hostSpec.hostName != "kratos") "brightnessctl -r";
         }
 
         {
