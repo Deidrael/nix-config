@@ -97,7 +97,7 @@
 
       # ========= Formatting =========
       # Nix formatter available through 'nix fmt' https://github.com/NixOS/nixfmt
-      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt);
       # Pre-commit checks
       checks = forAllSystems (
         system:
