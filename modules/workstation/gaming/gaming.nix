@@ -20,13 +20,6 @@ in
           extraPkgs =
             pkgs:
             (builtins.attrValues {
-              inherit (pkgs.xorg)
-                libXcursor
-                libXi
-                libXinerama
-                libXScrnSaver
-                ;
-
               inherit (pkgs.stdenv.cc.cc)
                 lib
                 ;
@@ -38,6 +31,10 @@ in
                 libkrb5
                 keyutils
                 gperftools
+                libxcursor
+                libxi
+                libxinerama
+                libxscrnsaver
                 ;
             });
         };
