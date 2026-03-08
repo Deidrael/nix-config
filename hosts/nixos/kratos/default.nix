@@ -23,7 +23,11 @@
     package = pkgs.waydroid-nftables;
   };
   environment.systemPackages = with pkgs; [
+    blender
+    freecad
+    inkscape
     opencode
+    prusa-slicer
     space-cadet-pinball
     waydroid-helper
     zed-editor
