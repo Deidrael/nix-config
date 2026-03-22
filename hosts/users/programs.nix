@@ -24,7 +24,7 @@
     htop
     jq # json pretty print
     ncdu # TUI disk usage
-    neofetch # system info
+    fastfetch # system info
     p7zip # compression & encryption
     pre-commit # git hooks
     ripgrep # better grep
