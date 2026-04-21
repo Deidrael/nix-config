@@ -37,6 +37,8 @@
       };
     };
 
+    signing.format = null;
+
     lfs.enable = true;
 
     ignores = [
