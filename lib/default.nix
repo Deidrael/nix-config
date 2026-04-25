@@ -18,24 +18,4 @@
         ) (builtins.readDir path)
       )
     );
-
-  # list all *.nix recursively (default.nix not required)
-  recursivelyImport =
-    list:
-    let
-      inherit (lib) concatMap hasSuffix;
-      inherit (builtins) isPath filter readFileType;
-
-      expandIfFolder =
-        elem:
-        if !isPath elem || readFileType elem != "directory" then
-          [ elem ]
-        else
-          lib.filesystem.listFilesRecursive elem;
-    in
-    filter
-      # Filter out any path that doesn't look like `*.nix`
-      (elem: !isPath elem || hasSuffix ".nix" (toString elem))
-      # Expand any folder to all the files within it
-      (concatMap expandIfFolder list);
 }
