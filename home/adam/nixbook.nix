@@ -8,7 +8,7 @@
     #
     # ========== Required Configs ==========
     #
-    common/core
+    (inputs.import-tree ./common/core)
 
     #
     # ========== Host-specific Optional Configs ==========

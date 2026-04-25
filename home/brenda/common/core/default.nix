@@ -5,12 +5,6 @@
   ...
 }:
 {
-  imports = lib.flatten [
-    (lib.custom.scanPaths ./.)
-    (map lib.custom.relativeToRoot [
-      #"modules/home"
-    ])
-  ];
 
   home = {
     username = lib.mkDefault "brenda";
