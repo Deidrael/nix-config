@@ -7,7 +7,7 @@
 {
   imports = [
     #################### Required Configs ####################
-    common/core # required
+    (inputs.import-tree ./common/core)
 
     #################### Host-specific Optional Configs ####################
     (inputs.import-tree (lib.custom.relativeToRoot "home/common/hyprui"))
