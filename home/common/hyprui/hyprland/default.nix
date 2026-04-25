@@ -4,7 +4,6 @@
   ...
 }:
 {
-  imports = lib.custom.scanPaths ./.;
 
   config = lib.mkIf (hostSpec.desktop.hyprland.enable) {
     # assertions = [
