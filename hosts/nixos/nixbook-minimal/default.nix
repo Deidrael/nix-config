@@ -20,11 +20,6 @@
   };
 
   # Basic networking
-  networking = {
-    networkmanager.enable = true;
-    enableIPv6 = false;
-  };
-  systemd.services.NetworkManager-wait-online.enable = false;
   services.xserver.xkb.model = "chromebook";
 
   # Boot config
