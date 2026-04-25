@@ -9,8 +9,6 @@
     ./hardware-configuration.nix
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
-
-    (lib.custom.relativeToRoot "modules/default.nix")
   ];
 
   # ========== Host Specification ==========

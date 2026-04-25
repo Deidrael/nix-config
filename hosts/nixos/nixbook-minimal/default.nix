@@ -9,14 +9,11 @@
     ../nixbook/hardware-configuration.nix
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-pc-ssd
-
-    # Core common modules - avoids workstation/desktop modules
-    (lib.custom.relativeToRoot "modules/default.nix")
   ];
 
   # Minimal host spec
   hostSpec = {
-    hostName = "nixbook-minimal";
+    hostName = "nixbook";
   };
 
   # Basic networking

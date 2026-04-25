@@ -9,8 +9,6 @@
     # ========== Hardware ==========
     ./hardware-configuration.nix
     inputs.hardware.nixosModules.apple-imac-14-2
-
-    (lib.custom.relativeToRoot "modules/default.nix")
   ];
 
   hardware = {

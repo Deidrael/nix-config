@@ -14,9 +14,6 @@ let
     .${config.hostSpec.desktop.displayManager} or "";
 in
 {
-
-  imports = lib.custom.scanPaths ./.;
-
   config = lib.mkIf isWorkstation {
     hardware.graphics.enable = true;
 

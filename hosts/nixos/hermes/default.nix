@@ -10,8 +10,6 @@
     ./drives.nix
     ./network.nix
     inputs.hardware.nixosModules.raspberry-pi-4
-
-    (lib.custom.relativeToRoot "modules/default.nix")
   ];
 
   # ========== Host Specification ==========

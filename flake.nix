@@ -48,6 +48,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # recursively import
+    import-tree.url = "github:vic/import-tree";
+
     # ========= Personal Repositories =========
     # Private secrets repo. Authenticate via ssh and use shallow clone.
     nix-secrets = {
@@ -90,7 +93,10 @@
             specialArgs = {
               inherit inputs outputs lib;
             };
-            modules = [ ./hosts/nixos/${host} ];
+            modules = [
+              ./hosts/nixos/${host}
+              (inputs.import-tree ./modules)
+            ];
           };
         }) (builtins.attrNames (builtins.readDir ./hosts/nixos))
       );
