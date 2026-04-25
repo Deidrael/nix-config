@@ -24,16 +24,8 @@
     podman = true;
   };
 
-  networking = {
-    networkmanager.enable = true;
-    enableIPv6 = false;
-  };
-
   # Enable GPU acceleration
   hardware.raspberry-pi."4".fkms-3d.enable = true;
-
-  # Workaround https://github.com/NixOS/nixpkgs/issues/180175
-  systemd.services.NetworkManager-wait-online.enable = false;
 
   boot = {
     loader = {

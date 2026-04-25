@@ -24,13 +24,6 @@
     podman = true;
   };
 
-  networking = {
-    networkmanager.enable = true;
-    enableIPv6 = false;
-  };
-  # Workaround https://github.com/NixOS/nixpkgs/issues/180175
-  systemd.services.NetworkManager-wait-online.enable = false;
-
   boot = {
     loader = {
       systemd-boot = {

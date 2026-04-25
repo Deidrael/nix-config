@@ -20,6 +20,13 @@
   };
 
   networking.hostName = config.hostSpec.hostName;
+  networking = {
+    networkmanager.enable = true;
+    enableIPv6 = false;
+  };
+
+  # Workaround https://github.com/NixOS/nixpkgs/issues/180175
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   # Force home-manager to use global packages
   home-manager.useGlobalPkgs = true;
