@@ -1,4 +1,8 @@
-{ lib, ... }:
+{
+  inputs,
+  lib,
+  ...
+}:
 {
   imports = [
     #
@@ -13,7 +17,7 @@
     common/optional/media
     common/optional/social
     common/optional/tools
-    (lib.custom.relativeToRoot "home/common/hyprui")
+    (inputs.import-tree (lib.custom.relativeToRoot "home/common/hyprui"))
   ];
 
   wayland.windowManager.hyprland.settings = {

@@ -1,11 +1,16 @@
-{ lib, pkgs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     #################### Required Configs ####################
     common/core # required
 
     #################### Host-specific Optional Configs ####################
-    (lib.custom.relativeToRoot "home/common/hyprui")
+    (inputs.import-tree (lib.custom.relativeToRoot "home/common/hyprui"))
   ];
 
   home.packages = builtins.attrValues {
