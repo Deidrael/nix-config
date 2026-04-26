@@ -26,7 +26,6 @@
     inkscape
     opencode
     prusa-slicer
-    space-cadet-pinball
     waydroid-helper
     zed-editor
   ];
