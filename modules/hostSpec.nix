@@ -148,10 +148,10 @@
           default = false;
           description = "Whether to install and configure Podman for container management";
         };
-        ollama = lib.mkOption {
+        aiTools = lib.mkOption {
           type = lib.types.bool;
           default = false;
-          description = "Whether to install and configure Ollama for AI model serving";
+          description = "Whether to install and configure AI dev tools";
         };
 
         nfsClient = lib.mkOption {

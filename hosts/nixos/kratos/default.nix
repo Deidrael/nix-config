@@ -24,10 +24,8 @@
     blender
     freecad
     inkscape
-    opencode
     prusa-slicer
     waydroid-helper
-    zed-editor
   ];
 
   # ========== Host Specification ==========
@@ -43,7 +41,7 @@
       displayManager = "sddm";
       hyprland.enable = true;
     };
-    ollama = true;
+    aiTools = true;
     podman = true;
   };
   hardware.nvidia.primeBatterySaverSpecialisation = true;

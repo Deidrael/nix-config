@@ -5,17 +5,13 @@
 }:
 {
   imports = [
-    #
     # ========== Required Configs ==========
-    #
     (inputs.import-tree ./common/core)
+    (inputs.import-tree (lib.custom.relativeToRoot "home/common"))
 
-    #
     # ========== Host-specific Optional Configs ==========
-    #
     common/optional/browsers/firefox.nix
     common/optional/tools/default.nix
-    (inputs.import-tree (lib.custom.relativeToRoot "home/common/hyprui"))
   ];
 
   wayland.windowManager.hyprland.settings = {

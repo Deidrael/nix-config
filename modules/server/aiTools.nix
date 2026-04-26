@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config = lib.mkIf config.hostSpec.ollama {
+  config = lib.mkIf config.hostSpec.aiTools {
     services = {
       ollama = {
         enable = true;
