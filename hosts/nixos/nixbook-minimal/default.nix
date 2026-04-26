@@ -28,8 +28,5 @@
     initrd.systemd.enable = true;
   };
 
-  # Enable SSH for remote access
-  services.openssh.enable = true;
-
   system.stateVersion = "24.05";
 }

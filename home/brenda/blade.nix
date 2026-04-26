@@ -1,18 +1,14 @@
 {
   inputs,
-  pkgs,
+  lib,
   ...
 }:
 {
   imports = [
     #################### Required Configs ####################
     (inputs.import-tree ./common/core)
+    (inputs.import-tree (lib.custom.relativeToRoot "home/common"))
 
     #################### Host-specific Optional Configs ####################
   ];
-
-  home.packages = builtins.attrValues {
-    inherit (pkgs)
-      ;
-  };
 }
