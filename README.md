@@ -36,8 +36,8 @@ https://noogle.dev/f/lib/modules/mkAliasOptionModule#aliases
 
 # Personal Reminders
 ## Push current to dev branch (creates if needed):
-git push origin HEAD:refs/heads/dev
-Note: You can also use HEAD~2 to skip the last 2 local commits.
+git push origin HEAD:refs/heads/dev \
+<small>*Note: You can also use HEAD~2 to skip the last 2 local commits.*</small>
 
 ## hostSpec Options
 ### User Options: hostSpec.users.* (submodule)
