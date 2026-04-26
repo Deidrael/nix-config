@@ -17,11 +17,6 @@
   ];
 
   wayland.windowManager.hyprland.settings = {
-    "$terminal" = "kitty";
-    "$fileManager" = "dolphin";
-    "$menu" = "wofi --show drun -H 600 -W 800";
-    "$browser" = "firefox";
-
     monitor = [
       "eDP-1,preferred,0x0,1"
       "desc:Acer Technologies XZ342CK TKNAA0013900,highrr,-3440x0,1"

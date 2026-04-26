@@ -13,11 +13,4 @@
     common/optional/browsers/firefox.nix
     common/optional/tools/default.nix
   ];
-
-  wayland.windowManager.hyprland.settings = {
-    "$terminal" = "kitty";
-    "$fileManager" = "dolphin";
-    "$menu" = "wofi --show drun -H 600 -W 800";
-    "$browser" = "firefox";
-  };
 }
