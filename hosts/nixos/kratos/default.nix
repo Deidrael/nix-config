@@ -21,10 +21,6 @@
     package = pkgs.waydroid-nftables;
   };
   environment.systemPackages = with pkgs; [
-    blender
-    freecad
-    inkscape
-    prusa-slicer
     waydroid-helper
   ];
 
@@ -42,6 +38,7 @@
       hyprland.enable = true;
     };
     aiTools = true;
+    threeDTools = true;
     podman = true;
   };
   hardware.nvidia.primeBatterySaverSpecialisation = true;
