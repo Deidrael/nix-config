@@ -153,6 +153,11 @@
           default = false;
           description = "Whether to install and configure AI dev tools";
         };
+        threeDTools = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Whether to install 3D design/printing tools";
+        };
 
         nfsClient = lib.mkOption {
           type = lib.types.submodule {
