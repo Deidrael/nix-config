@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -13,12 +12,6 @@
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-nvidia
     inputs.hardware.nixosModules.common-pc-ssd
-  ];
-
-  # ========== Computer Specific Packages ==========
-  environment.systemPackages = with pkgs; [
-    discord
-    stable.openrct2
   ];
 
   # ========== Host Specification ==========
