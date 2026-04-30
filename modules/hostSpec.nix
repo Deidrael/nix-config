@@ -241,6 +241,11 @@
                   default = false;
                   description = "Whether to enable Hyprland as a desktop environment";
                 };
+                brightnessDevice = lib.mkOption {
+                  type = lib.types.nullOr lib.types.str;
+                  default = null;
+                  description = "Brightness device for hypridle";
+                };
               };
               gnome = {
                 enable = lib.mkOption {
