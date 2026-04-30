@@ -35,11 +35,22 @@
     };
     desktop = {
       displayManager = "sddm";
-      hyprland.enable = true;
+      hyprland = {
+        enable = true;
+        brightnessDevice = "acpi_video0";
+      };
     };
     aiTools = true;
     threeDTools = true;
     podman = true;
+    virtualMachines = true;
+    desktopApps = {
+      brave = true;
+      firefox = true;
+      social = true;
+      media = true;
+      tools = true;
+    };
   };
   hardware.nvidia.primeBatterySaverSpecialisation = true;
 
