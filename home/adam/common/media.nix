@@ -4,11 +4,11 @@
   pkgs,
   ...
 }:
-lib.mkIf (hostSpec.role.type == "workstation") {
+lib.mkIf hostSpec.desktopApps.media {
   home.packages = builtins.attrValues {
     inherit (pkgs)
-      remmina # rdp
-      vscodium # vscode
+      audacity
+      musescore
       ;
   };
 }

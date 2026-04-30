@@ -271,6 +271,41 @@
           };
         };
 
+        # Desktop Applications
+        desktopApps = lib.mkOption {
+          type = lib.types.submodule {
+            options = {
+              brave = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "Whether to install Brave browser";
+              };
+              firefox = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "Whether to install Firefox browser";
+              };
+              social = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "Whether to install social/chat applications";
+              };
+              media = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "Whether to install media editing applications";
+              };
+              tools = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "Whether to install desktop utility applications";
+              };
+            };
+          };
+          default = { };
+          description = "Desktop applications to install";
+        };
+
         # Unused at this time
         persistFolder = lib.mkOption {
           type = lib.types.str;

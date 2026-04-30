@@ -22,6 +22,10 @@
       displayManager = "sddm";
       hyprland.enable = true;
     };
+    desktopApps = {
+      firefox = true;
+      tools = true;
+    };
   };
 
   services.xserver.xkb.model = "chromebook";

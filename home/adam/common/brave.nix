@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.mkIf (hostSpec.role.type == "workstation") {
+lib.mkIf hostSpec.desktopApps.brave {
   programs.brave = {
     enable = true;
     package = pkgs.unstable.brave;
