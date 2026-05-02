@@ -5,8 +5,7 @@
 }:
 {
   imports = [
-    #################### Required Configs ####################
-    (inputs.import-tree ./common/core)
+    (inputs.import-tree ./common)
     (inputs.import-tree (lib.custom.relativeToRoot "home/common"))
   ];
 }
