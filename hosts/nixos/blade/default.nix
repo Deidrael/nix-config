@@ -36,7 +36,6 @@
       tools = true;
     };
   };
-  hardware.nvidia.primeBatterySaverSpecialisation = true;
 
   boot = {
     loader = {
