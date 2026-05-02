@@ -23,12 +23,17 @@ Resources I used the most (alphabetically):
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | raspberrypi | 2016 | Raspberry Pi 3 B | ARM Cortex-A53 | VideoCore IV | 1 GB | Tailscale Exit Node | Headless |
 
-# Nix-Secrets Configuration
-## Structure
+# Secrets Configuration
+## Nix-Secrets Structure
 ### nix-secrets/flake.nix
 - This contains basic outputs such as primaryUsername, email.user and email.github, NAS info (nfsClient.server for hostname, nfsClient.shares for shares), etc.
 ### nix-secrets/secrets.yaml
 - This contains my user password hashs, private ssh keys, etc.
+
+## Secrets required for Actions / Dependabot
+- SSH_PRIVATE_KEY - needed for ssh auth to nix-secrets
+- CACHIX_AUTH_TOKEN - for pushing back to cachix after builds
+- GH_TOKEN_FOR_UPDATES - for creating PR's & enabling automerge
 
 # Need to look into:
 ### lib.MkAliasOptionModule
