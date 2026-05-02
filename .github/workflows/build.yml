@@ -42,7 +42,7 @@ jobs:
         large-packages: true
         docker-images: true
         swap-storage: true
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - uses: webfactory/ssh-agent@master
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
