@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.mkIf (hostSpec.role.type == "workstation") {
+lib.mkIf hostSpec.desktopApps.social {
   home.packages = builtins.attrValues {
     inherit (pkgs)
       discord

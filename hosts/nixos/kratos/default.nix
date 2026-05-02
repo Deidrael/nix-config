@@ -43,6 +43,13 @@
     aiTools = true;
     threeDTools = true;
     podman = true;
+    desktopApps = {
+      brave = true;
+      firefox = true;
+      social = true;
+      media = true;
+      tools = true;
+    };
   };
   hardware.nvidia.primeBatterySaverSpecialisation = true;
 
