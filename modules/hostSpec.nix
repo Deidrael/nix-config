@@ -191,7 +191,7 @@
               options = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
                 default = [
-                  "nfsvers=4.2"
+                  "nfsvers=4.1"
                   "x-systemd.automount"
                   "noauto"
                   "x-systemd.idle-timeout=600"

@@ -20,7 +20,7 @@ in
         mountPoints = builtins.listToAttrs (
           builtins.map (share: {
             name = "${nfsClient.mountBase}/${share}";
-            value = "${nfsClient.server}:${share}";
+            value = "${nfsClient.server}:/${share}";
           }) nfsClient.shares
         );
       in
