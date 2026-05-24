@@ -8,8 +8,6 @@ let
       system = final.stdenv.hostPlatform.system;
       config.allowUnfree = true;
       config.nvidia.acceptLicense = true;
-      #      overlays = [
-      #     ];
     };
   };
 
@@ -18,8 +16,6 @@ let
       system = final.stdenv.hostPlatform.system;
       config.allowUnfree = true;
       config.nvidia.acceptLicense = true;
-      #      overlays = [
-      #     ];
     };
   };
 
@@ -28,8 +24,12 @@ let
       system = final.stdenv.hostPlatform.system;
       config.allowUnfree = true;
       config.nvidia.acceptLicense = true;
-      #      overlays = [
-      #     ];
+    };
+  };
+
+  openldap-fix = final: prev: {
+    openldap = prev.openldap.overrideAttrs {
+      doCheck = !prev.stdenv.hostPlatform.isi686;
     };
   };
 
@@ -37,5 +37,8 @@ in
 {
   default =
     final: prev:
-    (stable-packages final prev) // (unstable-packages final prev) // (master-packages final prev);
+    (stable-packages final prev)
+    // (unstable-packages final prev)
+    // (master-packages final prev)
+    // (openldap-fix final prev);
 }
