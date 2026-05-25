@@ -20,7 +20,7 @@ lib.mkIf (hostSpec.desktop.hyprland.enable) {
       "$mainMod, F, togglefloating,"
       "$mainMod, R, exec, $menu"
       "$mainMod, P, pseudo, # dwindle"
-      "$mainMod, J, togglesplit, # dwindle"
+      # "$mainMod, J, togglesplit, # dwindle"
       "$mainMod, B, exec, $browser"
       "$mainMod, L, exec, hyprlock"
       " , Print, exec, hyprshot -m region"
