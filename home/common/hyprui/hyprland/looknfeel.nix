@@ -73,7 +73,7 @@ lib.mkIf (hostSpec.desktop.hyprland.enable) {
     };
 
     dwindle = {
-      pseudotile = true; # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+      #pseudotile = true; # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
       preserve_split = true; # You probably want this
       default_split_ratio = 0.8;
     };
