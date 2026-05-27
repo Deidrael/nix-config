@@ -28,35 +28,36 @@ jobs:
             host: hermes
     runs-on: ${{ matrix.os }}
     steps:
-    - run: sudo rm -rf /opt&
-    - name: Free GitHub Actions Disk Space (Ubuntu)
-      uses: jlumbroso/free-disk-space@main
-      with:
-        # this might remove tools that are actually needed if set to "true"
-        tool-cache: true
-        # all of these default to true and will be cleared, so set to "false"
-        # if necessary for your workflow
-        android: true
-        dotnet: true
-        haskell: true
-        large-packages: true
-        docker-images: true
-        swap-storage: true
-    - uses: actions/checkout@v6
-    - uses: webfactory/ssh-agent@master
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-    - uses: cachix/install-nix-action@v31
-    - uses: DeterminateSystems/magic-nix-cache-action@main
-    - uses: cachix/cachix-action@v17
-      with:
-        name: deidrael
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-        extraPullNames: nix-community
+      # Check out the branch
+      - uses: actions/checkout@v6
+      # clean up/recover free space
+      - uses: wimpysworld/nothing-but-nix@main
+        with:
+          hatchet-protocol: 'cleave'  # Options: holster, carve, cleave (default), rampage
+      # enable ssh agent for accessing private repo
+      - uses: webfactory/ssh-agent@master
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Build
-      run: nix build -L .#nixosConfigurations.${{matrix.host}}.config.system.build.toplevel
-
-    - name: Deploy
-      run: |
-        cachix push deidrael ./result*
+      # install nix
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra_nix_config: |
+            build-dir = /nix/build
+      # cache nix in Github
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      # enable cachix support
+      - uses: cachix/cachix-action@v17
+        with:
+          name: deidrael
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          extraPullNames: nix-community
+  
+      # build system
+      - name: Build
+        run: nix build -L .#nixosConfigurations.${{matrix.host}}.config.system.build.toplevel
+  
+      # push back to cachix
+      - name: Deploy
+        run: |
+          cachix push deidrael ./result*
