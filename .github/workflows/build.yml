@@ -42,7 +42,7 @@ jobs:
       # install nix
       - uses: DeterminateSystems/nix-installer-action@main
         with:
-          extra_nix_config: |
+          extra-conf: |
             build-dir = /nix/build
       # cache nix in Github
       - uses: DeterminateSystems/magic-nix-cache-action@main
