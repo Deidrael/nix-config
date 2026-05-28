@@ -8,6 +8,7 @@ concurrency:
   cancel-in-progress: true
 permissions:
   contents: read
+
 jobs:
   build:
     strategy:
@@ -28,36 +29,40 @@ jobs:
             host: hermes
     runs-on: ${{ matrix.os }}
     steps:
-      # Check out the branch
-      - uses: actions/checkout@v6
-      # clean up/recover free space
-      - uses: wimpysworld/nothing-but-nix@main
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Recover free space
+        uses: wimpysworld/nothing-but-nix@main
         with:
           hatchet-protocol: 'cleave'  # Options: holster, carve, cleave (default), rampage
-      # enable ssh agent for accessing private repo
-      - uses: webfactory/ssh-agent@master
+
+      - name: Enable ssh agent for accessing private repo
+        uses: webfactory/ssh-agent@master
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # install nix
-      - uses: DeterminateSystems/nix-installer-action@main
+      - name: Install nix
+        uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: |
             build-dir = /nix/build
-      # cache nix in Github
-      - uses: DeterminateSystems/magic-nix-cache-action@main
-      # enable cachix support
-      - uses: cachix/cachix-action@v17
+
+      - name: Cache nix in Github
+        uses: DeterminateSystems/magic-nix-cache-action@main
+        with:
+          use-flakehub: false
+
+      - name: Enable cachix support
+        uses: cachix/cachix-action@v17
         with:
           name: deidrael
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
           extraPullNames: nix-community
-  
-      # build system
-      - name: Build
+
+      - name: Build System
         run: nix build -L .#nixosConfigurations.${{matrix.host}}.config.system.build.toplevel
-  
-      # push back to cachix
-      - name: Deploy
+
+      - name: Deploy back to cachix
         run: |
           cachix push deidrael ./result*
