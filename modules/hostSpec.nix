@@ -158,6 +158,11 @@
           default = false;
           description = "Whether to install 3D design/printing tools";
         };
+        virtualMachines = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Whether to enable virtual machines";
+        };
 
         nfsClient = lib.mkOption {
           type = lib.types.submodule {
