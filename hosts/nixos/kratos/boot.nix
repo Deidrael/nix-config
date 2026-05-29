@@ -14,7 +14,12 @@
       "sd_mod"
     ];
     initrd.kernelModules = [ ];
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [
+      "kvm-intel"
+      "vfio-pci"
+    ];
+    blacklistedKernelModules = [ "nouveau" ];
+    kernelParams = [ "intel_iommu=on" ];
     kernelPackages = pkgs.linuxPackages_xanmod;
     extraModulePackages = [ ];
   };

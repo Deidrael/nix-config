@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -13,15 +12,6 @@
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-nvidia
     inputs.hardware.nixosModules.common-pc-ssd
-  ];
-
-  # ========== Computer Specific Packages ==========
-  virtualisation.waydroid = {
-    enable = true;
-    package = pkgs.waydroid-nftables;
-  };
-  environment.systemPackages = with pkgs; [
-    waydroid-helper
   ];
 
   # ========== Host Specification ==========
@@ -43,6 +33,7 @@
     aiTools = true;
     threeDTools = true;
     podman = true;
+    virtualMachines = true;
     desktopApps = {
       brave = true;
       firefox = true;
