@@ -33,6 +33,20 @@ let
     };
   };
 
+  termite-stub = final: prev: {
+    termite =
+      final.runCommand "termite-removed"
+        {
+          outputs = [
+            "out"
+            "terminfo"
+          ];
+        }
+        ''
+          mkdir -p $terminfo/share/terminfo $out
+        '';
+  };
+
 in
 {
   default =
@@ -40,5 +54,6 @@ in
     (stable-packages final prev)
     // (unstable-packages final prev)
     // (master-packages final prev)
-    // (openldap-fix final prev);
+    // (openldap-fix final prev)
+    // (termite-stub final prev);
 }
