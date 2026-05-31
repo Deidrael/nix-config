@@ -19,7 +19,10 @@
 
   pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
     src = ./.;
-    default_stages = [ "pre-commit" ];
+    default_stages = [
+      "pre-commit"
+      "commit-msg"
+    ];
     hooks = {
       # ========== General ==========
       check-added-large-files = {
@@ -70,6 +73,18 @@
       shellcheck.enable = true;
 
       end-of-file-fixer.enable = true;
+
+      # ========== git ==========
+      commit-title-length = {
+        enable = true;
+        stages = [ "commit-msg" ];
+        name = "commit-title-length";
+        description = "enforces 50 character commit title limit";
+        entry = ''
+          bash -c 'len=$(head -1 "$1" | awk "{print length}"); if [ "$len" -gt 50 ]; then echo "Error: commit title ($len chars) exceeds 50 character limit"; exit 1; fi' --
+        '';
+        language = "system";
+      };
     };
   };
 }
