@@ -7,6 +7,7 @@
 lib.mkIf hostSpec.desktopApps.firefox {
   programs.firefox = {
     enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
 
     policies = {
       AppAutoUpdate = false;
