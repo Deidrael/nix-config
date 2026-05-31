@@ -12,7 +12,7 @@
       UpdateHostKeys ask
     '';
 
-    matchBlocks = {
+    settings = {
       "git" = {
         host = "github.com";
         user = "git";
