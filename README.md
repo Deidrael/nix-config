@@ -85,7 +85,7 @@ My Nix Config
 
 ## Secrets Configuration
 
-Sensitive data is kept in a private flake input (`nix-secrets`) that is fetched at build time. Below is the expected structure so you can create your own.
+Sensitive data is kept in a private flake input (`nix-secrets`) that is fetched at build time. Below is the expected structure.
 
 ### `nix-secrets/flake.nix`
 
