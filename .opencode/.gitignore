@@ -1,0 +1,6 @@
+*
+!agent/
+!agent/*.md
+!opencode.json
+!opencode.jsonc
+!.gitignore
