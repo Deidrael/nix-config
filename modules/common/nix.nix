@@ -39,13 +39,6 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
-    # Disabled because we use nh
-    # gc = {
-    #   automatic = true;
-    #   dates = "weekly";
-    #   options = "--delete-older-than 5d";
-    #   persistent = true;
-    # };
   }
   // (lib.optionalAttrs pkgs.stdenv.isLinux {
     # This will add each flake input as a registry

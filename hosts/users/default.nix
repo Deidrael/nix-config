@@ -17,33 +17,30 @@ in
   users = {
     mutableUsers = false; # Required for password to be set via sops during system activation!
     users =
-      (lib.mergeAttrsList
-        # FIXME: For isMinimal we can likely just filter out primaryUsername only?
-        (
-          map (user: {
-            "${user}" =
-              let
-                sopsHashedPasswordFile = config.sops.secrets."passwords/${user}".path;
-                pubKeys = lib.filesystem.listFilesRecursive (lib.custom.relativeToRoot "hosts/users/${user}/keys/");
-                userPubKeys = lib.lists.forEach pubKeys (key: builtins.readFile key);
-                userPath = lib.custom.relativeToRoot "hosts/users/${user}/default.nix";
-              in
-              {
-                name = user;
-                home = "/home/${user}";
-                openssh.authorizedKeys.keys = userPubKeys;
-                # Decrypt password to /run/secrets-for-users/ so it can be used to create the user
-                hashedPasswordFile = sopsHashedPasswordFile; # Blank if sops isn't working
+      (lib.mergeAttrsList (
+        map (user: {
+          "${user}" =
+            let
+              sopsHashedPasswordFile = config.sops.secrets."passwords/${user}".path;
+              pubKeys = lib.filesystem.listFilesRecursive (lib.custom.relativeToRoot "hosts/users/${user}/keys/");
+              userPubKeys = lib.lists.forEach pubKeys (key: builtins.readFile key);
+              userPath = lib.custom.relativeToRoot "hosts/users/${user}/default.nix";
+            in
+            {
+              name = user;
+              home = "/home/${user}";
+              openssh.authorizedKeys.keys = userPubKeys;
+              # Decrypt password to /run/secrets-for-users/ so it can be used to create the user
+              hashedPasswordFile = sopsHashedPasswordFile; # Blank if sops isn't working
+            }
+            # Add in platform-specific user values if they exist
+            // lib.optionalAttrs (lib.pathExists userPath) (
+              import userPath {
+                inherit config lib;
               }
-              # Add in platform-specific user values if they exist
-              // lib.optionalAttrs (lib.pathExists userPath) (
-                import userPath {
-                  inherit config lib;
-                }
-              );
-          }) config.hostSpec.users.users
-        )
-      )
+            );
+        }) config.hostSpec.users.users
+      ))
       // {
         root = {
           inherit (config.users.users.${config.hostSpec.users.primary.username}) hashedPasswordFile;

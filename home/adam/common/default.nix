@@ -24,13 +24,6 @@
 
   };
 
-  #home.packages =
-  #  #    [ ] ++ builtins.attrValues {
-  #  builtins.attrValues {
-  #    inherit (pkgs)
-  #      ;
-  #  };
-
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings = {
