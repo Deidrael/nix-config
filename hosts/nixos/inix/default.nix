@@ -29,7 +29,7 @@
     hostName = "inix";
     users.secondary.enable = true;
     fsBtrfs = true;
-    hasNvidia = false; # has Nvidia, but doesn't have iGPU so no Prime
+    hasNvidiaPrime = false; # has Nvidia, but doesn't have iGPU so no Prime
     role = {
       type = "workstation";
     };

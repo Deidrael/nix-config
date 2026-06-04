@@ -18,7 +18,7 @@
   hostSpec = {
     hostName = "blade";
     fsBtrfs = true;
-    hasNvidia = true;
+    hasNvidiaPrime = true;
     users.secondary.enable = true;
     role = {
       type = "workstation";
