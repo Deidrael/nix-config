@@ -64,5 +64,8 @@
     };
   };
 
+  # Battery saver boot option — disables NVIDIA dGPU at the hardware level
+  hardware.nvidia.primeBatterySaverSpecialisation = true;
+
   system.stateVersion = "24.05";
 }

@@ -1,17 +1,13 @@
 {
   config,
-  inputs,
   lib,
   ...
 }:
 {
-  imports = lib.flatten [ inputs.hardware.nixosModules.common-gpu-nvidia ];
-
   config = lib.mkMerge [
-    # Non-NVIDIA: override defaults set by common-gpu-nvidia
+    # Non-NVIDIA: use modesetting driver
     (lib.mkIf (!config.hostSpec.hasNvidia) {
       services.xserver.videoDrivers = lib.mkForce [ "modesetting" ];
-      hardware.nvidia.prime.offload.enable = lib.mkForce false;
     })
 
     # NVIDIA: configure nvidia
@@ -26,23 +22,6 @@
           };
         };
         nvidia-container-toolkit.enable = lib.mkDefault true;
-      };
-
-      hardware.nvidia.primeBatterySaverSpecialisation = lib.mkDefault true;
-
-      specialisation.gpusync.configuration = {
-        system.nixos.tags = [ "gpusync" ];
-        hardware.nvidia = {
-          powerManagement = {
-            enable = false;
-            finegrained = false;
-          };
-          prime = {
-            offload.enable = false;
-            offload.enableOffloadCmd = false;
-            sync.enable = true;
-          };
-        };
       };
 
       services.xserver.videoDrivers = [ "nvidia" ];
