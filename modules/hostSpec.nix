@@ -108,10 +108,10 @@
           default = false;
           description = "Whether the host uses Btrfs filesystem (set to true for Btrfs-based setups)";
         };
-        hasNvidia = lib.mkOption {
+        hasNvidiaPrime = lib.mkOption {
           type = lib.types.bool;
           default = false;
-          description = "Whether the host has Nvidia graphics hardware (enables Nvidia-specific configurations)";
+          description = "Whether the host has an NVIDIA Optimus/Prime dual-GPU setup (iGPU + dGPU with dynamic switching)";
         };
 
         # Configuration Roles

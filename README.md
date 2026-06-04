@@ -48,7 +48,7 @@ My Nix Config
 | hostName | | The hostname of the host |
 | domain | localdomain | The domain of the host |
 | fsBtrfs | true | Indicates btrfs is used |
-| hasNvidia | false | Indicate host has Nvidia graphics |
+| hasNvidiaPrime | false | Indicate host has NVIDIA Prime/Optimus dual-GPU setup |
 ### Role options: hostSpec.role.* (submodule)
 | Variable | Default | Description |
 | -------- | ------- | ----------- |

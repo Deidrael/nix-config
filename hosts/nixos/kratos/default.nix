@@ -18,7 +18,7 @@
   hostSpec = {
     hostName = "kratos";
     fsBtrfs = true;
-    hasNvidia = true;
+    hasNvidiaPrime = true;
     role = {
       type = "workstation";
       gaming = true;
