@@ -37,9 +37,6 @@
     #  #inputs.nixpkgs.follows = "nixpkgs";
     #};
 
-    # NixAI
-    #nixai.url = "github:olafkfreund/nix-ai-help";
-
     hyprland.url = "github:hyprwm/Hyprland";
 
     # Pre-commit

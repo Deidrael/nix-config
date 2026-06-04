@@ -26,8 +26,6 @@ lib.mkIf (hostSpec.desktop.hyprland.enable) {
           "cpu"
           "memory"
           "temperature"
-          # "custom/gpu"
-          # "custom/temperature_gpu"
           "backlight"
           "keyboard-state"
           "battery"
