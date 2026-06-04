@@ -1,13 +1,10 @@
 {
   inputs,
-  lib,
   ...
 }:
 {
   imports = [
-    # ========== Required Configs ==========
     (inputs.import-tree ./common)
-    (inputs.import-tree (lib.custom.relativeToRoot "home/common"))
   ];
 
   wayland.windowManager.hyprland.settings = {

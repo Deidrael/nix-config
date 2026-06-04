@@ -78,6 +78,7 @@ in
               (map fullPathIfExists [
                 "home/${user}/${hostSpec.hostName}.nix"
               ])
+              (inputs.import-tree (lib.custom.relativeToRoot "home/common"))
               # Static module with common values avoids duplicate file per user
               (_: {
                 home = {
