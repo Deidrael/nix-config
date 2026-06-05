@@ -31,6 +31,19 @@ This repo manages 7+ NixOS hosts. Before acting:
 - Changes to `modules/` affect all hosts — flag this to the user
 - Changes to `hosts/nixos/<hostname>/` are host-specific
 
+## Delegation Patterns (from experience)
+
+- **Option default research** → Delegate to `@expert-nixos-developer` with a request to read nixpkgs source directly (`/nix/store/...`)
+- **Source-origin research** (e.g., "where did this module come from?") → Delegate to `@expert-nixos-developer` to look at upstream repos and local consumers
+- **Security impact assessment** → Use `@expert-nixos-developer` for detailed analysis AND `@self-hosting-expert` for infrastructure perspective (firewall models, network topology, trust boundaries)
+- **Infrastructure design** (Tailscale routing, exit nodes, container networking) → Delegate to `@self-hosting-expert` even for seemingly small config changes
+- **Commit messages** → Use `@technical-writer` to draft or review messages to ensure they follow repo conventions (50-char title, bullet points, generalized language, neutral tone)
+- **Simple edits** (single-line option toggle, header removal) → Handle directly
+
+## Commit Convention Reminders
+
+Titles must be under 50 characters. Body uses bullet points. No naming specific hosts — use generalized phrasing like "hosts with exit node role" instead of "hermes and kronos". No dismissive language like "lingering", "no consumers", or "dead code" — stick to factual, neutral descriptions.
+
 ## Verification
 
 After any change delegation:
