@@ -164,6 +164,40 @@
           description = "Whether to enable virtual machines";
         };
 
+        tailscale = lib.mkOption {
+          type = lib.types.submodule {
+            options = {
+              enable = lib.mkOption {
+                type = lib.types.bool;
+                default = true;
+                description = "Whether to enable Tailscale on this host";
+              };
+              routingFeatures = lib.mkOption {
+                type = lib.types.enum [
+                  "none"
+                  "client"
+                  "server"
+                  "both"
+                ];
+                default = "client";
+                description = ''
+                  Tailscale routing features for this host.
+                  - "none": no routing features
+                  - "client": basic client (default)
+                  - "server": can act as an exit node or advertise routes
+                  - "both": client and server features
+                '';
+              };
+            };
+          };
+          default = { };
+          description = "Tailscale configuration";
+          example = {
+            enable = true;
+            routingFeatures = "server";
+          };
+        };
+
         nfsClient = lib.mkOption {
           type = lib.types.submodule {
             options = {
