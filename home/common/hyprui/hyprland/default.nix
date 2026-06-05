@@ -5,7 +5,7 @@
 }:
 {
 
-  config = lib.mkIf (hostSpec.desktop.hyprland.enable) {
+  config = lib.mkIf hostSpec.desktop.hyprland.enable {
     # assertions = [
     #   {
     #     assertion = config.hostSpec.desktop.hyprland.enable;

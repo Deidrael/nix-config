@@ -4,7 +4,7 @@
   lib,
   ...
 }:
-lib.mkIf (hostSpec.desktop.hyprland.enable) (
+lib.mkIf hostSpec.desktop.hyprland.enable (
   let
     brightnessDev = lib.optionalString (
       hostSpec.desktop.hyprland.brightnessDevice != null

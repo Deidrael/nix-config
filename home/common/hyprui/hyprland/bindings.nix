@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.mkIf (hostSpec.desktop.hyprland.enable) {
+lib.mkIf hostSpec.desktop.hyprland.enable {
   wayland.windowManager.hyprland.settings = {
     "$terminal" = lib.mkDefault "kitty";
     "$fileManager" = lib.mkDefault "dolphin";

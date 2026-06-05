@@ -13,7 +13,7 @@ in
         makeNFSconfig = share: {
           device = share;
           fsType = "nfs";
-          options = nfsClient.options;
+          inherit (nfsClient) options;
         };
 
         # Create mount points under mountBase for each share name
