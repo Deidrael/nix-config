@@ -67,6 +67,7 @@
           noLambdaArg = true;
         };
       };
+      statix.enable = true;
 
       # ========== shellscripts ==========
       shfmt.enable = true;
