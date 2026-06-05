@@ -5,6 +5,3 @@ result-*
 
 # Ignore automatically generated direnv output
 .direnv
-
-# Ignore CRUSH
-CRUSH.md
