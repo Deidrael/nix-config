@@ -15,8 +15,6 @@
         portalPackage =
           inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       };
-      # hyprlock.enable = true; # lock screen
-      # waybar.enable = true; # status bar
     };
 
     services = {
@@ -28,15 +26,32 @@
     environment.systemPackages = with pkgs; [
       brightnessctl # adjust screen brightness
       dunst # notifications
+      gvfs # mount backend + trash for Thunar
       hyprpolkitagent # gui applications that request eleveated privileges
-      kdePackages.dolphin # file manager
       kitty # required for the default Hyprland config
       hyprland-qtutils # qt utility apps/libraries
       hyprpaper # wallpaper management
       hyprshot # screenshot
       loupe # gnome image viewer
+      thunar # primary file manager
+      thunar-volman # automatic volume management
+      xarchiver # lightweight archive manager
+      tumbler # thumbnail service for Thunar
       wlogout # power and logoff menu
       wofi # launcher
     ];
+
+    xdg.portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
+      config = {
+        hyprland.default = [
+          "hyprland"
+          "gtk"
+        ];
+      };
+    };
   };
 }
