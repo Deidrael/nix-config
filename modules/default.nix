@@ -21,7 +21,7 @@
   networking.hostName = config.hostSpec.hostName;
   networking = {
     networkmanager.enable = true;
-    enableIPv6 = false;
+    enableIPv6 = lib.mkDefault false;
   };
 
   # Workaround https://github.com/NixOS/nixpkgs/issues/180175
