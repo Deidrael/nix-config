@@ -27,6 +27,7 @@ jobs:
             host: kronos
           - os: ubuntu-24.04-arm
             host: hermes
+      # nixbook-minimal excluded: temporary upgrade intermediary
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
