@@ -18,6 +18,7 @@
     role = {
       type = "server";
     };
+    tailscale.routingFeatures = "both";
     nfsClient.enable = true;
     podman = true;
   };
