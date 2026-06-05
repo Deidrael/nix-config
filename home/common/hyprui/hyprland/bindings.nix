@@ -6,7 +6,7 @@
 lib.mkIf hostSpec.desktop.hyprland.enable {
   wayland.windowManager.hyprland.settings = {
     "$terminal" = lib.mkDefault "kitty";
-    "$fileManager" = lib.mkDefault "dolphin";
+    "$fileManager" = lib.mkDefault "thunar";
     "$menu" = lib.mkDefault "wofi --show drun -H 600 -W 800";
     "$browser" = lib.mkDefault "firefox";
 
