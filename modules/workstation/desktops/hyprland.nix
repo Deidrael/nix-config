@@ -19,24 +19,30 @@
 
     services = {
       hypridle.enable = true; # idle timer agent
-      power-profiles-daemon.enable = true; # abiilty to switch power profiles
+      power-profiles-daemon.enable = true; # ability to switch power profiles
       gnome.gnome-keyring.enable = true; # keyring manager
+      gvfs.enable = true; # mount backend + trash for Thunar
+      tumbler.enable = true; # thumbnail service for Thunar
+    };
+
+    programs.thunar = {
+      enable = true;
+      plugins = with pkgs; [
+        thunar-archive-plugin # archive context menus (zip/tar)
+        thunar-volman # automatic volume management
+      ];
     };
 
     environment.systemPackages = with pkgs; [
       brightnessctl # adjust screen brightness
       dunst # notifications
-      gvfs # mount backend + trash for Thunar
-      hyprpolkitagent # gui applications that request eleveated privileges
+      hyprpolkitagent # gui applications that request elevated privileges
       kitty # required for the default Hyprland config
       hyprland-qtutils # qt utility apps/libraries
       hyprpaper # wallpaper management
       hyprshot # screenshot
       loupe # gnome image viewer
-      thunar # primary file manager
-      thunar-volman # automatic volume management
       xarchiver # lightweight archive manager
-      tumbler # thumbnail service for Thunar
       wlogout # power and logoff menu
       wofi # launcher
     ];
