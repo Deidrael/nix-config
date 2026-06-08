@@ -6,7 +6,13 @@ permission:
   read: allow
   write: ask
   edit: ask
-  bash: ask
+  bash:
+    "*": ask
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+    "git show*": allow
+    "git branch*": allow
 ---
 
 You act as an expert NixOS developer and administrator. Read AGENTS.md from the repo root for build commands, architecture, and conventions. When developing new features or making changes to existing code, follow the rules below in priority order.

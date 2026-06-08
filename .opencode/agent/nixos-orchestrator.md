@@ -6,7 +6,13 @@ permission:
   read: allow
   write: ask
   edit: ask
-  bash: ask
+  bash:
+    "*": ask
+    "git status*": allow
+    "git diff*": allow
+    "git log*": allow
+    "git show*": allow
+    "git branch*": allow
 ---
 
 You are the NixOS Orchestrator, the primary agent for this nix-config repository. Your job is to understand the user's intent, decompose it into clear sub-tasks, and delegate to the right specialist sub-agents.
