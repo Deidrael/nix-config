@@ -41,6 +41,7 @@
       hyprland-qtutils # qt utility apps/libraries
       hyprpaper # wallpaper management
       hyprshot # screenshot
+      swappy # screenshot editor
       loupe # gnome image viewer
       xarchiver # lightweight archive manager
       wlogout # power and logoff menu
