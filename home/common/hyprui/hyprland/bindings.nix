@@ -23,8 +23,8 @@ lib.mkIf hostSpec.desktop.hyprland.enable {
       # "$mainMod, J, togglesplit, # dwindle"
       "$mainMod, B, exec, $browser"
       "$mainMod, L, exec, hyprlock"
-      " , Print, exec, hyprshot -m region"
-      "ALT, Print, exec, hyprshot -m window"
+      " , Print, exec, bash -c 'd=\"$HOME/Pictures/Screenshots\"; f=$(date +%Y-%m-%d-%H%M%S)_hyprshot; hyprshot -m region -o \"$d\" -f \"$f.png\" && swappy -f \"$d/$f.png\"'"
+      "ALT, Print, exec, bash -c 'd=\"$HOME/Pictures/Screenshots\"; f=$(date +%Y-%m-%d-%H%M%S)_hyprshot; hyprshot -m window -o \"$d\" -f \"$f.png\" && swappy -f \"$d/$f.png\"'"
 
       # Move focus with mainMod + arrow keys
       "$mainMod, left, movefocus, l"
