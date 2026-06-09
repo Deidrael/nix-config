@@ -25,18 +25,24 @@
 
     nativeBuildInputs = builtins.attrValues {
       inherit (pkgs)
-        nix
-        home-manager
-        nh
-        nixfmt-tree
-        git
-        just
-        pre-commit
-        deadnix
-        sops
-        bats # for bash testing
         age # for bootstrap script
+        bats # for bash testing
+        cachix
+        deadnix
+        delta
+        gh
+        git
+        gitui
+        home-manager
+        just
+        lazygit # available in dev shell for interactive rebase & patches
+        nh
+        nix
+        nixfmt-tree
+        pre-commit
+        sops
         ssh-to-age # for bootstrap script
+        yq-go
         ;
     };
   };
