@@ -15,11 +15,11 @@
 
   boot = {
     initrd.availableKernelModules = [
+      "vmd"
       "xhci_pci"
-      "ahci"
+      "thunderbolt"
+      "nvme"
       "usbhid"
-      "sd_mod"
-      "sdhci_pci"
     ];
     initrd.kernelModules = [ ];
     kernelModules = [ "kvm-intel" ];
@@ -28,38 +28,39 @@
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/b6a4649f-7122-494d-bfa2-ce50ee16baf4";
+      device = "/dev/disk/by-uuid/2c493fd5-f135-44af-84d1-9de9af12e9aa";
       fsType = "btrfs";
       options = [ "subvol=root" ];
     };
 
     "/nix" = {
-      device = "/dev/disk/by-uuid/b6a4649f-7122-494d-bfa2-ce50ee16baf4";
+      device = "/dev/disk/by-uuid/2c493fd5-f135-44af-84d1-9de9af12e9aa";
       fsType = "btrfs";
       options = [ "subvol=nix" ];
     };
 
+    "/home" = {
+      device = "/dev/disk/by-uuid/2c493fd5-f135-44af-84d1-9de9af12e9aa";
+      fsType = "btrfs";
+      options = [ "subvol=home" ];
+    };
+
+    "/swap" = {
+      device = "/dev/disk/by-uuid/2c493fd5-f135-44af-84d1-9de9af12e9aa";
+      fsType = "btrfs";
+      options = [ "subvol=swap" ];
+    };
+
     "/boot" = {
-      device = "/dev/disk/by-uuid/3D92-39C6";
+      device = "/dev/disk/by-uuid/ED82-CAED";
       fsType = "vfat";
       options = [
         "fmask=0022"
         "dmask=0022"
       ];
     };
-
-    "/swap" = {
-      device = "/dev/disk/by-uuid/b6a4649f-7122-494d-bfa2-ce50ee16baf4";
-      fsType = "btrfs";
-      options = [ "subvol=swap" ];
-    };
-
-    "/home" = {
-      device = "/dev/disk/by-uuid/b6a4649f-7122-494d-bfa2-ce50ee16baf4";
-      fsType = "btrfs";
-      options = [ "subvol=home" ];
-    };
   };
+
   swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

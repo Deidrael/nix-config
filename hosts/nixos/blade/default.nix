@@ -5,10 +5,7 @@
 }:
 {
   imports = lib.flatten [
-    # ========== Hardware ==========
-    ./boot.nix
-    ./drives.nix
-    ./nvidia.nix
+    ./hardware-configuration.nix
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-nvidia
     inputs.hardware.nixosModules.common-pc-ssd
@@ -49,8 +46,16 @@
     };
   };
 
+  hardware.nvidia.prime = {
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
+  };
+
   # Battery saver boot option — disables NVIDIA dGPU at the hardware level
   hardware.nvidia.primeBatterySaverSpecialisation = true;
+
+  # Swap on BTRFS subvolume
+  swapDevices = [ { device = "/swap/swapfile"; } ];
 
   system.stateVersion = "24.05";
 }

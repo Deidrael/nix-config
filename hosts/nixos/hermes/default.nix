@@ -5,10 +5,7 @@
 }:
 {
   imports = lib.flatten [
-    # ========== Hardware ==========
-    ./boot.nix
-    ./drives.nix
-    ./network.nix
+    ./hardware-configuration.nix
     inputs.hardware.nixosModules.raspberry-pi-4
   ];
 
@@ -23,9 +20,6 @@
     podman = true;
   };
 
-  # Enable GPU acceleration
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
-
   boot = {
     loader = {
       systemd-boot.enable = lib.mkDefault false;
@@ -34,6 +28,11 @@
     };
     #initrd.systemd.enable = true;
   };
+
+  # Enable GPU acceleration
+  hardware.raspberry-pi."4".fkms-3d.enable = true;
+
+  swapDevices = [ ];
 
   system.stateVersion = "24.05";
 }
