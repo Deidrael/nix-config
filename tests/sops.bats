@@ -92,6 +92,7 @@ setup_sops() {
 	sops_update_age_key users "$(whoami)_$(hostname)" "${AGE_STATIC_HOST_KEY}"
 	sops_update_age_key hosts "$(hostname)" "${AGE_STATIC_HOST_KEY}"
 	sops_add_host_creation_rules bob deadbeef
+	sops_update_age_key hosts bob "${AGE_TEST_KEY_3}"
 
 	# Create a new <host>.yaml file and verify it holds the correct entry
 	export SOPS_AGE_KEY_FILE="$BATS_TEST_DIRNAME/fixtures/nix-secrets/age_key.txt"
