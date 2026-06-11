@@ -73,6 +73,15 @@
       export LANG=en_US.UTF-8
 
       complete -C /usr/bin/terraform terraform
+
+      # Nix shell indicator — shows ❄️ when in nix develop / nix-shell / direnv flake
+      # Uses dynamic function so direnv (which loads after bashrc) is detected
+      __nix_shell_indicator() {
+          if [ -n "$IN_NIX_SHELL" ]; then
+              echo -n "❄️ "
+          fi
+      }
+      PS1='$(__nix_shell_indicator)'"$PS1"
     '';
   };
 }
