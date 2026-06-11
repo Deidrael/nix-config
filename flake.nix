@@ -82,20 +82,24 @@
 
       # ========= Host Configurations =========
       # Building configurations is available through `just rebuild` or `nixos-rebuild --flake .#hostname`
-      nixosConfigurations = builtins.listToAttrs (
-        map (host: {
-          name = host;
-          value = nixpkgs.lib.nixosSystem {
-            specialArgs = {
-              inherit inputs outputs lib;
+      nixosConfigurations =
+        let
+          hosts = builtins.attrNames (builtins.readDir ./hosts/nixos);
+        in
+        builtins.listToAttrs (
+          map (host: {
+            name = host;
+            value = nixpkgs.lib.nixosSystem {
+              specialArgs = {
+                inherit inputs outputs lib;
+              };
+              modules = [
+                ./hosts/nixos/${host}
+                (inputs.import-tree ./modules)
+              ];
             };
-            modules = [
-              ./hosts/nixos/${host}
-              (inputs.import-tree ./modules)
-            ];
-          };
-        }) (builtins.attrNames (builtins.readDir ./hosts/nixos))
-      );
+          }) hosts
+        );
 
       # ========= Formatting =========
       # Nix formatter available through 'nix fmt' https://github.com/NixOS/nixfmt
