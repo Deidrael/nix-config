@@ -57,5 +57,4 @@
   # Swap on BTRFS subvolume
   swapDevices = [ { device = "/swap/swapfile"; } ];
 
-  system.stateVersion = "24.05";
 }

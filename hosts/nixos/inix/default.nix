@@ -62,5 +62,4 @@
   # Swap on btrfs subvol — previously in hardware-configuration.nix
   swapDevices = [ { device = "/swap/swapfile"; } ];
 
-  system.stateVersion = "24.05";
 }
