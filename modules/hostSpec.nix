@@ -7,7 +7,6 @@
 {
   options.hostSpec = lib.mkOption {
     type = lib.types.submodule {
-      freeformType = with lib.types; attrsOf str;
       options = {
         # Data variables that don't dictate configuration settings
         ## User information
