@@ -31,4 +31,6 @@
     timeZone = lib.mkDefault "America/Chicago";
     hardwareClockInLocalTime = true;
   };
+
+  system.stateVersion = lib.mkDefault "24.05";
 }
