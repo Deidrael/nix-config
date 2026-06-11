@@ -344,40 +344,23 @@
           description = "Desktop applications to install";
         };
 
-        # Unused at this time
-        persistFolder = lib.mkOption {
-          type = lib.types.str;
-          default = "";
-          description = "The folder to persist data if impermanence is enabled (leave empty if not using impermanence)";
-          example = "/persist";
-        };
       };
     };
   };
 
   config = {
-    assertions =
-      let
-        # We import these options to HM and NixOS, so need to not fail on HM
-        isImpermanent =
-          config ? "system" && config.system ? "impermanence" && config.system.impermanence.enable;
-      in
-      [
-        {
-          assertion = !isImpermanent || (isImpermanent && "${config.hostSpec.persistFolder}" != "");
-          message = "config.system.impermanence.enable is true but no persistFolder path is provided";
-        }
-        {
-          assertion =
-            !config.hostSpec.nfsClient.enable
-            || (config.hostSpec.nfsClient.server != "" && config.hostSpec.nfsClient.shares != [ ]);
-          message = "NFS client is enabled but server is not set or shares list is empty";
-        }
-        {
-          assertion =
-            !config.hostSpec.users.secondary.enable || config.hostSpec.users.secondary.username != "";
-          message = "Secondary user is enabled but username is not set";
-        }
-      ];
+    assertions = [
+      {
+        assertion =
+          !config.hostSpec.nfsClient.enable
+          || (config.hostSpec.nfsClient.server != "" && config.hostSpec.nfsClient.shares != [ ]);
+        message = "NFS client is enabled but server is not set or shares list is empty";
+      }
+      {
+        assertion =
+          !config.hostSpec.users.secondary.enable || config.hostSpec.users.secondary.username != "";
+        message = "Secondary user is enabled but username is not set";
+      }
+    ];
   };
 }
