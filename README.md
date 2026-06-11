@@ -11,8 +11,7 @@ My Nix Config
 | iNix | 2014 | iMac | i5-4570 | GT 755M | 8 GB | Desktop | Cinnamon |
 | Kratos | 2024 | Gigabyte Aorus 17X | i9-14900HX | RTX4090 | 32 GB | Gaming Laptop | Hyprland |
 | Kronos | 2016 | Lenovo M700 Desktop Tiny | i7-6700T | i915 | 16 GB | Mini Server | Headless |
-| Nixbook | 2014 | Acer CB3-431 | N3160 | i915 | 4 GB | Laptop | Hyprland |
-| Nixbook-minimal | 2014 | Acer CB3-431 | N3160 | i915 | 4 GB | Upgrade intermediary | Hyprland |
+| Nixbook / Nixbook-minimal | 2014 | Acer CB3-431 | N3160 | i915 | 4 GB | Laptop | Hyprland |
 
 > [!NOTE]
 > **Nixbook upgrade process**: With only 4 GB of RAM and 16 GB of storage, the full Nixbook config can't be built directly. The `nixbook-minimal` config is a stripped-down variant used as an intermediary:
