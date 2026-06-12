@@ -157,6 +157,7 @@ Available flags: `fsBtrfs`, `hasNvidiaPrime`, `aiTools`, `threeDTools`, `podman`
 - **Discuss before acting** — always propose changes and get approval before committing, deleting files, or taking action
 - **Generalized commit bodies** — avoid naming specific hosts in commit messages; use phrasing like "already imported at the host level" instead of "kratos and blade already import it"
 - **Neutral language** — no "never used" or other dismissive phrasing in commit messages or documentation
+- **Orchestrator delegates all work** — the NixOS Orchestrator is a manager, not a hands-on implementer. It gathers context and delegates everything else (research, debugging, implementation, design, documentation) to specialist sub-agents. The orchestrator should never write code, run systemctl commands, grep files, look up nixpkgs options, or investigate build failures directly. Any task that requires reading, understanding, or modifying code should be delegated.
 
 ## Multi-Host Reminders
 - Before changing configs, checking logs, or debugging: run `hostname` first

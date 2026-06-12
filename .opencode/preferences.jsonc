@@ -1,0 +1,234 @@
+{
+  // ---------------------------------------------------------------------------
+  // Communication style
+  // ---------------------------------------------------------------------------
+
+  /// Verbosity level for agent responses.
+  /// "concise" — minimal output, summaries only.
+  /// "detailed" — full explanations, every step documented.
+  /// "balanced" — enough context to understand without excess.
+  "verbosity": "balanced",
+
+  /// Tone of language used in responses and commit messages.
+  /// "formal" — third-person, no contractions.
+  /// "neutral" — clear, factual, respectful without being stiff.
+  /// "casual" — conversational, relaxed.
+  "formality": "neutral",
+
+  // ---------------------------------------------------------------------------
+  // Workflow preferences
+  // ---------------------------------------------------------------------------
+
+  /// Host to assume when none is specified. null means the agent must ask.
+  "defaultHost": null,
+
+  /// Shell command or file-change patterns that may proceed without
+  /// asking the user first. Keeping this empty enforces "discuss before
+  /// acting" — every write, edit, or destructive command requires approval.
+  "autoApprovePatterns": [],
+
+  /// Named workflows the user runs regularly. Agents can use these to
+  /// suggest the right command without being told every time.
+  "frequentlyUsedWorkflows": [
+    {
+      "name": "Check flake validity",
+      "command": "nix flake check --impure",
+      "description": "Run pre-commit hooks and bats tests after any change"
+    },
+    {
+      "name": "Format nix files",
+      "command": "nix fmt",
+      "description": "Apply nixfmt to all .nix files (enforced by pre-commit)"
+    },
+    {
+      "name": "Build host configuration",
+      "command": "nix build .#nixosConfigurations.<hostname>.config.system.build.toplevel",
+      "description": "Build a specific host without switching to it"
+    },
+    {
+      "name": "Rebuild current host",
+      "command": "sudo nixos-rebuild switch --flake .#$(hostname) --impure --show-trace",
+      "description": "Apply configuration to the local machine"
+    },
+    {
+      "name": "Rebuild remote host",
+      "command": "nixos-rebuild switch --flake .#<hostname> --target-host <user>@<host> --use-remote-sudo",
+      "description": "Apply configuration to a remote machine"
+    },
+    {
+      "name": "Build installer ISO",
+      "command": "just iso",
+      "description": "Build a NixOS installer ISO (handles result-dir cleanup)"
+    },
+    {
+      "name": "Provision disk with disko",
+      "command": "just disko /dev/sdX <password>",
+      "description": "Partition and format a drive with BTRFS + LUKS + impermanence"
+    },
+    {
+      "name": "Enter dev shell",
+      "command": "nix develop",
+      "description": "Open a shell with nixfmt, statix, bats, yq, and other dev tools"
+    },
+    {
+      "name": "List available hosts",
+      "command": "nix flake show",
+      "description": "Show all outputs defined in the flake (hosts, overlays, etc.)"
+    },
+    {
+      "name": "Push to Cachix",
+      "command": "cachix push deidrael ./result",
+      "description": "Push build result to the deidrael Cachix cache so CI can pull instead of rebuilding"
+    },
+    {
+      "name": "Cross-compile aarch64",
+      "command": "nix build .#nixosConfigurations.<hostname>.config.system.build.toplevel",
+      "description": "Build an aarch64-linux NixOS configuration from an x86_64 host (requires binfmt emulation)"
+    }
+  ],
+
+  // ---------------------------------------------------------------------------
+  // Learned patterns -- corrections the user has made in the past.
+  // Agents should read these at startup to avoid repeated mistakes.
+  // ---------------------------------------------------------------------------
+
+  "knownCorrections": [
+    {
+      "pattern": "no_with_statements",
+      "description": "Never use `with pkgs;` or `with lib;`. Always prefix with explicit `pkgs.` / `lib.`.",
+      "rationale": "With-scopes hinder static analysis and can cause subtle bugs from name shadowing."
+    },
+    {
+      "pattern": "commit_title_length",
+      "description": "Commit titles must be 50 characters or fewer.",
+      "rationale": "Enforced by pre-commit hook."
+    },
+    {
+      "pattern": "commit_body_format",
+      "description": "Commit bodies must use bullet-point (itemized) lists, never prose paragraphs.",
+      "rationale": "Repository convention for readability."
+    },
+    {
+      "pattern": "generalized_commit_language",
+      "description": "Do not name specific hosts in commit messages. Use generalized phrasing instead (e.g., 'hosts with exit node role' rather than 'hermes and kronos').",
+      "rationale": "Commit messages should describe the change, not enumerate every affected host."
+    },
+    {
+      "pattern": "neutral_commit_language",
+      "description": "Avoid dismissive or loaded phrasing in commits and documentation (e.g., no 'never used', 'dead code', 'no consumers', 'lingering'). Stick to factual, neutral descriptions.",
+      "rationale": "Repository convention for respectful communication."
+    },
+    {
+      "pattern": "discuss_before_acting",
+      "description": "Always propose changes and get explicit approval before committing, writing new files, editing existing files, or deleting anything.",
+      "rationale": "User preference for methodical, incremental work."
+    },
+    {
+      "pattern": "code_comments_facts_only",
+      "description": "Code comments should state facts only -- no opinions, action descriptions, or explanations of what the code does (those belong in commit messages).",
+      "rationale": "Repository convention."
+    },
+    {
+      "pattern": "hostSpec_preferred",
+      "description": "Prefer hostSpec booleans to control feature inclusion over conditional imports based on hostname.",
+      "rationale": "Keeps feature toggles explicit and centralized."
+    },
+    {
+      "pattern": "minimal_host_configs",
+      "description": "Keep per-host configs (hosts/nixos/<hostname>/) minimal. Push shared logic into modules/.",
+      "rationale": "Reduces duplication and centralizes shared behavior."
+    },
+    {
+      "pattern": "nix_store_prefetch_file",
+      "description": "Use `nix store prefetch-file` instead of `nix-prefetch-url` for hash lookups.",
+      "rationale": "Modern nix command preferred over the legacy Perl-based tool."
+    },
+    {
+      "pattern": "new_files_git_add",
+      "description": "New files must be explicitly `git add`-ed. Changed files do not need explicit add (they are tracked by `git commit -a` or similar).",
+      "rationale": "Git workflow convention."
+    },
+    {
+      "pattern": "verify_hostname_first",
+      "description": "Before debugging or making host-specific changes, run `hostname` to confirm which machine you are on.",
+      "rationale": "This repo manages 7+ hosts; assuming the wrong host causes wasted effort."
+    },
+    {
+      "pattern": "orchestrator_delegates",
+      "description": "The NixOS Orchestrator is a manager, not a hands-on implementer. It must delegate all research, debugging, implementation, design, and documentation to specialist sub-agents.",
+      "rationale": "Architectural rule -- the orchestrator only gathers context and delegates."
+    },
+    {
+      "pattern": "no_emojis_unless_requested",
+      "description": "Do not use emoji characters in documentation, commit messages, or agent responses unless the user explicitly requests them.",
+      "rationale": "User preference for clean, unadorned communication."
+    },
+    {
+      "pattern": "american_english",
+      "description": "Use American English spelling and conventions in all documentation (e.g., 'prioritize' not 'prioritise', 'color' not 'colour').",
+      "rationale": "User preference for American English."
+    },
+    {
+      "pattern": "one_step_at_a_time",
+      "description": "Work methodically -- one change, one approval, one commit at a time. Do not batch unrelated changes into a single step.",
+      "rationale": "Observed user preference for incremental, reviewable progress."
+    },
+    {
+      "pattern": "status_before_destructive_git",
+      "description": "Run `git status` before any destructive git operation (reset, checkout --, clean, etc.) to confirm the working tree and index state.",
+      "rationale": "Avoids data loss or unintended changes by ensuring the working tree matches expectations before proceeding."
+    },
+    {
+      "pattern": "delegate_commit_messages_to_technical_writer",
+      "description": "Delegate commit message writing to the @technical-writer specialist sub-agent. Do not draft commit messages directly.",
+      "rationale": "User preference -- the technical writer sub-agent handles all commit message composition."
+    },
+    {
+      "pattern": "push_to_dev_branch",
+      "description": "When suggesting a push, always suggest `git push origin HEAD:refs/heads/dev` (not main). The dev branch triggers CI builds for all hosts before merging to main.",
+      "rationale": "Repository workflow -- dev branch runs CI and is merged to main only after successful builds."
+    }
+  ],
+
+  // ---------------------------------------------------------------------------
+  // Repo conventions reference -- quick lookup for agents.
+  // Full details are in AGENTS.md at the repo root.
+  // ---------------------------------------------------------------------------
+
+  "conventions": {
+    "nix": {
+      "formatter": "nixfmt",
+      "dead_code_checker": "deadnix",
+      "path_helper": "lib.custom.relativeToRoot",
+      "module_namespace": "hostSpec",
+      "import_style": "explicit pkgs. and lib. prefixes -- no with statements"
+    },
+    "git": {
+      "commit_style": "conventional: <scope>: <verb> (e.g. 'kratos: enable hyprland', 'docs: update readme')",
+      "title_max_chars": 50,
+      "body_style": "bullet-point lists only -- no prose paragraphs",
+      "branch_model": "dev branch triggers CI builds for all systems before merging to main",
+      "failed_commits": "fix the issue and create a new commit; do not amend the failed commit"
+    },
+    "secrets": {
+      "tool": "sops-nix",
+      "repo": "separate private repository (nix-secrets) fetched via SSH",
+      "key_type": "age keys per user + per host"
+    },
+    "hosts": {
+      "count": "7+",
+      "config_root": "hosts/nixos/<hostname>/",
+      "user_config_root": "hosts/users/",
+      "special_cases": {
+        "nixbook": "4 GB RAM / 16 GB storage -- must use nixbook-minimal intermediary for upgrades",
+        "kronos": "headless mini server -- no desktop modules",
+        "hermes": "ARM64 (Raspberry Pi 4) -- architecture-aware modules"
+      }
+    },
+    "documentation": {
+      "language": "American English",
+      "emoji_policy": "only when explicitly requested",
+      "format": "Markdown for text, Mermaid for diagrams"
+    }
+  }
+}
