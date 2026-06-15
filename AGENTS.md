@@ -64,7 +64,7 @@ flake.nix              # Flake entrypoint — auto-discovers hosts/nixos/*/
 modules/
 ├── hostSpec.nix       # Per-host options (hostName, role, desktop, users, etc.)
 ├── default.nix        # Core: imports HM, sops-nix, hostSpec, users
-├── common/            # Shared across all roles
+├── base/              # Shared across all roles
 ├── workstation/       # Desktop/laptop modules
 │   └── desktops/      # Hyprland, Gnome, Cinnamon configs
 ├── server/            # Headless/server modules
