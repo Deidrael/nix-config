@@ -133,6 +133,8 @@ Available flags: `fsBtrfs`, `hasNvidiaPrime`, `aiTools`, `threeDTools`, `podman`
 - Prefer `lib.custom.relativeToRoot` for paths relative to repo root
 - Module options use `hostSpec.*` namespace for per-host configuration
 - Assertions in `hostSpec.nix` validate required fields at build time
+- **No `with pkgs;` or `with lib;`** — always use explicit `pkgs.` / `lib.` prefixes.
+  `with` scopes hinder static analysis and can cause subtle bugs from name shadowing.
 
 ### Git
 - Conventional commits: `module: verb` (e.g. `kratos: enable hyprland`, `docs: update readme`)

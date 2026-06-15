@@ -4,8 +4,8 @@
   ...
 }:
 {
-  environment.systemPackages = with pkgs; [
-    openssh
+  environment.systemPackages = [
+    pkgs.openssh
   ];
 
   programs.ssh = lib.optionalAttrs pkgs.stdenv.isLinux {

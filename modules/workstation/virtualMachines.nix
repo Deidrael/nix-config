@@ -14,10 +14,10 @@
       libvirtd.enable = true;
     };
 
-    environment.systemPackages = with pkgs; [
-      dnsmasq
-      qemu
-      waydroid-helper
+    environment.systemPackages = [
+      pkgs.dnsmasq
+      pkgs.qemu
+      pkgs.waydroid-helper
     ];
 
     programs = {
