@@ -85,21 +85,19 @@
       nixosConfigurations =
         let
           hosts = builtins.attrNames (builtins.readDir ./hosts/nixos);
-        in
-        builtins.listToAttrs (
-          map (host: {
-            name = host;
-            value = nixpkgs.lib.nixosSystem {
+          mkSystem =
+            hostname:
+            nixpkgs.lib.nixosSystem {
               specialArgs = {
                 inherit inputs outputs lib;
               };
               modules = [
-                ./hosts/nixos/${host}
+                ./hosts/nixos/${hostname}
                 (inputs.import-tree ./modules)
               ];
             };
-          }) hosts
-        );
+        in
+        lib.genAttrs hosts mkSystem;
 
       # ========= Formatting =========
       # Nix formatter available through 'nix fmt'
