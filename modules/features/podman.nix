@@ -16,10 +16,10 @@
       };
     };
 
-    environment.systemPackages = with pkgs; [
-      dive
-      podman-tui
-      docker-compose
+    environment.systemPackages = [
+      pkgs.dive
+      pkgs.podman-tui
+      pkgs.docker-compose
     ];
   };
 }

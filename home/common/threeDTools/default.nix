@@ -5,10 +5,10 @@
   ...
 }:
 lib.mkIf hostSpec.threeDTools {
-  home.packages = with pkgs; [
-    blender
-    freecad
-    inkscape
-    prusa-slicer
+  home.packages = [
+    pkgs.blender
+    pkgs.freecad
+    pkgs.inkscape
+    pkgs.prusa-slicer
   ];
 }

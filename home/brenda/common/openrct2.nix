@@ -5,7 +5,7 @@
   ...
 }:
 lib.mkIf hostSpec.role.gaming {
-  home.packages = with pkgs; [
-    stable.openrct2
+  home.packages = [
+    pkgs.stable.openrct2
   ];
 }

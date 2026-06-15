@@ -5,7 +5,7 @@
   ...
 }:
 lib.mkIf hostSpec.role.gaming {
-  home.packages = with pkgs; [
-    space-cadet-pinball
+  home.packages = [
+    pkgs.space-cadet-pinball
   ];
 }

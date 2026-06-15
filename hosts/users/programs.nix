@@ -4,13 +4,13 @@
   ...
 }:
 {
-  environment.systemPackages = with pkgs; [
-    coreutils # basic gnu utils
-    curl
-    p7zip # compression & encryption
-    rsync
-    unzip # zip extraction
-    wget # downloader
-    zip # zip compression
+  environment.systemPackages = [
+    pkgs.coreutils # basic gnu utils
+    pkgs.curl
+    pkgs.p7zip # compression & encryption
+    pkgs.rsync
+    pkgs.unzip # zip extraction
+    pkgs.wget # downloader
+    pkgs.zip # zip compression
   ];
 }

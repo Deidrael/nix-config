@@ -27,31 +27,31 @@
 
     programs.thunar = {
       enable = true;
-      plugins = with pkgs; [
-        thunar-archive-plugin # archive context menus (zip/tar)
-        thunar-volman # automatic volume management
+      plugins = [
+        pkgs.thunar-archive-plugin # archive context menus (zip/tar)
+        pkgs.thunar-volman # automatic volume management
       ];
     };
 
-    environment.systemPackages = with pkgs; [
-      brightnessctl # adjust screen brightness
-      dunst # notifications
-      hyprpolkitagent # gui applications that request elevated privileges
-      kitty # required for the default Hyprland config
-      hyprland-qtutils # qt utility apps/libraries
-      hyprpaper # wallpaper management
-      hyprshot # screenshot
-      swappy # screenshot editor
-      loupe # gnome image viewer
-      xarchiver # lightweight archive manager
-      wlogout # power and logoff menu
-      wofi # launcher
+    environment.systemPackages = [
+      pkgs.brightnessctl # adjust screen brightness
+      pkgs.dunst # notifications
+      pkgs.hyprpolkitagent # gui applications that request elevated privileges
+      pkgs.kitty # required for the default Hyprland config
+      pkgs.hyprland-qtutils # qt utility apps/libraries
+      pkgs.hyprpaper # wallpaper management
+      pkgs.hyprshot # screenshot
+      pkgs.swappy # screenshot editor
+      pkgs.loupe # gnome image viewer
+      pkgs.xarchiver # lightweight archive manager
+      pkgs.wlogout # power and logoff menu
+      pkgs.wofi # launcher
     ];
 
     xdg.portal = {
       enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
       ];
       config = {
         hyprland.default = [
