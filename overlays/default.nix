@@ -47,6 +47,12 @@ let
         '';
   };
 
+  waydroid-helper-vte-fix = final: prev: {
+    waydroid-helper = prev.waydroid-helper.overrideAttrs (old: {
+      buildInputs = (old.buildInputs or [ ]) ++ [ final.vte-gtk4 ];
+    });
+  };
+
 in
 {
   default =
@@ -55,5 +61,6 @@ in
     // (unstable-packages final prev)
     // (master-packages final prev)
     // (openldap-fix final prev)
-    // (termite-stub final prev);
+    // (termite-stub final prev)
+    // (waydroid-helper-vte-fix final prev);
 }
