@@ -48,7 +48,10 @@
       detect-private-keys.enable = true;
       fix-byte-order-marker.enable = true;
       mixed-line-endings.enable = true;
-      trim-trailing-whitespace.enable = true;
+      trim-trailing-whitespace = {
+        enable = true;
+        excludes = [ "\\.patch$" ];
+      };
 
       forbid-submodules = {
         enable = true;
