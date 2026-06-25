@@ -50,6 +50,7 @@
       efi.canTouchEfiVariables = lib.mkDefault true;
     };
     initrd.systemd.enable = true;
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
     kernelModules = [
       "kvm-intel"
       "vfio-pci"
