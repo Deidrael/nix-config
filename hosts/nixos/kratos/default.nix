@@ -11,6 +11,9 @@
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-nvidia
     inputs.hardware.nixosModules.common-pc-ssd
+
+    # Warframe companion overlay app
+    inputs.cephalon-kronos.nixosModules.default
   ];
 
   # ========== Host Specification ==========
@@ -71,5 +74,8 @@
 
   # Swap on BTRFS subvolume
   swapDevices = [ { device = "/swap/swapfile"; } ];
+
+  # Warframe companion overlay app
+  programs.cephalon-kronos.enable = true;
 
 }
