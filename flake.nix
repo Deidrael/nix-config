@@ -53,6 +53,12 @@
       url = "git+ssh://git@github.com/deidrael/nix-secrets.git?ref=main&shallow=1";
       inputs = { };
     };
+
+    # Fork of glowseeker/cephalon-kronos with nixos overlay fixes
+    cephalon-kronos = {
+      url = "git+https://github.com/Deidrael/cephalon-kronos.git?ref=nixos&submodules=1";
+      flake = true;
+    };
   };
 
   outputs =
