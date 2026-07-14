@@ -144,6 +144,7 @@ Available flags: `fsBtrfs`, `hasNvidiaPrime`, `aiTools`, `threeDTools`, `podman`
 - If a commit fails or hooks reject it, fix the issue and create a new commit; do not amend the failed commit
 - Always check `git status` before taking any git actions (commit, reset, amend, etc.)
 - The `dev` branch triggers CI builds for all systems before merging to `main`
+- `origin/main` is immutable — commits that have reached it are final and must never be force-pushed or rewritten; all history rewriting (squash, amend, rebase) must happen on local branches before pushing to `dev`
 
 ### General
 - Prefer `hostSpec` booleans to control feature inclusion over conditional imports

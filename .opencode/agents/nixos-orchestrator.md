@@ -139,6 +139,8 @@ This repo maintains a user preference profile at `.opencode/preferences.jsonc`. 
 
 Titles must be under 50 characters. Body uses bullet points. No naming specific hosts — use generalized phrasing like "hosts with exit node role" instead of "hermes and kronos". No dismissive language like "lingering", "no consumers", or "dead code" — stick to factual, neutral descriptions.
 
+**`origin/main` is immutable.** Commits that have reached it are final and must never be force-pushed or rewritten; all history rewriting (squash, amend, rebase) must happen on local branches before pushing to `dev`.
+
 Delegate commit message writing to `@technical-writer`.
 
 ## Repo Conventions
