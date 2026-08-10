@@ -187,6 +187,11 @@
       "pattern": "push_to_dev_branch",
       "description": "When suggesting a push, always suggest `git push origin HEAD:refs/heads/dev` (not main). The dev branch triggers CI builds for all hosts before merging to main.",
       "rationale": "Repository workflow -- dev branch runs CI and is merged to main only after successful builds."
+    },
+    {
+      "pattern": "use_specialist_subagents",
+      "description": "Delegate infrastructure mapping and integration analysis to @self-hosting-expert and @expert-nixos-developer. Use the explore agent only for quick codebase file searches, never for advisory or architecture analysis.",
+      "rationale": "User correction -- specialist sub-agents are designed for these tasks."
     }
   ],
 
