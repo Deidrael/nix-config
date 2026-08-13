@@ -191,6 +191,89 @@
           default = false;
           description = "Whether to install 3D design/printing tools";
         };
+        # Nous Research agent orchestrator
+        hermes = lib.mkOption {
+          type = lib.types.submodule {
+            options = {
+              enable = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "Whether to enable the hermes-agent gateway and dashboard services";
+              };
+              stateDir = lib.mkOption {
+                type = lib.types.str;
+                default = "/share/Docker/Hermes";
+                description = "State directory for hermes; HERMES_HOME lives in its .hermes subdir";
+                example = "/var/lib/hermes";
+              };
+              package = lib.mkOption {
+                type = lib.types.enum [
+                  "minimal"
+                  "full"
+                ];
+                default = "minimal";
+                description = "hermes-agent package variant (minimal core or full with optional integrations)";
+                example = "full";
+              };
+              waitForNfs = lib.mkOption {
+                type = lib.types.submodule {
+                  options = {
+                    enable = lib.mkOption {
+                      type = lib.types.bool;
+                      default = false;
+                      description = "Hold the gateway/dashboard start until the NFS state share is mounted";
+                    };
+                    timeoutMinutes = lib.mkOption {
+                      type = lib.types.int;
+                      default = 10;
+                      description = "How long to keep retrying the NFS mount before starting the units anyway";
+                      example = 30;
+                    };
+                  };
+                };
+                default = { };
+                description = "Wait-for-NFS bootstrap for the NFS-backed state directory";
+              };
+              dashboard = lib.mkOption {
+                type = lib.types.submodule {
+                  options = {
+                    enable = lib.mkOption {
+                      type = lib.types.bool;
+                      default = true;
+                      description = "Whether to run the hermes web dashboard service";
+                    };
+                    host = lib.mkOption {
+                      type = lib.types.str;
+                      default = "0.0.0.0";
+                      description = "Bind address for the dashboard (tailnet-only exposure via tailscale serve)";
+                      example = "127.0.0.1";
+                    };
+                    port = lib.mkOption {
+                      type = lib.types.port;
+                      default = 9119;
+                      description = "TCP port for the dashboard";
+                      example = 9119;
+                    };
+                  };
+                };
+                default = { };
+                description = "Web dashboard configuration";
+                example = {
+                  enable = true;
+                  host = "0.0.0.0";
+                  port = 9119;
+                };
+              };
+            };
+          };
+          default = { };
+          description = "hermes-agent (Nous Research agent orchestrator) configuration";
+          example = {
+            enable = true;
+            stateDir = "/share/Docker/Hermes";
+            package = "minimal";
+          };
+        };
         virtualMachines = lib.mkOption {
           type = lib.types.bool;
           default = false;
@@ -220,6 +303,41 @@
                   - "server": can act as an exit node or advertise routes
                   - "both": client and server features
                 '';
+              };
+              serve = lib.mkOption {
+                type = lib.types.submodule {
+                  options = {
+                    enable = lib.mkOption {
+                      type = lib.types.bool;
+                      default = false;
+                      description = "Whether to run a tailscale-serve oneshot unit for the configured backend";
+                    };
+                    httpsPort = lib.mkOption {
+                      type = lib.types.port;
+                      default = 443;
+                      description = "Tailscale HTTPS port to serve on";
+                      example = 443;
+                    };
+                    path = lib.mkOption {
+                      type = lib.types.str;
+                      default = "/";
+                      description = "URL path to serve";
+                      example = "/";
+                    };
+                    backend = lib.mkOption {
+                      type = lib.types.str;
+                      default = "http://127.0.0.1:9119";
+                      description = "Backend URL to proxy to";
+                      example = "http://127.0.0.1:8080";
+                    };
+                  };
+                };
+                default = { };
+                description = "Tailscale serve configuration, applied by a oneshot unit";
+                example = {
+                  enable = true;
+                  backend = "http://127.0.0.1:9119";
+                };
               };
             };
           };

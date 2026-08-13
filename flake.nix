@@ -30,6 +30,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nous Research agent orchestrator
+    hermes-agent = {
+      url = "github:NousResearch/hermes-agent/v2026.8.3";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # ProtonHax
     #protonhax = {
     #  url = "github:pneg/nixpkgs/protonhax-init";
