@@ -467,13 +467,13 @@
         "rev": "cdf11823f4cebac741d92fffbec4ea11539f389f",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/deidrael/nix-secrets.git"
+        "url": "ssh://git@github.com/Deidrael/nix-secrets.git"
       },
       "original": {
         "ref": "main",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/deidrael/nix-secrets.git"
+        "url": "ssh://git@github.com/Deidrael/nix-secrets.git"
       }
     },
     "nixpkgs": {
