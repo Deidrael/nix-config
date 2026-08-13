@@ -112,7 +112,7 @@ hostSpec = {
 };
 ```
 
-Available flags: `fsBtrfs`, `hasNvidiaPrime`, `aiTools`, `threeDTools`, `podman`, `virtualMachines`, `nfsClient`, `desktopApps.*`.
+Available flags: `fsBtrfs`, `hasNvidiaPrime`, `aiTools.*`, `threeDTools`, `podman`, `virtualMachines`, `nfsClient`, `desktopApps.*`.
 
 ### Secrets Strategy
 - **sops-nix** for secrets management

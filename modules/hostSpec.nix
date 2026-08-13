@@ -148,9 +148,43 @@
           description = "Whether to install and configure Podman for container management";
         };
         aiTools = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Whether to install and configure AI dev tools";
+          type = lib.types.submodule {
+            options = {
+              enable = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "Whether to enable AI tools, including the ollama inference server";
+              };
+              webui = lib.mkOption {
+                type = lib.types.bool;
+                default = false;
+                description = "Whether to enable the open-webui chat frontend (requires enable)";
+              };
+              acceleration = lib.mkOption {
+                type = lib.types.enum [
+                  "cpu"
+                  "cuda"
+                  "vulkan"
+                  "rocm"
+                ];
+                default = "cpu";
+                description = "The ollama build to use (cpu, cuda, vulkan, rocm)";
+                example = "cuda";
+              };
+              model = lib.mkOption {
+                type = lib.types.str;
+                default = "qwen3.5:9b";
+                description = "Ollama model to load for the inference server";
+                example = "qwen3.5:4b";
+              };
+            };
+          };
+          default = { };
+          description = "AI tools configuration";
+          example = {
+            enable = true;
+            acceleration = "cuda";
+          };
         };
         threeDTools = lib.mkOption {
           type = lib.types.bool;
@@ -360,6 +394,10 @@
         assertion =
           !config.hostSpec.users.secondary.enable || config.hostSpec.users.secondary.username != "";
         message = "Secondary user is enabled but username is not set";
+      }
+      {
+        assertion = !config.hostSpec.aiTools.webui || config.hostSpec.aiTools.enable;
+        message = "hostSpec.aiTools.webui is enabled but hostSpec.aiTools.enable is not";
       }
     ];
   };

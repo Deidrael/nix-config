@@ -32,7 +32,10 @@
         brightnessDevice = "acpi_video0";
       };
     };
-    aiTools = true;
+    aiTools = {
+      enable = true;
+      acceleration = "cuda";
+    };
     threeDTools = true;
     podman = true;
     virtualMachines = true;

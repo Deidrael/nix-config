@@ -57,7 +57,10 @@ My Nix Config
 | Variable | Default | Description |
 | -------- | ------- | ----------- |
 | podman | false | Installs podman |
-| aiTools | false | Installs AI tools (ollama, open-webui) |
+| aiTools.enable | false | Installs AI tools and the ollama inference server |
+| aiTools.webui | false | Enables the open-webui chat frontend (requires enable) |
+| aiTools.acceleration | "cpu" | Ollama build to use (cpu, cuda, vulkan, rocm) |
+| aiTools.model | "qwen3.5:9b" | Ollama model to load |
 | threeDTools | false | Installs 3D design/printing tools |
 | virtualMachines | false | Enables virtual machine support |
 | nfsClient.enable | false | Whether to map NFS shares |
