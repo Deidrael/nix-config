@@ -4,7 +4,7 @@
   pkgs,
   ...
 }:
-lib.mkIf hostSpec.aiTools {
+lib.mkIf hostSpec.aiTools.enable {
   home.packages = [
     pkgs.opencode
   ]

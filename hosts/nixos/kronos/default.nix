@@ -18,6 +18,10 @@
     role = {
       type = "server";
     };
+    aiTools = {
+      enable = true;
+      model = "qwen3.5:4b";
+    };
     tailscale.routingFeatures = "both";
     nfsClient.enable = true;
     podman = true;
