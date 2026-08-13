@@ -20,12 +20,27 @@
     podman = true;
   };
 
+  # Compressed in-memory swap; disk swap devices are disabled below
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 25;
+  };
+
+  # Daemon is enabled by default; slices are not
+  systemd.oomd = {
+    enableRootSlice = true;
+    enableSystemSlice = true;
+  };
+
   boot = {
     loader = {
       systemd-boot.enable = lib.mkDefault false;
       efi.canTouchEfiVariables = lib.mkDefault false;
       timeout = 3;
     };
+    # Pi kernel has CONFIG_PSI_DEFAULT_DISABLED=y; oomd slices need psi enabled
+    kernelParams = [ "psi=1" ];
     #initrd.systemd.enable = true;
   };
 
