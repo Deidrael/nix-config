@@ -15,9 +15,27 @@
     role = {
       type = "server";
     };
-    tailscale.routingFeatures = "both";
+    tailscale = {
+      routingFeatures = "both";
+      serve = {
+        enable = true;
+      };
+    };
     nfsClient.enable = true;
     podman = true;
+    hermes = {
+      enable = true;
+      stateDir = "/share/Docker/Hermes";
+      package = "minimal";
+      waitForNfs = {
+        enable = true;
+      };
+      dashboard = {
+        enable = true;
+        host = "0.0.0.0";
+        port = 9119;
+      };
+    };
   };
 
   # Compressed in-memory swap; disk swap devices are disabled below
