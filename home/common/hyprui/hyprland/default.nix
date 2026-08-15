@@ -3,36 +3,62 @@
   lib,
   ...
 }:
+let
+  lua = lib.generators.mkLuaInline;
+  on = event: body: {
+    _args = [
+      event
+      (lua "function() ${body} end")
+    ];
+  };
+  exec = cmd: ''hl.exec_cmd("${cmd}")'';
+in
 {
-
   config = lib.mkIf hostSpec.desktop.hyprland.enable {
-    # assertions = [
-    #   {
-    #     assertion = config.hostSpec.desktop.hyprland.enable;
-    #     message = "make sure to enable hyprland on the host for required dependencies like xdg-desktop portal etc.";
-    #   }
-    # ];
-
     wayland.windowManager.hyprland = {
       enable = true;
-      configType = "hyprlang";
+      configType = "lua";
       settings = {
         ### AUTOSTART ###
-        exec-once = [
-          "hyprpaper"
-          "hypridle"
-          "waybar"
-          "$browser"
-          "dunst"
-          "systemctl --user start hyprpolkitagent"
+        on = [
+          (on "hyprland.start" ''
+            ${exec "hyprpaper"}
+            ${exec "hypridle"}
+            ${exec "waybar"}
+            ${exec "firefox"}
+            ${exec "dunst"}
+            ${exec "systemctl --user start hyprpolkitagent"}
+          '')
         ];
 
         # fallback rule matching any monitor
-        monitor = [ ", preferred, auto, 1" ];
+        monitor = [
+          {
+            output = "";
+            mode = "preferred";
+            position = "auto";
+            scale = "1";
+          }
+        ];
 
-        windowrule = [
-          "suppress_event maximize, match:class .*"
-          "no_focus on, match:class ^$, match:title ^$, match:xwayland 1, match:float 1, match:fullscreen 0, match:pin 0"
+        window_rule = [
+          {
+            match = {
+              class = ".*";
+            };
+            suppress_event = "maximize";
+          }
+          {
+            match = {
+              class = "^$";
+              title = "^$";
+              xwayland = true;
+              float = true;
+              fullscreen = false;
+              pin = false;
+            };
+            no_focus = true;
+          }
         ];
       };
     };
