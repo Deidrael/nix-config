@@ -96,7 +96,7 @@ setup_sops() {
 
 	# Create a new <host>.yaml file and verify it holds the correct entry
 	export SOPS_AGE_KEY_FILE="$BATS_TEST_DIRNAME/fixtures/nix-secrets/age_key.txt"
-	run sops_setup_user_age_key "deadbeef" "bob"
+	run sops_setup_user_age_key "bob" "deadbeef"
 	[ "$status" -eq 0 ]
 
 	teardown
