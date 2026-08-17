@@ -13,17 +13,6 @@
         name = config.hostSpec.users.primary.handle;
         email = config.hostSpec.users.primary.email.gitHub;
       };
-      core.pager = "delta";
-      delta = {
-        enable = true;
-        features = [
-          "side-by-side"
-          "line-numbers"
-          "hyperlinks"
-          "line-numbers"
-          "commit-decoration"
-        ];
-      };
       merge = {
         conflictStyle = "diff3";
         tool = "meld";
@@ -53,5 +42,11 @@
       # direnv
       ".direnv"
     ];
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options.features = "side-by-side line-numbers hyperlinks commit-decoration";
   };
 }
