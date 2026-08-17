@@ -34,12 +34,14 @@
         git
         gitui
         home-manager
+        jq
         just
         lazygit # available in dev shell for interactive rebase & patches
         nh
         nix
         nixfmt-tree
         pre-commit
+        ripgrep
         sops
         ssh-to-age # for bootstrap script
         yq-go
