@@ -385,8 +385,10 @@
                   "x-systemd.automount"
                   "noauto"
                   "x-systemd.idle-timeout=600"
+                  "x-systemd.after=tailscaled.service"
+                  "x-systemd.mount-timeout=30"
                 ];
-                description = "NFS mount options (defaults include on-demand mounting)";
+                description = "NFS mount options (defaults include on-demand mounting and tailscale-aware ordering)";
                 example = [
                   "nfsvers=4.2"
                   "x-systemd.automount"
@@ -516,6 +518,10 @@
       {
         assertion = !config.hostSpec.aiTools.webui || config.hostSpec.aiTools.enable;
         message = "hostSpec.aiTools.webui is enabled but hostSpec.aiTools.enable is not";
+      }
+      {
+        assertion = !config.hostSpec.hermes.enable || config.hostSpec.tailscale.enable;
+        message = "hostSpec.hermes.enable is true but hostSpec.tailscale.enable is not; hermes requires tailscale for NFS stateDir access";
       }
     ];
   };

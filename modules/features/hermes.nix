@@ -39,8 +39,14 @@ in
     systemd.services = {
       hermes-agent = {
         unitConfig.WantsMountsFor = [ "/share/Docker" ];
-        after = lib.optionals cfg.waitForNfs.enable [ "hermes-wait-for-nfs.service" ];
-        wants = lib.optionals cfg.waitForNfs.enable [ "hermes-wait-for-nfs.service" ];
+        after = [
+          "tailscaled.service"
+        ]
+        ++ lib.optionals cfg.waitForNfs.enable [ "hermes-wait-for-nfs.service" ];
+        wants = [
+          "tailscaled.service"
+        ]
+        ++ lib.optionals cfg.waitForNfs.enable [ "hermes-wait-for-nfs.service" ];
         serviceConfig = {
           MemoryMax = "2G";
           # "-" prefix demotes the implicit RequiresMountsFor= on the working
@@ -68,10 +74,23 @@ in
           "hermes-agent.service"
           "hermes-agent-dashboard.service"
         ];
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
+        after = [
+          "tailscaled.service"
+          "network-online.target"
+        ];
+        wants = [
+          "tailscaled.service"
+          "network-online.target"
+        ];
 
         script = ''
+          # Wait for tailscale0 interface to appear before attempting NFS
+          _tries=0
+          while [ ! -d /sys/class/net/tailscale0 ] && [ "$_tries" -lt 30 ]; do
+            _tries=$((_tries + 1))
+            sleep 1
+          done
+
           _deadline=$(( $(date +%s) + ${toString cfg.waitForNfs.timeoutMinutes} * 60 ))
           while [ "$(date +%s)" -lt "$_deadline" ]; do
             if systemctl start share-Docker.mount >/dev/null 2>&1 \
@@ -88,11 +107,13 @@ in
           RemainAfterExit = true;
           Restart = "on-failure";
           RestartSec = 10;
+          ExecStop = "${pkgs.bash}/bin/bash -c 'umount /share/Docker || ${pkgs.util-linux}/bin/umount -l /share/Docker'";
         };
 
         path = [
           pkgs.bash
           pkgs.coreutils
+          pkgs.util-linux
         ];
       };
 
@@ -101,10 +122,12 @@ in
         wantedBy = [ "multi-user.target" ];
         after = [
           "network-online.target"
+          "tailscaled.service"
         ]
         ++ lib.optionals cfg.waitForNfs.enable [ "hermes-wait-for-nfs.service" ];
         wants = [
           "network-online.target"
+          "tailscaled.service"
         ]
         ++ lib.optionals cfg.waitForNfs.enable [ "hermes-wait-for-nfs.service" ];
 
