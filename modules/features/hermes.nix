@@ -31,7 +31,11 @@ in
       package = hermesPackage;
       addToSystemPackages = true;
       inherit (cfg) stateDir;
-      settings.model = "qwen3.5:9b";
+      settings.model = {
+        default = "qwen3.5:9b";
+        provider = "custom";
+        base_url = "http://localhost:11434/v1";
+      };
       restart = "always";
     };
 
