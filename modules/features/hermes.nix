@@ -29,6 +29,7 @@ in
     services.hermes-agent = {
       enable = true;
       package = hermesPackage;
+      addToSystemPackages = true;
       inherit (cfg) stateDir;
       settings.model = "qwen3.5:9b";
       restart = "always";
