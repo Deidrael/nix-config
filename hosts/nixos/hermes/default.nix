@@ -35,6 +35,9 @@
         host = "0.0.0.0";
         port = 9119;
       };
+      searxng = {
+        url = "https://search.macaroni-ghoul.ts.net";
+      };
     };
   };
 

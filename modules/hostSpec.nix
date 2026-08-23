@@ -264,6 +264,21 @@
                   port = 9119;
                 };
               };
+              searxng = lib.mkOption {
+                type = lib.types.nullOr (
+                  lib.types.submodule {
+                    options = {
+                      url = lib.mkOption {
+                        type = lib.types.str;
+                        description = "SearXNG instance URL on the tailnet";
+                        example = "https://search.ts.net";
+                      };
+                    };
+                  }
+                );
+                default = null;
+                description = "SearXNG search backend configuration (null = disabled)";
+              };
             };
           };
           default = { };
