@@ -15,6 +15,16 @@ let
       inputs.hermes-agent.packages.${system}.default
     else
       inputs.hermes-agent.packages.${system}.minimal;
+  # Shared auxiliary-model provider entry (kratos ollama endpoint)
+  kratosAux = {
+    provider = "custom";
+    model = "qwen3.5:9b";
+    base_url = "http://kratos:11434/v1";
+    extra_body = {
+      temperature = 0.3;
+      presence_penalty = 0;
+    };
+  };
 in
 {
   # Import unconditionally: imports must be static (modules.nix only
@@ -26,18 +36,181 @@ in
   ];
 
   config = lib.mkIf cfg.enable {
-    services.hermes-agent = {
-      enable = true;
-      package = hermesPackage;
-      addToSystemPackages = true;
-      inherit (cfg) stateDir;
-      settings.model = {
-        default = "qwen3.5:9b";
-        provider = "custom";
-        base_url = "http://localhost:11434/v1";
-      };
-      restart = "always";
-    };
+    services.hermes-agent = lib.mkMerge [
+      {
+        enable = true;
+        package = hermesPackage;
+        addToSystemPackages = true;
+        inherit (cfg) stateDir;
+        settings = {
+          model = {
+            default = "qwen3.5:9b";
+            provider = "custom";
+            base_url = "http://kratos:11434/v1";
+          };
+          fallback_providers = [
+            {
+              provider = "custom";
+              model = "qwen3.5:4b";
+              base_url = "http://kronos:11434/v1";
+            }
+          ];
+          agent = {
+            max_turns = 90;
+            disabled_toolsets = [
+              "bfl"
+            ];
+          };
+          toolsets = [ "all" ];
+          delegation = {
+            max_concurrent_children = 1;
+          };
+          compression = {
+            enabled = true;
+          };
+          memory = {
+            memory_enabled = true;
+            user_profile_enabled = true;
+          };
+          skills = {
+            disabled = [
+              "airtable"
+              "architecture-diagram"
+              "arxiv"
+              "ascii-art"
+              "ascii-video"
+              "baoyu-infographic"
+              "blogwatcher"
+              "claude-code"
+              "claude-design"
+              "codex"
+              "comfyui"
+              "design-md"
+              "docx"
+              "dogfood"
+              "evaluating-llms-harness"
+              "excalidraw"
+              "gif-search"
+              "google-workspace"
+              "himalaya"
+              "huggingface-hub"
+              "inspecting-hermes-desktop-dom"
+              "llama-cpp"
+              "llm-wiki"
+              "manim-video"
+              "maps"
+              "nano-pdf"
+              "node-inspect-debugger"
+              "notion"
+              "obsidian"
+              "ocr-and-documents"
+              "opencode"
+              "openhue"
+              "p5js"
+              "pdf"
+              "polymarket"
+              "popular-web-designs"
+              "powerpoint"
+              "pretext"
+              "python-debugpy"
+              "research-paper-writing"
+              "serving-llms-vllm"
+              "sketch"
+              "songsee"
+              "songwriting-and-ai-music"
+              "spike"
+              "systematic-debugging"
+              "teams-meeting-pipeline"
+              "test-driven-development"
+              "touchdesigner-mcp"
+              "weights-and-biases"
+              "xlsx"
+              "xurl"
+              "youtube-content"
+            ];
+          };
+          smart_model_routing = {
+            enabled = false;
+          };
+          session_reset = {
+            mode = "none";
+          };
+          platform_toolsets = {
+            cli = [
+              "clarify"
+              "cronjob"
+              "delegation"
+              "file"
+              "memory"
+              "skills"
+              "terminal"
+              "todo"
+              "web"
+            ];
+          };
+          display = {
+            tool_progress = "all";
+            show_reasoning = true;
+            sections = {
+              thinking = "expanded";
+            };
+          };
+          custom_providers = [
+            (
+              kratosAux
+              // {
+                name = "Kratos";
+                models = {
+                  "qwen3.5:9b" = {
+                    context_length = 65536;
+                  };
+                };
+              }
+            )
+            {
+              name = "Kronos";
+              base_url = "http://kronos:11434/v1";
+              model = "qwen3.5:4b";
+              extra_body = {
+                temperature = 0.3;
+                presence_penalty = 0;
+              };
+              models = {
+                "qwen3.5:4b" = {
+                  context_length = 65536;
+                };
+              };
+            }
+          ];
+          auxiliary = {
+            free_only = true;
+            vision = kratosAux;
+            web_extract = kratosAux;
+            compression = kratosAux;
+            skills_hub = kratosAux;
+            approval = kratosAux;
+            mcp = kratosAux;
+            title_generation = kratosAux;
+            memory_query_rewrite = kratosAux;
+            tts_audio_tags = kratosAux;
+            triage_specifier = kratosAux;
+            kanban_decomposer = kratosAux;
+            profile_describer = kratosAux;
+            goal_judge = kratosAux;
+            curator = kratosAux;
+            monitor = kratosAux;
+            background_review = kratosAux;
+            moa_reference = kratosAux;
+            moa_aggregator = kratosAux;
+          };
+        };
+        restart = "always";
+      }
+      (lib.mkIf (cfg.searxng != null) {
+        settings.web.search_backend = "searxng";
+        environment.SEARXNG_URL = cfg.searxng.url;
+      })
+    ];
 
     # Gateway unit comes from the upstream module; add NFS-autofs ordering
     # and the memory cap matching the former container's mem_limit
