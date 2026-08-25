@@ -23,7 +23,6 @@ in
         on = [
           (on "hyprland.start" ''
             ${exec "hyprpaper"}
-            ${exec "hypridle"}
             ${exec "waybar"}
             ${exec "firefox"}
             ${exec "dunst"}
