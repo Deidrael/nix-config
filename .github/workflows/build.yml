@@ -49,11 +49,6 @@ jobs:
           extra-conf: |
             build-dir = /nix/build
 
-      - name: Cache nix in Github
-        uses: DeterminateSystems/magic-nix-cache-action@main
-        with:
-          use-flakehub: false
-
       - name: Enable cachix support
         uses: cachix/cachix-action@v17
         with:
@@ -63,7 +58,3 @@ jobs:
 
       - name: Build System
         run: nix build -L .#nixosConfigurations.${{matrix.host}}.config.system.build.toplevel
-
-      - name: Deploy back to cachix
-        run: |
-          cachix push deidrael ./result*
