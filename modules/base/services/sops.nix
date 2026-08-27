@@ -10,6 +10,15 @@ let
   sopsFolder = builtins.toString inputs.nix-secrets;
 in
 {
+  assertions = [
+    {
+      assertion = builtins.pathExists "${sopsFolder}/sops/${config.hostSpec.hostName}.yaml";
+      message =
+        "Per-host sops file missing: sops/${config.hostSpec.hostName}.yaml in nix-secrets. "
+        + "Run: source scripts/helpers.sh && sops_setup_user_age_key ${config.hostSpec.users.primary.username} ${config.hostSpec.hostName}";
+    }
+  ];
+
   # the import for inputs.sops-nix.nixosModules.sops is handled in modules/default.nix
   # so that it can be dynamically input according to the platform
 
@@ -36,6 +45,7 @@ in
       # from an ssh key).
 
       "keys/age" = {
+        sopsFile = "${sopsFolder}/sops/${config.hostSpec.hostName}.yaml";
         owner = config.users.users.${config.hostSpec.users.primary.username}.name;
         inherit (config.users.users.${config.hostSpec.users.primary.username}) group;
         # We need to ensure the entire directory structure is that of the user...
