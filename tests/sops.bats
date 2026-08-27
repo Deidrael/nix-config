@@ -72,13 +72,13 @@ setup_sops() {
 	sops_update_age_key hosts deadbeef "${AGE_TEST_KEY_2}"
 	sops_update_age_key users "$(whoami)_$(hostname)" "${AGE_STATIC_HOST_KEY}"
 	sops_update_age_key hosts "$(hostname)" "${AGE_STATIC_HOST_KEY}"
-	sops_add_host_creation_rules bob deadbeef
+	sops_add_host_creation_rules bob deadbeef "${AGE_TEST_KEY_1}" "${AGE_TEST_KEY_2}" "${AGE_STATIC_HOST_KEY}"
 
 	yq '.creation_rules' "$NIX_SECRETS_DIR"/.sops.yaml >"$TEST_TEMP/creation_rules"
-	run grep "bob" "$TEST_TEMP/creation_rules"
+	run grep "${AGE_TEST_KEY_1}" "$TEST_TEMP/creation_rules"
 	[ "$status" -eq 0 ]
 
-	run grep "deadbeef" "$TEST_TEMP/creation_rules"
+	run grep "${AGE_TEST_KEY_2}" "$TEST_TEMP/creation_rules"
 	[ "$status" -eq 0 ]
 
 	teardown
@@ -91,7 +91,7 @@ setup_sops() {
 	sops_update_age_key hosts deadbeef "${AGE_TEST_KEY_2}"
 	sops_update_age_key users "$(whoami)_$(hostname)" "${AGE_STATIC_HOST_KEY}"
 	sops_update_age_key hosts "$(hostname)" "${AGE_STATIC_HOST_KEY}"
-	sops_add_host_creation_rules bob deadbeef
+	sops_add_host_creation_rules bob deadbeef "${AGE_TEST_KEY_1}" "${AGE_TEST_KEY_2}" "${AGE_STATIC_HOST_KEY}"
 	sops_update_age_key hosts bob "${AGE_TEST_KEY_3}"
 
 	# Create a new <host>.yaml file and verify it holds the correct entry
