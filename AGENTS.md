@@ -28,7 +28,7 @@ scripts/rebuild.sh
 sudo nixos-rebuild switch --flake .#$(hostname) --impure --show-trace
 
 # Rebuild a specific remote host
-nixos-rebuild switch --flake .#<hostname> --target-host <user>@<host> --use-remote-sudo
+nixos-rebuild switch --flake .#<hostname> --target-host <user>@<host> --elevate=sudo --ask-elevate-password
 ```
 
 ### ISO & Disko
