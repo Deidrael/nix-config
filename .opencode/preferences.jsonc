@@ -52,7 +52,7 @@
     },
     {
       "name": "Rebuild remote host",
-      "command": "nixos-rebuild switch --flake .#<hostname> --target-host <user>@<host> --use-remote-sudo",
+      "command": "nixos-rebuild switch --flake .#<hostname> --target-host <user>@<host> --elevate=sudo --ask-elevate-password",
       "description": "Apply configuration to a remote machine"
     },
     {
