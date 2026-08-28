@@ -209,10 +209,11 @@
               package = lib.mkOption {
                 type = lib.types.enum [
                   "minimal"
+                  "messaging"
                   "full"
                 ];
                 default = "minimal";
-                description = "hermes-agent package variant (minimal core or full with optional integrations)";
+                description = "hermes-agent package variant (minimal core, messaging with chat SDKs, or full with optional integrations)";
                 example = "full";
               };
               waitForNfs = lib.mkOption {
@@ -278,6 +279,45 @@
                 );
                 default = null;
                 description = "SearXNG search backend configuration (null = disabled)";
+              };
+              environmentFiles = lib.mkOption {
+                type = lib.types.listOf lib.types.str;
+                default = [ ];
+                description = "Paths to environment files (e.g. sops secrets) to load into hermes-agent";
+              };
+              environment = lib.mkOption {
+                type = lib.types.attrsOf lib.types.str;
+                default = { };
+                description = "Non-secret environment variables for hermes-agent";
+              };
+              discord = lib.mkOption {
+                type = lib.types.submodule {
+                  options = {
+                    enable = lib.mkOption {
+                      type = lib.types.bool;
+                      default = false;
+                      description = "Whether to enable Discord messaging integration";
+                    };
+                    botTokenSecret = lib.mkOption {
+                      type = lib.types.str;
+                      default = "";
+                      description = "Sops secret key for the Discord bot token (in secrets.yaml)";
+                      example = "hermes/discord-token";
+                    };
+                    allowedUsers = lib.mkOption {
+                      type = lib.types.str;
+                      default = "";
+                      description = "Comma-separated Discord user IDs allowed to interact with the bot";
+                    };
+                    homeChannel = lib.mkOption {
+                      type = lib.types.str;
+                      default = "";
+                      description = "Default Discord channel ID for the bot";
+                    };
+                  };
+                };
+                default = { };
+                description = "Discord messaging integration for hermes-agent";
               };
             };
           };
@@ -537,6 +577,11 @@
       {
         assertion = !config.hostSpec.hermes.enable || config.hostSpec.tailscale.enable;
         message = "hostSpec.hermes.enable is true but hostSpec.tailscale.enable is not; hermes requires tailscale for NFS stateDir access";
+      }
+      {
+        assertion =
+          !config.hostSpec.hermes.discord.enable || config.hostSpec.hermes.discord.botTokenSecret != "";
+        message = "hostSpec.hermes.discord.enable is true but botTokenSecret is not set";
       }
     ];
   };

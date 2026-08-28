@@ -9,10 +9,13 @@ let
   cfg = config.hostSpec.hermes;
   system = pkgs.stdenv.hostPlatform.system;
   # "minimal" keeps the closure small on ARM (no ctranslate2/onnxruntime extras);
+  # "messaging" adds chat SDKs (discord.py, telegram, slack);
   # "full" enables all optional integrations from the upstream flake
   hermesPackage =
     if cfg.package == "full" then
       inputs.hermes-agent.packages.${system}.default
+    else if cfg.package == "messaging" then
+      inputs.hermes-agent.packages.${system}.messaging
     else
       inputs.hermes-agent.packages.${system}.minimal;
   # Shared auxiliary-model provider entry (kratos ollama endpoint)
@@ -24,6 +27,11 @@ let
       temperature = 0.3;
       presence_penalty = 0;
     };
+  };
+  # Discord environment variables (empty attrset when disabled)
+  discordEnv = lib.optionalAttrs cfg.discord.enable {
+    DISCORD_ALLOWED_USERS = cfg.discord.allowedUsers;
+    DISCORD_HOME_CHANNEL = cfg.discord.homeChannel;
   };
 in
 {
@@ -205,12 +213,28 @@ in
           };
         };
         restart = "always";
+        environment =
+          cfg.environment
+          // discordEnv
+          // lib.optionalAttrs (cfg.searxng != null) { SEARXNG_URL = cfg.searxng.url; };
+        environmentFiles =
+          cfg.environmentFiles
+          ++ lib.optionals cfg.discord.enable [
+            config.sops.templates."discord-token.env".path
+          ];
       }
       (lib.mkIf (cfg.searxng != null) {
         settings.web.search_backend = "searxng";
-        environment.SEARXNG_URL = cfg.searxng.url;
       })
     ];
+
+    sops = lib.mkIf cfg.discord.enable {
+      secrets.${cfg.discord.botTokenSecret} = { };
+      # Wrap the bare SOPS token with the DISCORD_BOT_TOKEN= prefix for .env parsing
+      templates."discord-token.env" = {
+        content = "DISCORD_BOT_TOKEN=${config.sops.placeholder.${cfg.discord.botTokenSecret}}";
+      };
+    };
 
     # Gateway unit comes from the upstream module; add NFS-autofs ordering
     # and the memory cap matching the former container's mem_limit

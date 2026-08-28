@@ -26,7 +26,7 @@
     hermes = {
       enable = true;
       stateDir = "/share/Docker/Hermes";
-      package = "minimal";
+      package = "messaging";
       waitForNfs = {
         enable = true;
       };
@@ -37,6 +37,12 @@
       };
       searxng = {
         url = "https://search.macaroni-ghoul.ts.net";
+      };
+      discord = {
+        enable = true;
+        botTokenSecret = "hermes/discord-token";
+        allowedUsers = "180950849130987520";
+        homeChannel = "1541984518322397327";
       };
     };
   };
