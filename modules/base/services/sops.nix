@@ -1,4 +1,4 @@
-# hosts level sops. see home/[user]/common/optional/sops.nix for home/user level
+# hosts level sops. see home/[user]/common/sops.nix for home/user level
 
 {
   lib,
@@ -41,7 +41,7 @@ in
   # the age key.
   sops.secrets = lib.mkMerge [
     {
-      # These age keys are are unique for the user on each host and are generated on their own (i.e. they are not derived
+      # These age keys are unique for the user on each host and are generated independently (i.e. they are not derived
       # from an ssh key).
 
       "keys/age" = {

@@ -12,7 +12,7 @@ in
   imports = [ inputs.sops-nix.homeManagerModules.sops ];
   sops = {
     # This is the location of the host specific age-key for primaryUser
-    # and will to have been extracted to this location via modules/base/services/sops.nix on the host
+    # and will have been extracted to this location via modules/base/services/sops.nix on the host
     age.keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
 
     defaultSopsFile = "${sopsFolder}/secrets.yaml";

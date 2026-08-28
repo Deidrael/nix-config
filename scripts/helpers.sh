@@ -61,6 +61,26 @@ function no_or_yes() {
 nix_secrets_dir=${NIX_SECRETS_DIR:-"$(dirname "${BASH_SOURCE[0]}")/../../nix-secrets"}
 SOPS_FILE="${nix_secrets_dir}/.sops.yaml"
 
+# Resolve the primary user for a host. The primary user is defined centrally in
+# nix-secrets/flake.nix (users.primary.username) and is shared by all hosts.
+# Resolution order: $SOPS_USER env var, then nix-secrets/flake.nix, then "adam".
+function sops_primary_user() {
+	if [ -n "${SOPS_USER-}" ]; then
+		echo "$SOPS_USER"
+		return
+	fi
+	local flake="${nix_secrets_dir}/flake.nix"
+	if [ -f "$flake" ]; then
+		local user
+		user=$(rg -U -o 'primary = \{\n\s*username = "[^"]+"' "$flake" 2>/dev/null | rg -o '"[^"]+"' | tr -d '"' || true)
+		if [ -n "$user" ]; then
+			echo "$user"
+			return
+		fi
+	fi
+	echo "adam"
+}
+
 # Updates the .sops.yaml file with a new host or user age key.
 function sops_update_age_key() {
 	field="$1"
@@ -149,7 +169,7 @@ function sops_generate_user_age_key() {
 	sops_update_age_key "users" "$key_name" "$public_key"
 
 	host_pubkey=$(yq ".keys[] | select(anchor == \"${target_hostname}\")" "${SOPS_FILE}")
-	admin_pubkey=$(yq '.keys[] | select(anchor == "adam")' "${SOPS_FILE}")
+	admin_pubkey=$(yq ".keys[] | select(anchor == \"$(sops_primary_user)\")" "${SOPS_FILE}")
 	sops_add_creation_rules "${target_user}" "${target_hostname}" "$public_key" "$host_pubkey" "$admin_pubkey"
 
 	# "return" key so it can be used by caller
@@ -178,4 +198,43 @@ function sops_setup_user_age_key() {
 	echo "{\"keys\": {\"age\": \"${age_secret_key}\"}}" >"$secret_file"
 	sops --config "$config" -e "$secret_file" >"$secret_file.enc"
 	mv "$secret_file.enc" "$secret_file"
+}
+
+# List unique hostnames from hosts/nixos/*/
+function sops_hostnames() {
+	local hosts_dir
+	hosts_dir="$(dirname "${BASH_SOURCE[0]}")/../hosts/nixos"
+	for host in "$hosts_dir"/*/; do
+		rg -o 'hostName = "[^"]+"' "$host/default.nix" | cut -d'"' -f2
+	done | sort -u
+}
+
+# Generate per-host age keys for all hosts that don't have one yet.
+# This only creates the sops/<host>.yaml key files; the keys are deployed
+# to each host via `nixos-rebuild switch`.
+function sops_generate_all_host_keys() {
+	for host in $(sops_hostnames); do
+		sops_setup_user_age_key "$(sops_primary_user)" "$host"
+	done
+}
+
+# Verify every per-host sops file can be decrypted
+function sops_verify_host_keys() {
+	local config="${nix_secrets_dir}/.sops.yaml"
+	local failed=0
+	for host in $(sops_hostnames); do
+		local secret_file="${nix_secrets_dir}/sops/${host}.yaml"
+		if [ ! -f "$secret_file" ]; then
+			red "Missing sops/${host}.yaml"
+			failed=1
+			continue
+		fi
+		if sops --config "$config" -d --extract '["keys"]["age"]' "$secret_file" >/dev/null 2>&1; then
+			green "sops/${host}.yaml decrypts OK"
+		else
+			red "sops/${host}.yaml FAILED to decrypt"
+			failed=1
+		fi
+	done
+	return "$failed"
 }
