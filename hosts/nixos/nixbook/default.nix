@@ -25,7 +25,7 @@
     };
     desktopApps = {
       firefox = true;
-      tools = true;
+      remote = true;
     };
   };
 

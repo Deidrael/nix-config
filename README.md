@@ -83,7 +83,9 @@ My Nix Config
 | firefox | false | Install Firefox browser |
 | social | false | Install social/chat applications |
 | media | false | Install media editing applications |
-| tools | false | Install desktop utility applications |
+| remote | false | Install remote desktop applications (Remmina) |
+| coding | false | Install a VS Code-family editor (bool or { enable, package }) |
+| coding.package | vscodium | The VS Code-family editor package to install (override form) |
 
 ## Secrets Configuration
 
