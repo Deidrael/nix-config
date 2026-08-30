@@ -44,7 +44,8 @@
       firefox = true;
       social = true;
       media = true;
-      tools = true;
+      remote = true;
+      coding = true;
     };
   };
 

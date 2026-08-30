@@ -2,6 +2,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -542,10 +543,39 @@
                 default = false;
                 description = "Whether to install media editing applications";
               };
-              tools = lib.mkOption {
+              remote = lib.mkOption {
                 type = lib.types.bool;
                 default = false;
-                description = "Whether to install desktop utility applications";
+                description = "Whether to install remote desktop applications (Remmina)";
+              };
+              coding = lib.mkOption {
+                type = lib.types.either lib.types.bool (
+                  lib.types.submodule {
+                    options = {
+                      enable = lib.mkOption {
+                        type = lib.types.bool;
+                        default = false;
+                        description = "Whether to install a VS Code-family editor";
+                      };
+                      package = lib.mkOption {
+                        type = lib.types.package;
+                        default = pkgs.vscodium;
+                        description = "The VS Code-family editor package to install";
+                      };
+                    };
+                  }
+                );
+                default = false;
+                apply =
+                  value:
+                  if builtins.isBool value then
+                    {
+                      enable = value;
+                      package = pkgs.vscodium;
+                    }
+                  else
+                    value;
+                description = "VS Code-family editor configuration (bool or { enable, package })";
               };
             };
           };
