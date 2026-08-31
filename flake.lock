@@ -38,17 +38,17 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1786237151,
-        "narHash": "sha256-GPcKwGU3OgGJq727rfVHspybKXn7wA0tj8MOxFYGUWg=",
-        "ref": "nixos",
-        "rev": "41103cb84bfe841ed3723d434df39833b8541ffd",
-        "revCount": 579,
+        "lastModified": 1788146230,
+        "narHash": "sha256-MQTA5d+Lonw4d0s9z3066rJaCAZ5P2lnppg2t+9tDdI=",
+        "ref": "master",
+        "rev": "0671560534dc7b436ff2f89404b680e581447858",
+        "revCount": 662,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/Deidrael/cephalon-kronos.git"
       },
       "original": {
-        "ref": "nixos",
+        "ref": "master",
         "submodules": true,
         "type": "git",
         "url": "https://github.com/Deidrael/cephalon-kronos.git"
