@@ -62,7 +62,7 @@
 
     # Fork of glowseeker/cephalon-kronos with nixos overlay fixes
     cephalon-kronos = {
-      url = "git+https://github.com/Deidrael/cephalon-kronos.git?ref=nixos&submodules=1";
+      url = "git+https://github.com/Deidrael/cephalon-kronos.git?ref=master&submodules=1";
       flake = true;
     };
   };
