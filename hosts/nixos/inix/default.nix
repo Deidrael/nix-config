@@ -24,6 +24,9 @@
       displayManager = "lightdm";
       cinnamon.enable = true;
     };
+    desktopApps = {
+      firefox = true;
+    };
   };
 
   # broadcom-sta is an insecure package — needed for WiFi on iMac14,2
