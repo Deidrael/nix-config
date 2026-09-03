@@ -120,7 +120,10 @@ Available flags: `fsBtrfs`, `hasNvidiaPrime`, `aiTools.*`, `threeDTools`, `podma
 ### Secrets Strategy
 - **sops-nix** for secrets management
 - Encrypted files live in a **separate private repo** (`nix-secrets`) fetched via SSH
-- Age keys per user+host; see `scripts/helpers.sh` for key management tooling
+- Each host has a per-host age-key file at `nix-secrets/sops/<host>.yaml`
+- `.sops.yaml` maps SOPS creation-rule anchors to keys and defines per-file rules for `shared.yaml` and `sops/<host>.yaml`
+- `modules/base/services/sops.nix` asserts the file's existence and extracts `keys/age` to `~/.config/sops/age/keys.txt` so home-manager can decrypt
+- `scripts/helpers.sh` provides `sops_setup_user_age_key <user> <host>`, `sops_generate_all_host_keys`, and `sops_verify_host_keys`
 - The dev branch on GitHub builds all systems via CI before merging to main
 
 ### Special Cases
