@@ -139,7 +139,14 @@ SOPS creation rules that define which age keys can decrypt which files.
 nix-secrets/
 ├── flake.nix           # Outputs: users, domain, nfsClient
 ├── secrets.yaml        # SOPS-encrypted secrets (passwords, SSH keys, etc.)
-└── .sops.yaml          # SOPS creation rules
+├── sops/<host>.yaml    # Per-host age keys (one file per host; decrypts for home-manager)
+└── .sops.yaml          # SOPS creation rules (anchored keys + per-file rules)
+```
+
+Each per-host file under `sops/` holds the user's age private key for that host. The creation rules in `.sops.yaml` grant decryption to the user, host, and admin keys. To bootstrap a new user key for a host, run:
+
+```bash
+source scripts/helpers.sh && sops_setup_user_age_key <user> <host>
 ```
 
 ### CI secrets
