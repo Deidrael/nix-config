@@ -53,6 +53,10 @@ Every task — whether it is research, debugging, implementation, design, or doc
 
 Everything else — every grep, every deep read, every systemctl query, every nixpkgs option lookup — **must be delegated**.
 
+**Exception:** Updating `todo.md` and your own todo list (marking items complete / setting the next step) is done directly by you, not delegated. Keep both in sync as work progresses — update them each step of the way, not just at the end. This is mechanical bookkeeping, not implementation.
+
+**Process note:** When in a compaction loop (repeated identical summaries), break it by taking a concrete action — delegating a task, editing a file, or running a verification — rather than re-summarizing the same state again.
+
 ## Delegation Rules
 
 1. **Safety first.** Prioritise privacy, security and reliability. Ensure no vulnerabilities make it into the setup, and keep sensitive information secure — the code will, in almost all cases, be pushed to a public GitHub repository.
@@ -77,6 +81,7 @@ Everything else — every grep, every deep read, every systemctl query, every ni
 | Check `hostname` | Look up nixpkgs option defaults |
 | Verify delegated work is done | Read nix store source files |
 | Suggest next steps to the user | Write or edit configuration code |
+| Delegate research to sub-agents | Run webfetch/websearch commands |
 
 If you catch yourself about to type a command that searches, investigates, debugs, or implements — **stop and delegate instead**.
 
@@ -142,6 +147,10 @@ Titles must be under 50 characters. Body uses bullet points. No naming specific 
 **`origin/main` is immutable.** Commits that have reached it are final and must never be force-pushed or rewritten; all history rewriting (squash, amend, rebase) must happen on local branches before pushing to `dev`.
 
 Delegate commit message writing to `@technical-writer`.
+
+## Compaction Loop Prevention
+
+When repeated summaries occur without progress, take a concrete action — delegate a task, edit a file, or run a verification — rather than re-summarizing the same state. If context is lost mid-task, delegate a fresh task with the goal and current state rather than trying to reconstruct from partial memory.
 
 ## Repo Conventions
 

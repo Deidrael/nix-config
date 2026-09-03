@@ -132,6 +132,10 @@ Available flags: `fsBtrfs`, `hasNvidiaPrime`, `aiTools.*`, `threeDTools`, `podma
 - **Kronos**: Headless mini server — no desktop modules
 - **Hermes**: ARM64 (Raspberry Pi 4) — architecture-aware modules; also runs **hermes-agent** (AI agent with web search, skills curation, task delegation, and cron jobs)
   - `tailscale serve` registers under the node's current hostname; after a host rename, restart the serve unit to re-register or it serves under the stale name (e.g. `hermes-1`)
+- **Hyprland 0.55+**: Deprecates hyprlang config in favor of Lua
+  - `hyprctl dispatch <dispatcher> <args>` args are now evaluated as Lua
+  - Must use `hl.dsp.<dispatcher>(...)` forms (e.g. `hl.dsp.dpms({ action = "off" })` replaces `dpms off`)
+- **Cephalon Kronos**: Forked at `github.com/Deidrael/cephalon-kronos`; Nix build infrastructure and patches maintained directly on the fork's `master` branch. Flake input in `flake.nix` tracks this fork. Patches address overlay sizing on ultrawide displays, image loading on Wayland, and screen capture compatibility. Upstream is `glowseeker/cephalon-kronos`.
 
 ## Coding Conventions
 
@@ -143,6 +147,12 @@ Available flags: `fsBtrfs`, `hasNvidiaPrime`, `aiTools.*`, `threeDTools`, `podma
 - Assertions in `hostSpec.nix` validate required fields at build time
 - **No `with pkgs;` or `with lib;`** — always use explicit `pkgs.` / `lib.` prefixes.
   `with` scopes hinder static analysis and can cause subtle bugs from name shadowing.
+- Use `stdenv.hostPlatform.isLinux` for platform checks — `stdenv.isLinux` is deprecated (triggers evaluation warning)
+- Prefer dedicated Home Manager modules over raw config when one exists (e.g. `programs.delta` with `enableGitIntegration` instead of manual `core.pager` settings)
+- `WorkingDirectory=` synthesizes an implicit hard `RequiresMountsFor=` at unit load time; prefix with `-` to demote it to a soft `Wants`. Conversely, `ReadWritePaths` and `x-systemd.automount` do NOT create mount dependencies and do not redirect hard `Requires`/`After` deps — an explicit wait/retry unit may be needed for NFS-backed state.
+- `network-online.target` does not wait for connectivity when `NetworkManager-wait-online` is masked (e.g. hermes) — gate network-dependent services on an explicit retry/wait unit instead.
+- When packaging AppImages that need process access (e.g., reading other processes' memory), use `appimageTools.extract` + `autoPatchelfHook` instead of `appimageTools.wrapType2` — the latter uses bubblewrap sandboxing which blocks inter-process visibility.
+- Tauri v2 apps on NixOS require `APPDIR` env var pointing to the store root for bundled resource resolution. Without it, `resource_dir()` falls back to the nonexistent FHS path `/usr/lib/<productName>/`.
 
 ### Git
 - Conventional commits: `module: verb` (e.g. `kratos: enable hyprland`, `docs: update readme`)

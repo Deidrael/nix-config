@@ -212,6 +212,51 @@
       "pattern": "hermes_cli_service_name_mismatch",
       "description": "The hermes CLI looks for hermes-gateway.service but the NixOS module creates hermes-agent.service. Use sudo systemctl restart hermes-agent directly instead of hermes gateway restart.",
       "rationale": "Upstream bug — the NixOS module and CLI use different service names. The CLI's management commands are non-functional in NixOS managed mode."
+    },
+    {
+      "pattern": "verify_all_hosts_on_flag_refactor",
+      "description": "When introducing a per-host flag that replaces an automatic behavior (e.g., role.type == 'workstation'), verify every host that previously had the behavior gets the flag.",
+      "rationale": "A flag refactor can silently drop features for hosts that are not updated, as happened with Firefox on inix."
+    },
+    {
+      "pattern": "prefer_dedicated_hm_modules",
+      "description": "When a dedicated Home Manager module exists for a tool, use it instead of hand-writing raw config settings (e.g., `programs.delta` with `enableGitIntegration` instead of manual `core.pager` / `interactive.diffFilter` entries).",
+      "rationale": "Raw config can silently fail to install the package and leave invalid keys; the dedicated module handles package install and integration in one place."
+    },
+    {
+      "pattern": "use_hostPlatform_isLinux",
+      "description": "Use `stdenv.hostPlatform.isLinux` for platform checks, not the deprecated `stdenv.isLinux`.",
+      "rationale": "The old form emits an evaluation warning in `nix flake check`."
+    },
+    {
+      "pattern": "dev_shell_hermetic_vs_hm_packages",
+      "description": "The dev shell must remain self-contained/hermetic for bootstrapping new hosts and running repo scripts. Daily-driver CLI tools belong in HM `home.packages` so they are available in all terminal sessions. Overlap between the two is intentional.",
+      "rationale": "The dev shell is a hermetic environment; removing tools from it breaks fresh-host bootstrap and CI. HM packages serve the user's general shell."
+    },
+    {
+      "pattern": "orchestrator_updates_todo_directly",
+      "description": "The orchestrator updates todo.md and its own todo list directly (marking complete / next step) without delegating. Keep todo.md and the todo list in sync as work progresses, not just at the end.",
+      "rationale": "User correction -- marking complete/next-step is mechanical bookkeeping, not implementation."
+    },
+    {
+      "pattern": "commit_message_matches_content",
+      "description": "Commit messages must accurately describe the commit's actual content. Verify what a commit contains before writing its message; a mislabeled message (e.g. claiming a permission change when the content is an unrelated restructure) is a defect.",
+      "rationale": "A stale/mislabeled commit message misleads future readers and history review."
+    },
+    {
+      "pattern": "delegate_testing_to_subagents",
+      "description": "Delegate all testing, debugging, and investigation commands to sub-agents (especially @expert-nixos-developer). The orchestrator should not run grep, webfetch, systemctl, or other investigative commands directly.",
+      "rationale": "User correction -- the orchestrator repeatedly did hands-on work instead of delegating."
+    },
+    {
+      "pattern": "careful_with_untracked_files",
+      "description": "Be extremely careful with untracked files during git operations. Never stage, restore, or run git add -A without verifying which untracked files exist and whether they should be included.",
+      "rationale": "An untracked scratchpad.md was accidentally lost during git commit/restore operations."
+    },
+    {
+      "pattern": "build_from_source_preferred",
+      "description": "When packaging complex applications for NixOS, prefer building from source over wrapping AppImages. AppImage wrappers often fail due to bubblewrap sandbox isolation, missing FHS paths, and broken asset protocols.",
+      "rationale": "Cephalon Kronos AppImage packaging required extensive workarounds that were eventually replaced by building from source."
     }
   ],
 

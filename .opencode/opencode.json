@@ -16,6 +16,9 @@
       "models": {
         "qwen3.5:9b": {
           "name": "Qwen 3.5 9b",
+          // Declaring the real context window re-enables auto-compaction. A zero
+          // context limit silently disables it and causes mid-response halting.
+          // Keep in sync with OLLAMA_CONTEXT_LENGTH in modules/features/aiTools.nix.
           "limit": {
             "context": 65536,
             "output": 8192
