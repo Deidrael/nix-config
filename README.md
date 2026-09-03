@@ -166,6 +166,11 @@ git push origin HEAD:refs/heads/dev
 > [!NOTE]
 > You can also use `HEAD~2` to skip the last 2 local commits.
 
+> [!NOTE]
+> Pushing to `dev` triggers `.github/workflows/create-pr.yml`, which auto-creates the "Merge dev to main" PR and enables auto-merge. No manual PR creation is needed.
+>
+> After auto-merge, run `git pull --rebase` on local main to sync commit hashes with remote main.
+
 ## Credits
 
 *Inspired by:*

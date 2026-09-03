@@ -192,6 +192,16 @@
       "pattern": "use_specialist_subagents",
       "description": "Delegate infrastructure mapping and integration analysis to @self-hosting-expert and @expert-nixos-developer. Use the explore agent only for quick codebase file searches, never for advisory or architecture analysis.",
       "rationale": "User correction -- specialist sub-agents are designed for these tasks."
+    },
+    {
+      "pattern": "dev_push_automates_pr",
+      "description": "Pushing to dev triggers .github/workflows/create-pr.yml, which auto-creates the 'Merge dev to main' PR and enables auto-merge. Never offer to create the PR manually. The user handles the `git pull --rebase` on local main after auto-merge.",
+      "rationale": "The pipeline handles PR creation and merging; offering to do it manually is redundant. The user performs the pull --rebase on local main after auto-merge."
+    },
+    {
+      "pattern": "local_main_to_remote_dev",
+      "description": "Work and commit on local main. When ready, push to remote dev via `git push origin HEAD:refs/heads/dev`. CI builds all hosts, then auto-merge rebases into remote main. The user then runs `git pull --rebase` on local main to sync commit hashes.",
+      "rationale": "Local main is the working branch; remote dev is the CI/staging branch; remote main is the immutable final state. Committing on local main is correct and expected."
     }
   ],
 
