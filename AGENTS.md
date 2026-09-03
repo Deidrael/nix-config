@@ -29,6 +29,9 @@ sudo nixos-rebuild switch --flake .#$(hostname) --impure --show-trace
 
 # Rebuild a specific remote host
 nixos-rebuild switch --flake .#<hostname> --target-host <user>@<host> --elevate=sudo --ask-elevate-password
+# Or as root (no password prompt):
+nixos-rebuild switch --flake .#<hostname> --target-host root@<host>
+# Remote hosts: deploy with `nixos-rebuild boot --flake .#<host> --target-host root@<ip>` so the user controls when the host reboots; check locally with `switch`
 ```
 
 ### ISO & Disko
@@ -144,6 +147,9 @@ Available flags: `fsBtrfs`, `hasNvidiaPrime`, `aiTools.*`, `threeDTools`, `podma
 - If a commit fails or hooks reject it, fix the issue and create a new commit; do not amend the failed commit
 - Always check `git status` before taking any git actions (commit, reset, amend, etc.)
 - The `dev` branch triggers CI builds for all systems before merging to `main`
+- Work is committed on local `main`; push to remote `dev` via `git push origin HEAD:refs/heads/dev`
+- Pushing to `dev` triggers `.github/workflows/create-pr.yml`, which auto-creates the "Merge dev to main" PR and enables auto-merge; CI builds all hosts via `.github/workflows/build.yml` on PRs targeting `main`, then auto-merge rebases into remote `main`
+- After auto-merge, the user runs `git pull --rebase` on local `main` to sync commit hashes with remote `main` (agents do not perform this step)
 - `origin/main` is immutable — commits that have reached it are final and must never be force-pushed or rewritten; all history rewriting (squash, amend, rebase) must happen on local branches before pushing to `dev`
 
 ### General
