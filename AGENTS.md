@@ -46,7 +46,7 @@ just disko /dev/sdX <password>
 
 ### Development
 ```bash
-# Enter dev shell (has nixfmt, statix, bats, yq)
+# Enter dev shell (has nixfmt, statix, bats, yq, ripgrep, jq, and other dev tools)
 nix develop
 
 # Run sops tests
