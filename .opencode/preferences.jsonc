@@ -68,7 +68,7 @@
     {
       "name": "Enter dev shell",
       "command": "nix develop",
-      "description": "Open a shell with nixfmt, statix, bats, yq, and other dev tools"
+      "description": "Open a shell with nixfmt, statix, bats, yq, ripgrep, jq, and other dev tools"
     },
     {
       "name": "List available hosts",
@@ -84,6 +84,26 @@
       "name": "Cross-compile aarch64",
       "command": "nix build .#nixosConfigurations.<hostname>.config.system.build.toplevel",
       "description": "Build an aarch64-linux NixOS configuration from an x86_64 host (requires binfmt emulation)"
+    },
+    {
+      "name": "Test NixOS config",
+      "command": "nh os test .",
+      "description": "Test a NixOS configuration without switching (nix-hydra/nh tool)"
+    },
+    {
+      "name": "Build NixOS config",
+      "command": "nh os build .",
+      "description": "Build a NixOS configuration without switching (nix-hydra/nh tool)"
+    },
+    {
+      "name": "Run package from nixpkgs",
+      "command": "nix run nixpkgs#<package>",
+      "description": "Run a package from nixpkgs without installing it (preferred over nix-shell -p)"
+    },
+    {
+      "name": "Update flake input",
+      "command": "nix flake update --update-input <name>",
+      "description": "Update a specific flake input (nix flake lock --update-input is deprecated)"
     }
   ],
 
