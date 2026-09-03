@@ -71,6 +71,7 @@ modules/
 ├── workstation/       # Desktop/laptop modules
 │   └── desktops/      # Hyprland, Gnome, Cinnamon configs
 ├── server/            # Headless/server modules
+├── features/          # Feature modules (hermes.nix, aiTools.nix, etc.)
 ├── disks/             # Btrfs filesystem options (compression, auto-scrub)
 └── home/              # Home Manager NixOS-side modules
 hosts/
@@ -115,7 +116,7 @@ hostSpec = {
 };
 ```
 
-Available flags: `fsBtrfs`, `hasNvidiaPrime`, `aiTools.*`, `threeDTools`, `podman`, `virtualMachines`, `nfsClient`, `desktopApps.*`.
+Available flags: `fsBtrfs`, `hasNvidiaPrime`, `aiTools.*`, `threeDTools`, `podman`, `virtualMachines`, `nfsClient`, `desktopApps.*`, `hermes.*`, `hermes.searxng`.
 
 ### Secrets Strategy
 - **sops-nix** for secrets management
@@ -129,7 +130,8 @@ Available flags: `fsBtrfs`, `hasNvidiaPrime`, `aiTools.*`, `threeDTools`, `podma
 ### Special Cases
 - **Nixbook**: 4GB RAM / 16GB storage — must use `nixbook-minimal` intermediary for upgrades (see README)
 - **Kronos**: Headless mini server — no desktop modules
-- **Hermes**: ARM64 (Raspberry Pi 4) — architecture-aware modules
+- **Hermes**: ARM64 (Raspberry Pi 4) — architecture-aware modules; also runs **hermes-agent** (AI agent with web search, skills curation, task delegation, and cron jobs)
+  - `tailscale serve` registers under the node's current hostname; after a host rename, restart the serve unit to re-register or it serves under the stale name (e.g. `hermes-1`)
 
 ## Coding Conventions
 

@@ -202,6 +202,16 @@
       "pattern": "local_main_to_remote_dev",
       "description": "Work and commit on local main. When ready, push to remote dev via `git push origin HEAD:refs/heads/dev`. CI builds all hosts, then auto-merge rebases into remote main. The user then runs `git pull --rebase` on local main to sync commit hashes.",
       "rationale": "Local main is the working branch; remote dev is the CI/staging branch; remote main is the immutable final state. Committing on local main is correct and expected."
+    },
+    {
+      "pattern": "hermes_no_linger_needed",
+      "description": "loginctl enable-linger is NOT needed for hermes. All hermes-agent services (gateway, dashboard, NFS wait) are system-level systemd services, not user-level services.",
+      "rationale": "Linger only affects user-level systemd services (systemd.user.services). The hermes-agent services use systemd.services and start via multi-user.target."
+    },
+    {
+      "pattern": "hermes_cli_service_name_mismatch",
+      "description": "The hermes CLI looks for hermes-gateway.service but the NixOS module creates hermes-agent.service. Use sudo systemctl restart hermes-agent directly instead of hermes gateway restart.",
+      "rationale": "Upstream bug — the NixOS module and CLI use different service names. The CLI's management commands are non-functional in NixOS managed mode."
     }
   ],
 
@@ -237,7 +247,7 @@
       "special_cases": {
         "nixbook": "4 GB RAM / 16 GB storage -- must use nixbook-minimal intermediary for upgrades",
         "kronos": "headless mini server -- no desktop modules",
-        "hermes": "ARM64 (Raspberry Pi 4) -- architecture-aware modules"
+        "hermes": "ARM64 (Raspberry Pi 4) -- architecture-aware modules; runs hermes-agent (AI agent with web search, skills curation, task delegation, and cron jobs)"
       }
     },
     "documentation": {
