@@ -24,6 +24,11 @@ lib.mkIf hostSpec.desktop.hyprland.enable {
           "network"
           "power-profiles-daemon"
           "cpu"
+        ]
+        ++ lib.optionals hostSpec.hasNvidiaPrime [
+          "custom/gpu-info"
+        ]
+        ++ [
           "memory"
           "temperature"
           "backlight"
@@ -124,17 +129,11 @@ lib.mkIf hostSpec.desktop.hyprland.enable {
             ""
           ];
         };
-        "custom/gpu" = {
-          format = "{}%";
-          interval = 1;
-          return-type = "";
-          exec = "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader | sed 's/%//'";
-        };
-        "custom/temperature_gpu" = {
-          format = "{}°C";
-          interval = 1;
-          return-type = "";
-          exec = "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader";
+        "custom/gpu-info" = lib.mkIf hostSpec.hasNvidiaPrime {
+          format = "GPU\n {} ";
+          justify = "center";
+          interval = 5;
+          exec = "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,noheader | sed 's/ %, /% 󰈯 /; s/$/°C/'";
         };
         backlight = {
           format = "{percent}% {icon}";
@@ -210,7 +209,7 @@ lib.mkIf hostSpec.desktop.hyprland.enable {
           spacing = 10;
         };
         "custom/power" = {
-          format = "⏻ ";
+          format = " ⏻ ";
           tooltip = false;
           on-click = "wlogout";
         };
