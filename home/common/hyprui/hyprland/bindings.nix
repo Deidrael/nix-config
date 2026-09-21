@@ -33,6 +33,7 @@ lib.mkIf hostSpec.desktop.hyprland.enable {
       (bind "SUPER + E" (exec "thunar"))
       (bind "SUPER + R" (exec "wofi --show drun -H 600 -W 800"))
       (bind "SUPER + B" (exec "firefox"))
+      (bind "SUPER + SHIFT + B" (exec "firefox --private-window"))
       (bind "SUPER + L" (exec "hyprlock"))
 
       # Screenshots
