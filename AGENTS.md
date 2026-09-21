@@ -132,6 +132,8 @@ Available flags: `fsBtrfs`, `hasNvidiaPrime`, `aiTools.*`, `threeDTools`, `podma
 - **Kronos**: Headless mini server — no desktop modules
 - **Hermes**: ARM64 (Raspberry Pi 4) — architecture-aware modules; also runs **hermes-agent** (AI agent with web search, skills curation, task delegation, and cron jobs)
   - `tailscale serve` registers under the node's current hostname; after a host rename, restart the serve unit to re-register or it serves under the stale name (e.g. `hermes-1`)
+  - Discord integration requires the `messaging` package variant — `minimal` does not ship `discord.py`, so the Discord adapter cannot load and the bot stays offline
+  - Bare SOPS secrets consumed as `.env` files must be wrapped via a sops template (`content = "DISCORD_BOT_TOKEN=${config.sops.placeholder.<secret>}"`); the upstream module concatenates `environmentFiles` into `$HERMES_HOME/.env`, and python-dotenv drops lines without `=`
 - **Hyprland 0.55+**: Deprecates hyprlang config in favor of Lua
   - `hyprctl dispatch <dispatcher> <args>` args are now evaluated as Lua
   - Must use `hl.dsp.<dispatcher>(...)` forms (e.g. `hl.dsp.dpms({ action = "off" })` replaces `dpms off`)

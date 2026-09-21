@@ -277,6 +277,16 @@
       "pattern": "build_from_source_preferred",
       "description": "When packaging complex applications for NixOS, prefer building from source over wrapping AppImages. AppImage wrappers often fail due to bubblewrap sandbox isolation, missing FHS paths, and broken asset protocols.",
       "rationale": "Cephalon Kronos AppImage packaging required extensive workarounds that were eventually replaced by building from source."
+    },
+    {
+      "pattern": "sops_template_for_bare_secrets",
+      "description": "Bare SOPS secrets consumed as .env files must be wrapped via a sops template with the KEY= prefix (e.g., content = \"DISCORD_BOT_TOKEN=${config.sops.placeholder.<secret>}\"). python-dotenv silently drops lines without '='.",
+      "rationale": "The upstream hermes-agent module concatenates environmentFiles verbatim into $HERMES_HOME/.env; a bare token value never reaches the service."
+    },
+    {
+      "pattern": "discord_ids_are_public",
+      "description": "Discord user IDs and channel IDs are public identifiers (visible via Developer Mode), not secrets. They are safe in the public Nix config.",
+      "rationale": "Only the bot token is secret; treating IDs as secrets adds unnecessary sops ceremony."
     }
   ],
 
