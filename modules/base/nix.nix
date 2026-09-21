@@ -24,7 +24,10 @@
       log-lines = 25;
       min-free = 128000000; # 128MB
       max-free = 1000000000; # 1GB
-      experimental-features = lib.mkDefault "nix-command flakes";
+      experimental-features = lib.mkDefault [
+        "nix-command"
+        "flakes"
+      ];
       warn-dirty = false;
       allow-import-from-derivation = true;
       trusted-users = [ "@wheel" ];
