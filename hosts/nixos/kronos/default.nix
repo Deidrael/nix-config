@@ -35,9 +35,6 @@
       efi.canTouchEfiVariables = lib.mkDefault true;
       timeout = 3;
     };
-    initrd = {
-      systemd.enable = true;
-    };
   };
 
   swapDevices = [ { device = "/swap/swapfile"; } ];

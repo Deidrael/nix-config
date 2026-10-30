@@ -41,9 +41,6 @@
       };
       efi.canTouchEfiVariables = lib.mkDefault true;
     };
-    initrd = {
-      systemd.enable = true;
-    };
   };
 
   hardware = {
