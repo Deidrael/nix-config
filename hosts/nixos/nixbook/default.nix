@@ -36,9 +36,6 @@
       };
       efi.canTouchEfiVariables = lib.mkDefault true;
     };
-    initrd = {
-      systemd.enable = true;
-    };
     kernelPackages = pkgs.linuxPackages_latest;
     extraModprobeConfig = ''
       options snd-intel-dspcfg dsp_driver=3

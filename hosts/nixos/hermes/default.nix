@@ -68,7 +68,6 @@
     };
     # Pi kernel has CONFIG_PSI_DEFAULT_DISABLED=y; oomd slices need psi enabled
     kernelParams = [ "psi=1" ];
-    #initrd.systemd.enable = true;
   };
 
   # Enable GPU acceleration

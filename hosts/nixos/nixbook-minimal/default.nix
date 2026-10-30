@@ -24,7 +24,6 @@
       systemd-boot.enable = lib.mkDefault true;
       efi.canTouchEfiVariables = lib.mkDefault true;
     };
-    initrd.systemd.enable = true;
   };
 
   # Chromebook keyboard quirks
