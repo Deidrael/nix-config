@@ -44,7 +44,6 @@
       pkgs.dunst # notifications
       pkgs.hyprpolkitagent # gui applications that request elevated privileges
       pkgs.kitty # required for the default Hyprland config
-      pkgs.hyprland-qtutils # qt utility apps/libraries
       pkgs.hyprpaper # wallpaper management
       pkgs.hyprshot # screenshot
       pkgs.swappy # screenshot editor
