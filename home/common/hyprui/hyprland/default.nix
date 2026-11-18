@@ -11,7 +11,7 @@ let
       (lua "function() ${body} end")
     ];
   };
-  exec = cmd: ''hl.exec_cmd("${cmd}")'';
+  exec = cmd: ''hl.exec_cmd("env -u HL_INITIAL_WORKSPACE_TOKEN ${cmd}")'';
 in
 {
   config = lib.mkIf hostSpec.desktop.hyprland.enable {
