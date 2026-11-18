@@ -287,6 +287,11 @@
       "pattern": "discord_ids_are_public",
       "description": "Discord user IDs and channel IDs are public identifiers (visible via Developer Mode), not secrets. They are safe in the public Nix config.",
       "rationale": "Only the bot token is secret; treating IDs as secrets adds unnecessary sops ceremony."
+    },
+    {
+      "pattern": "remove_completed_todo_items",
+      "description": "When a tracked item in todo.md is completed, remove it from the file entirely rather than rewriting it with a completed/merged status. todo.md is a working doc for active items only.",
+      "rationale": "User correction -- finished items are no longer needed in the todo working doc."
     }
   ],
 
