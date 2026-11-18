@@ -18,7 +18,8 @@ let
       opts
     ];
   };
-  exec = cmd: ''hl.dsp.exec_cmd("${cmd}")'';
+  exec = cmd: ''hl.dsp.exec_cmd("env -u HL_INITIAL_WORKSPACE_TOKEN ${cmd}")'';
+  execKeepToken = cmd: ''hl.dsp.exec_cmd("${cmd}")'';
   mvws = ws: ''hl.dsp.focus({ workspace = "${ws}"})'';
   mvwd = ws: ''hl.dsp.window.move({ workspace = "${ws}"})'';
   mvwddr = dr: ''hl.dsp.window.move({ direction = "${dr}"})'';
@@ -29,7 +30,7 @@ lib.mkIf hostSpec.desktop.hyprland.enable {
   wayland.windowManager.hyprland.settings = {
     bind = [
       # Launch Applications
-      (bind "SUPER + T" (exec "kitty"))
+      (bind "SUPER + T" (execKeepToken "kitty"))
       (bind "SUPER + E" (exec "thunar"))
       (bind "SUPER + R" (exec "wofi --show drun -H 600 -W 800"))
       (bind "SUPER + B" (exec "firefox"))

@@ -52,6 +52,7 @@ lib.mkIf hostSpec.desktop.hyprland.enable {
         disable_hyprland_logo = false; # If true disables the random hyprland logo / anime girl background. :(
         mouse_move_enables_dpms = true;
         key_press_enables_dpms = true;
+        initial_workspace_tracking = 2;
       };
     };
 
